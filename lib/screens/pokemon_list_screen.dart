@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/pokemon_list_item.dart';
 import '../services/poke_api.dart';
@@ -17,6 +20,9 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
   bool _loading = true;
   String? _error;
   final TextEditingController _searchController = TextEditingController();
+
+  static const _prefsKeyGen = 'pokedez_filter_generation';
+  static const _prefsKeyTypes = 'pokedez_filter_types';
 
   @override
   void initState() {
@@ -42,10 +48,24 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
   }
 
   Future<void> _load() async {
-    setState(() { _loading = true; _error = null; });
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
     try {
       final list = await PokeApi.fetchAllPokemons();
-      setState(() { _all = list; _filtered = List.of(list); _loading = false; });
+      setState(() { _all = list; });
+
+      // Check saved filters and apply if present
+      final prefs = await SharedPreferences.getInstance();
+      final savedGen = prefs.getString(_prefsKeyGen);
+      final savedTypes = prefs.getStringList(_prefsKeyTypes) ?? [];
+      if ((savedGen == null || savedGen.isEmpty) && savedTypes.isEmpty) {
+        setState(() { _filtered = List.of(list); _loading = false; });
+      } else {
+        // apply saved filters (this will update _filtered and loading state)
+        await _applyFilters(savedGen, savedTypes);
+      }
     } catch (e) {
       setState(() { _error = e.toString(); _loading = false; });
     }
@@ -135,12 +155,9 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
     );
   }
 
-  void _openFilters() {
+  Future<void> _openFilters() async {
     // Local state for filters inside the modal
-  String? selectedGeneration;
     final List<String> selectedTypes = [];
-    final List<String> enteredAbilities = [];
-    final TextEditingController abilityController = TextEditingController();
 
     // fixed list of common types (can be extended or fetched later)
     const allTypes = [
@@ -151,7 +168,14 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
     // generations sample
     const generations = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
 
-    showModalBottomSheet<void>(
+  // Load saved filters to prefill modal
+  final prefs = await SharedPreferences.getInstance();
+  final savedGen = prefs.getString(_prefsKeyGen);
+  final savedTypes = prefs.getStringList(_prefsKeyTypes) ?? [];
+  String? selectedGeneration = savedGen != null && savedGen.isNotEmpty ? savedGen : null;
+  selectedTypes.addAll(savedTypes);
+
+    final result = await showModalBottomSheet<Map<String, dynamic>?> (
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -169,19 +193,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
             });
           }
 
-          void addAbility() {
-            final text = abilityController.text.trim().toLowerCase();
-            if (text.isNotEmpty && !enteredAbilities.contains(text)) {
-              setModalState(() {
-                enteredAbilities.add(text);
-                abilityController.clear();
-              });
-            }
-          }
-
-          void removeAbility(String a) {
-            setModalState(() => enteredAbilities.remove(a));
-          }
+          // abilities removed from filters (feature removed)
 
           return Padding(
             padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -240,32 +252,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
 
                     const SizedBox(height: 16),
 
-                    // Habilidad
-                    Text('Habilidad', style: Theme.of(context).textTheme.titleMedium),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: abilityController,
-                            decoration: const InputDecoration(hintText: 'Escribe una habilidad y presiona Añadir'),
-                            onSubmitted: (_) => addAbility(),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        ElevatedButton(onPressed: addAbility, child: const Text('Añadir')),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    if (enteredAbilities.isEmpty)
-                      const Text('No se han añadido habilidades', style: TextStyle(color: Colors.grey))
-                    else
-                      Wrap(
-                        spacing: 8,
-                        children: enteredAbilities.map((a) => InputChip(label: Text(a), onDeleted: () => removeAbility(a))).toList(),
-                      ),
-
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -273,10 +260,8 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                         const SizedBox(width: 8),
                         ElevatedButton(
                           onPressed: () {
-                            // For now, just show selected filters as a quick feedback and close
-                            final summary = 'Generación: ${selectedGeneration ?? 'Sin filtro'} • Tipos: ${selectedTypes.isEmpty ? 'Ninguno' : selectedTypes.join(', ')} • Habilidades: ${enteredAbilities.isEmpty ? 'Ninguna' : enteredAbilities.join(', ')}';
-                            Navigator.of(context).pop();
-                            ScaffoldMessenger.of(this.context).showSnackBar(SnackBar(content: Text('Filtros aplicados — $summary')));
+                            // Return the selected filters to the caller
+                            Navigator.of(context).pop({'generation': selectedGeneration, 'types': selectedTypes});
                           },
                           child: const Text('Aplicar filtros'),
                         ),
@@ -291,5 +276,67 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
         });
       },
     );
+
+    // result will be a map like { 'generation': selectedGeneration, 'types': selectedTypes }
+    if (result != null) {
+      // Save filters to prefs
+      final gen = result['generation'] as String?;
+      final types = (result['types'] as List<dynamic>?)?.cast<String>() ?? [];
+      if (gen == null || gen.isEmpty) {
+        await prefs.remove(_prefsKeyGen);
+      } else {
+        await prefs.setString(_prefsKeyGen, gen);
+      }
+      await prefs.setStringList(_prefsKeyTypes, types);
+
+      // Apply filters
+      await _applyFilters(gen, types);
+      if (!mounted) return;
+      final summary = 'Generación: ${gen ?? 'Sin filtro'} • Tipos: ${types.isEmpty ? 'Ninguno' : types.join(', ')}';
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Filtros aplicados — $summary')));
+    }
+  }
+
+  Future<void> _applyFilters(String? selectedGeneration, List<String> selectedTypes) async {
+    // If no filters, reset
+    if ((selectedGeneration == null || selectedGeneration.isEmpty) && selectedTypes.isEmpty) {
+      setState(() => _filtered = List.of(_all));
+      return;
+    }
+
+    setState(() { _loading = true; _error = null; });
+    try {
+      Set<String>? genNames;
+      if (selectedGeneration != null && selectedGeneration.isNotEmpty) {
+        // Map roman like 'I'->1
+        final roman = selectedGeneration.toUpperCase();
+        final romanToInt = <String,int>{'I':1,'II':2,'III':3,'IV':4,'V':5,'VI':6,'VII':7,'VIII':8,'IX':9};
+        final gid = romanToInt[roman] ?? int.tryParse(roman);
+        if (gid != null) {
+          genNames = await PokeApi.fetchPokemonNamesByGeneration(gid);
+        }
+      }
+
+      List<Set<String>> sets = [];
+      if (genNames != null) sets.add(genNames);
+      for (final t in selectedTypes) {
+        final s = await PokeApi.fetchPokemonNamesByType(t);
+        sets.add(s);
+      }
+
+      Set<String> finalNames;
+      if (sets.isEmpty) {
+        finalNames = _all.map((e) => e.name).toSet();
+      } else {
+        finalNames = sets.reduce((value, element) => value.intersection(element));
+      }
+
+      setState(() {
+        _filtered = _all.where((p) => finalNames.contains(p.name)).toList();
+        _loading = false;
+      });
+    } catch (e) {
+      setState(() { _error = e.toString(); _loading = false; });
+    }
   }
 }

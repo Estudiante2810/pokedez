@@ -67,4 +67,41 @@ class PokeApi {
     parseNode(chain);
     return result;
   }
+
+  /// Return a set of pokemon names that have the given type (e.g. 'fire').
+  static Future<Set<String>> fetchPokemonNamesByType(String type) async {
+    final uri = Uri.parse('$_base/type/$type');
+    final res = await http.get(uri);
+    if (res.statusCode != 200) {
+      throw Exception('Error fetching type $type: ${res.statusCode}');
+    }
+    final Map<String, dynamic> data = json.decode(res.body) as Map<String, dynamic>;
+    final List<dynamic> poks = data['pokemon'] as List<dynamic>;
+    final names = <String>{};
+    for (final p in poks) {
+      final m = p as Map<String, dynamic>;
+      final pokemon = m['pokemon'] as Map<String, dynamic>;
+      final name = pokemon['name'] as String;
+      names.add(name);
+    }
+    return names;
+  }
+
+  /// Return a set of pokemon species names that belong to the given generation id (1-based).
+  static Future<Set<String>> fetchPokemonNamesByGeneration(int generationId) async {
+    final uri = Uri.parse('$_base/generation/$generationId');
+    final res = await http.get(uri);
+    if (res.statusCode != 200) {
+      throw Exception('Error fetching generation $generationId: ${res.statusCode}');
+    }
+    final Map<String, dynamic> data = json.decode(res.body) as Map<String, dynamic>;
+    final List<dynamic> species = data['pokemon_species'] as List<dynamic>;
+    final names = <String>{};
+    for (final s in species) {
+      final m = s as Map<String, dynamic>;
+      final name = m['name'] as String;
+      names.add(name);
+    }
+    return names;
+  }
 }
