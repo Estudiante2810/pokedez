@@ -104,4 +104,16 @@ class PokeApi {
     }
     return names;
   }
+
+  /// Fetch only the types of a pokemon by id to avoid parsing the full detail.
+  static Future<List<String>> fetchPokemonTypes(int id) async {
+    final uri = Uri.parse('$_base/pokemon/$id');
+    final res = await http.get(uri);
+    if (res.statusCode != 200) {
+      throw Exception('Error fetching pokemon types: ${res.statusCode}');
+    }
+    final Map<String, dynamic> data = json.decode(res.body) as Map<String, dynamic>;
+    final types = (data['types'] as List<dynamic>).map((t) => (t as Map<String, dynamic>)['type']['name'] as String).toList();
+    return types;
+  }
 }

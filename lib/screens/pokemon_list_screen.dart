@@ -20,6 +20,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
   bool _loading = true;
   String? _error;
   final TextEditingController _searchController = TextEditingController();
+  final Map<int, List<String>> _typesCache = {};
 
   static const _prefsKeyGen = 'pokedez_filter_generation';
   static const _prefsKeyTypes = 'pokedez_filter_types';
@@ -141,7 +142,30 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                                 errorBuilder: (c, e, s) => const Icon(Icons.image_not_supported),
                               ),
                               title: Text(_capitalize(p.name)),
-                              subtitle: Text('#${p.id}'),
+                              subtitle: _typesCache.containsKey(p.id)
+                                  ? Text('#${p.id}  •  ${_typesCache[p.id]!.map(_capitalize).join(', ')}')
+                                  : FutureBuilder<List<String>>(
+                                      future: PokeApi.fetchPokemonTypes(p.id),
+                                      builder: (ctx, snap) {
+                                        if (snap.connectionState == ConnectionState.waiting) {
+                                          return Row(
+                                            children: const [
+                                              SizedBox(width: 6),
+                                              SizedBox(width: 12, height: 12, child: CircularProgressIndicator(strokeWidth: 2)),
+                                            ],
+                                          );
+                                        }
+                                        if (snap.hasError || snap.data == null) {
+                                          return Text('#${p.id}');
+                                        }
+                                        final types = snap.data!;
+                                        // cache for future builds
+                                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                                          if (mounted) setState(() { _typesCache[p.id] = types; });
+                                        });
+                                        return Text('#${p.id}  •  ${types.map(_capitalize).join(', ')}');
+                                      },
+                                    ),
                               onTap: () {
                                 // Navigate to detail screen
                                 Navigator.of(context).push(MaterialPageRoute(
