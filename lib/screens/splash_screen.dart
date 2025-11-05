@@ -113,17 +113,22 @@ class _SplashScreenState extends State<SplashScreen>
                           children: [
                             // Título principal
                             Text(
-                              'Pókedex',
+                              'Pókedx',
                               style: GoogleFonts.limelight(
                                 fontSize: 48,
                                 fontWeight: FontWeight.w400,
-                                color: Colors.white,
+                                color: const Color(0xFFFFD700), // Amarillo dorado
                                 letterSpacing: 3.0,
                                 shadows: [
                                   Shadow(
-                                    color: Colors.black.withOpacity(0.5),
-                                    offset: const Offset(2, 2),
-                                    blurRadius: 8,
+                                    color: Colors.black.withOpacity(0.8),
+                                    offset: const Offset(3, 3),
+                                    blurRadius: 6,
+                                  ),
+                                  Shadow(
+                                    color: Colors.grey.withOpacity(0.6),
+                                    offset: const Offset(1, 1),
+                                    blurRadius: 3,
                                   ),
                                 ],
                               ),
@@ -153,7 +158,7 @@ class _SplashScreenState extends State<SplashScreen>
                                 value: value,
                                 backgroundColor: Colors.white.withOpacity(0.3),
                                 valueColor: const AlwaysStoppedAnimation<Color>(
-                                  Colors.white,
+                                  Color(0xFFFFD700), 
                                 ),
                                 minHeight: 4,
                               ),
