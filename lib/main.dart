@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'screens/pokemon_list_screen.dart';
+import 'screens/splash_screen.dart';
 import 'services/poke_api.dart';
 
 void main() {
@@ -26,11 +27,11 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.deepPurple,
           brightness: Brightness.light,
         ).copyWith(
-          primary: const Color(0xFFE63946),      // Rojo vibrante
-          secondary: const Color(0xFF457B9D),    // Azul
-          tertiary: const Color(0xFFF77F00),     // Naranja
-          surface: const Color(0xFFF1FAEE),      // Blanco suave
-          primaryContainer: const Color(0xFFFFB3C1),
+          primary: const Color(0xFF00D9FF),      // Cyan neón (del logo)
+          secondary: const Color(0xFFFF0080),    // Magenta/Rosa vibrante
+          tertiary: const Color(0xFFFF6B35),     // Naranja brillante
+          surface: const Color(0xFF0A0E27),      // Azul oscuro de fondo
+          primaryContainer: const Color(0xFF1E2749), // Azul oscuro secundario
         ),
         textTheme: TextTheme(
           displayLarge: GoogleFonts.limelight(fontSize: 32, fontWeight: FontWeight.w400, letterSpacing: 1.5),
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
           elevation: 0,
           centerTitle: true,
           backgroundColor: Colors.transparent,
-          foregroundColor: const Color(0xFFE63946),
+          foregroundColor: const Color(0xFF00D9FF),
           titleTextStyle: GoogleFonts.limelight(
             fontSize: 26,
             fontWeight: FontWeight.w400,
@@ -60,9 +61,9 @@ class MyApp extends StatelessWidget {
           ),
         ),
         chipTheme: ChipThemeData(
-          backgroundColor: const Color(0xFFFFB3C1),
+          backgroundColor: const Color(0xFF1E2749),
           labelStyle: const TextStyle(
-            color: Color(0xFF1D3557),
+            color: Color(0xFF00D9FF),
             fontWeight: FontWeight.w600,
             letterSpacing: 0.8,
           ),
@@ -72,8 +73,8 @@ class MyApp extends StatelessWidget {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFE63946),
-            foregroundColor: Colors.white,
+            backgroundColor: const Color(0xFF00D9FF),
+            foregroundColor: const Color(0xFF0A0E27),
             elevation: 4,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             textStyle: const TextStyle(
@@ -86,8 +87,8 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: const Color(0xFFF77F00),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Color(0xFFFF0080),
           foregroundColor: Colors.white,
           elevation: 6,
         ),
@@ -105,15 +106,17 @@ class MyApp extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: Color(0xFFE63946), width: 2),
+            borderSide: const BorderSide(color: Color(0xFF00D9FF), width: 2),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: Color(0xFF457B9D), width: 2),
+            borderSide: const BorderSide(color: Color(0xFFFF0080), width: 2),
           ),
         ),
       ),
-      home: const PokemonListScreen(),
+      home: const SplashScreen(
+        child: PokemonListScreen(),
+      ),
     );
   }
 }

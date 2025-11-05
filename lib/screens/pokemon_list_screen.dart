@@ -103,7 +103,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
               hintText: 'Buscar Pokémon por nombre',
               filled: true,
               fillColor: Colors.white.withOpacity(0.9),
-              prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.primary),
+              prefixIcon: const Icon(Icons.search, color: Color(0xFF00D9FF)),
               contentPadding: const EdgeInsets.symmetric(vertical: 0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
