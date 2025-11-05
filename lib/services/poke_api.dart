@@ -1,119 +1,332 @@
 import 'dart:convert';
-
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart' as http;
 import '../models/pokemon_list_item.dart';
 import '../models/pokemon_detail.dart';
 
 class PokeApi {
-  static const _base = 'https://pokeapi.co/api/v2';
+  static const _graphqlEndpoint = 'https://beta.pokeapi.co/graphql/v1beta';
+  static const _restBase = 'https://pokeapi.co/api/v2';
+  static late GraphQLClient _client;
 
-  /// Fetch the full list of pokemons (name + url). This uses a large limit
-  /// to get all entries. The result is cached by the caller if needed.
+  /// Initialize the GraphQL client (call this once on app startup)
+  static void initGraphQL() {
+    final HttpLink httpLink = HttpLink(_graphqlEndpoint);
+    _client = GraphQLClient(
+      link: httpLink,
+      cache: GraphQLCache(),
+    );
+  }
+
+  /// Fetch the full list of pokemons using GraphQL with offset/limit pagination
   static Future<List<PokemonListItem>> fetchAllPokemons() async {
-    final uri = Uri.parse('$_base/pokemon?limit=100000&offset=0');
-    final res = await http.get(uri);
-    if (res.statusCode != 200) {
-      throw Exception('Error fetching pokemon list: ${res.statusCode}');
-    }
-    final Map<String, dynamic> data = json.decode(res.body) as Map<String, dynamic>;
-    final results = data['results'] as List<dynamic>;
-    return results.map((e) => PokemonListItem.fromJson(e as Map<String, dynamic>)).toList();
-  }
+    const query = '''
+      query GetPokemons(\$limit: Int!, \$offset: Int!) {
+        pokemon_v2_pokemonspecies(limit: \$limit, offset: \$offset, order_by: {id: asc}) {
+          id
+          name
+          pokemon_v2_pokemons {
+            id
+            name
+          }
+        }
+      }
+    ''';
 
-  /// Fetch detailed info for a single pokemon by id.
-  static Future<PokemonDetail> fetchPokemonDetail(int id) async {
-    final uri = Uri.parse('$_base/pokemon/$id');
-    final res = await http.get(uri);
-    if (res.statusCode != 200) {
-      throw Exception('Error fetching pokemon detail: ${res.statusCode}');
-    }
-    final Map<String, dynamic> data = json.decode(res.body) as Map<String, dynamic>;
-    return PokemonDetail.fromJson(data);
-  }
+    final List<PokemonListItem> allPokemons = [];
+    int offset = 0;
+    const pageSize = 50;
+    bool hasMore = true;
 
-  /// Fetch the evolution chain for a pokemon by its id. Returns a list of
-  /// PokemonListItem representing each species in the chain (in order).
-  static Future<List<PokemonListItem>> fetchEvolutionChain(int pokemonId) async {
-    // First fetch species info to get evolution_chain.url
-    final speciesUri = Uri.parse('$_base/pokemon-species/$pokemonId');
-    final speciesRes = await http.get(speciesUri);
-    if (speciesRes.statusCode != 200) {
-      throw Exception('Error fetching species info: ${speciesRes.statusCode}');
-    }
-    final Map<String, dynamic> speciesData = json.decode(speciesRes.body) as Map<String, dynamic>;
-    final evo = (speciesData['evolution_chain'] as Map<String, dynamic>?)?['url'] as String?;
-    if (evo == null || evo.isEmpty) return [];
+    while (hasMore) {
+      try {
+        final result = await _client.query(
+          QueryOptions(
+            document: gql(query),
+            variables: {
+              'limit': pageSize,
+              'offset': offset,
+            },
+          ),
+        );
 
-    final evoRes = await http.get(Uri.parse(evo));
-    if (evoRes.statusCode != 200) {
-      throw Exception('Error fetching evolution chain: ${evoRes.statusCode}');
-    }
-    final Map<String, dynamic> evoData = json.decode(evoRes.body) as Map<String, dynamic>;
+        if (result.hasException) {
+          throw Exception('Error fetching pokemon list: ${result.exception}');
+        }
 
-    final List<PokemonListItem> result = [];
+        final species = result.data?['pokemon_v2_pokemonspecies'] as List<dynamic>? ?? [];
+        
+        if (species.isEmpty) {
+          hasMore = false;
+          break;
+        }
 
-    void parseNode(Map<String, dynamic> node) {
-      final species = node['species'] as Map<String, dynamic>;
-      final name = species['name'] as String;
-      final url = species['url'] as String;
-      result.add(PokemonListItem.fromJson({'name': name, 'url': url}));
-      final evolvesTo = node['evolves_to'] as List<dynamic>;
-      for (final child in evolvesTo) {
-        parseNode(child as Map<String, dynamic>);
+        for (final s in species) {
+          final speciesData = s as Map<String, dynamic>;
+          final id = speciesData['id'] as int;
+          final pokemons = speciesData['pokemon_v2_pokemons'] as List<dynamic>? ?? [];
+
+          if (pokemons.isNotEmpty) {
+            final pokemon = pokemons[0] as Map<String, dynamic>;
+            final pokemonName = pokemon['name'] as String;
+            allPokemons.add(
+              PokemonListItem(
+                name: pokemonName,
+                id: id,
+                imageUrl:
+                    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png',
+              ),
+            );
+          }
+        }
+
+        offset += pageSize;
+        if (species.length < pageSize) {
+          hasMore = false;
+        }
+      } catch (e) {
+        throw Exception('Error fetching pokemon list: $e');
       }
     }
 
-    final chain = evoData['chain'] as Map<String, dynamic>;
-    parseNode(chain);
-    return result;
+    return allPokemons;
   }
 
-  /// Return a set of pokemon names that have the given type (e.g. 'fire').
+  /// Fetch detailed info for a single pokemon by id using GraphQL
+  static Future<PokemonDetail> fetchPokemonDetail(int id) async {
+    const query = '''
+      query GetPokemonDetail(\$id: Int!) {
+        pokemon_v2_pokemon(where: {id: {_eq: \$id}}) {
+          id
+          name
+          height
+          weight
+          pokemon_v2_pokemonsprites {
+            sprites
+          }
+          pokemon_v2_pokemontypes {
+            pokemon_v2_type {
+              name
+            }
+          }
+          pokemon_v2_pokemonstats {
+            pokemon_v2_stat {
+              name
+            }
+            base_stat
+          }
+          pokemon_v2_pokemonabilities {
+            pokemon_v2_ability {
+              name
+            }
+            is_hidden
+          }
+          pokemon_v2_pokemonmoves {
+            pokemon_v2_move {
+              name
+            }
+          }
+          pokemon_v2_pokemonspecy {
+            name
+          }
+        }
+      }
+    ''';
+
+    try {
+      final result = await _client.query(
+        QueryOptions(
+          document: gql(query),
+          variables: {'id': id},
+        ),
+      );
+
+      if (result.hasException) {
+        throw Exception('Error fetching pokemon detail: ${result.exception}');
+      }
+
+      final pokemons = result.data?['pokemon_v2_pokemon'] as List<dynamic>?;
+      if (pokemons == null || pokemons.isEmpty) {
+        throw Exception('Pokemon not found');
+      }
+
+      final pokemon = pokemons[0] as Map<String, dynamic>;
+      return PokemonDetail.fromGraphQL(pokemon);
+    } catch (e) {
+      throw Exception('Error fetching pokemon detail: $e');
+    }
+  }
+
+  /// Fetch the evolution chain using REST API (hybrid approach for better coverage)
+  static Future<List<PokemonListItem>> fetchEvolutionChain(int pokemonId) async {
+    try {
+      final speciesUri = Uri.parse('$_restBase/pokemon-species/$pokemonId');
+      final speciesRes = await http.get(speciesUri);
+      if (speciesRes.statusCode != 200) {
+        throw Exception('Error fetching species info: ${speciesRes.statusCode}');
+      }
+
+      final Map<String, dynamic> speciesData =
+          json.decode(speciesRes.body) as Map<String, dynamic>;
+      final evo =
+          (speciesData['evolution_chain'] as Map<String, dynamic>?)?['url'] as String?;
+      if (evo == null || evo.isEmpty) return [];
+
+      final evoRes = await http.get(Uri.parse(evo));
+      if (evoRes.statusCode != 200) {
+        throw Exception('Error fetching evolution chain: ${evoRes.statusCode}');
+      }
+
+      final Map<String, dynamic> evoData =
+          json.decode(evoRes.body) as Map<String, dynamic>;
+      final List<PokemonListItem> result = [];
+
+      void parseNode(Map<String, dynamic> node) {
+        final species = node['species'] as Map<String, dynamic>;
+        final name = species['name'] as String;
+        final url = species['url'] as String;
+        result.add(PokemonListItem.fromJson({'name': name, 'url': url}));
+        final evolvesTo = node['evolves_to'] as List<dynamic>;
+        for (final child in evolvesTo) {
+          parseNode(child as Map<String, dynamic>);
+        }
+      }
+
+      final chain = evoData['chain'] as Map<String, dynamic>;
+      parseNode(chain);
+      return result;
+    } catch (e) {
+      print('Error fetching evolution chain: $e');
+      return [];
+    }
+  }
+
+  /// Fetch pokemon names by type using GraphQL
   static Future<Set<String>> fetchPokemonNamesByType(String type) async {
-    final uri = Uri.parse('$_base/type/$type');
-    final res = await http.get(uri);
-    if (res.statusCode != 200) {
-      throw Exception('Error fetching type $type: ${res.statusCode}');
+    const query = '''
+      query GetPokemonByType(\$typeName: String!) {
+        pokemon_v2_type(where: {name: {_eq: \$typeName}}) {
+          pokemon_v2_pokemontypes {
+            pokemon_v2_pokemon {
+              name
+            }
+          }
+        }
+      }
+    ''';
+
+    try {
+      final result = await _client.query(
+        QueryOptions(
+          document: gql(query),
+          variables: {'typeName': type},
+        ),
+      );
+
+      if (result.hasException) {
+        throw Exception('Error fetching type $type: ${result.exception}');
+      }
+
+      final types = result.data?['pokemon_v2_type'] as List<dynamic>? ?? [];
+      final names = <String>{};
+
+      for (final typeData in types) {
+        final pokemonTypes =
+            typeData['pokemon_v2_pokemontypes'] as List<dynamic>? ?? [];
+        for (final pt in pokemonTypes) {
+          final pokemon = pt['pokemon_v2_pokemon'] as Map<String, dynamic>?;
+          if (pokemon != null) {
+            final name = pokemon['name'] as String?;
+            if (name != null) names.add(name);
+          }
+        }
+      }
+
+      return names;
+    } catch (e) {
+      throw Exception('Error fetching type $type: $e');
     }
-    final Map<String, dynamic> data = json.decode(res.body) as Map<String, dynamic>;
-    final List<dynamic> poks = data['pokemon'] as List<dynamic>;
-    final names = <String>{};
-    for (final p in poks) {
-      final m = p as Map<String, dynamic>;
-      final pokemon = m['pokemon'] as Map<String, dynamic>;
-      final name = pokemon['name'] as String;
-      names.add(name);
-    }
-    return names;
   }
 
-  /// Return a set of pokemon species names that belong to the given generation id (1-based).
+  /// Fetch pokemon names by generation using GraphQL
   static Future<Set<String>> fetchPokemonNamesByGeneration(int generationId) async {
-    final uri = Uri.parse('$_base/generation/$generationId');
-    final res = await http.get(uri);
-    if (res.statusCode != 200) {
-      throw Exception('Error fetching generation $generationId: ${res.statusCode}');
+    const query = '''
+      query GetPokemonByGeneration(\$genId: Int!) {
+        pokemon_v2_generation(where: {id: {_eq: \$genId}}) {
+          pokemon_v2_pokemonspecies {
+            name
+          }
+        }
+      }
+    ''';
+
+    try {
+      final result = await _client.query(
+        QueryOptions(
+          document: gql(query),
+          variables: {'genId': generationId},
+        ),
+      );
+
+      if (result.hasException) {
+        throw Exception('Error fetching generation $generationId: ${result.exception}');
+      }
+
+      final generations = result.data?['pokemon_v2_generation'] as List<dynamic>? ?? [];
+      final names = <String>{};
+
+      for (final gen in generations) {
+        final species = gen['pokemon_v2_pokemonspecies'] as List<dynamic>? ?? [];
+        for (final s in species) {
+          final name = s['name'] as String?;
+          if (name != null) names.add(name);
+        }
+      }
+
+      return names;
+    } catch (e) {
+      throw Exception('Error fetching generation $generationId: $e');
     }
-    final Map<String, dynamic> data = json.decode(res.body) as Map<String, dynamic>;
-    final List<dynamic> species = data['pokemon_species'] as List<dynamic>;
-    final names = <String>{};
-    for (final s in species) {
-      final m = s as Map<String, dynamic>;
-      final name = m['name'] as String;
-      names.add(name);
-    }
-    return names;
   }
 
-  /// Fetch only the types of a pokemon by id to avoid parsing the full detail.
+  /// Fetch pokemon types by id using GraphQL
   static Future<List<String>> fetchPokemonTypes(int id) async {
-    final uri = Uri.parse('$_base/pokemon/$id');
-    final res = await http.get(uri);
-    if (res.statusCode != 200) {
-      throw Exception('Error fetching pokemon types: ${res.statusCode}');
+    const query = '''
+      query GetPokemonTypes(\$id: Int!) {
+        pokemon_v2_pokemon(where: {id: {_eq: \$id}}) {
+          pokemon_v2_pokemontypes {
+            pokemon_v2_type {
+              name
+            }
+          }
+        }
+      }
+    ''';
+
+    try {
+      final result = await _client.query(
+        QueryOptions(
+          document: gql(query),
+          variables: {'id': id},
+        ),
+      );
+
+      if (result.hasException) {
+        throw Exception('Error fetching pokemon types: ${result.exception}');
+      }
+
+      final pokemons = result.data?['pokemon_v2_pokemon'] as List<dynamic>? ?? [];
+      if (pokemons.isEmpty) return [];
+
+      final pokemon = pokemons[0] as Map<String, dynamic>;
+      final types = pokemon['pokemon_v2_pokemontypes'] as List<dynamic>? ?? [];
+
+      return types
+          .map((t) =>
+              (t as Map<String, dynamic>)['pokemon_v2_type']['name'] as String)
+          .toList();
+    } catch (e) {
+      throw Exception('Error fetching pokemon types: $e');
     }
-    final Map<String, dynamic> data = json.decode(res.body) as Map<String, dynamic>;
-    final types = (data['types'] as List<dynamic>).map((t) => (t as Map<String, dynamic>)['type']['name'] as String).toList();
-    return types;
   }
 }
