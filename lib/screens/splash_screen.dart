@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
@@ -107,41 +108,38 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Logo image
-                        Container(
-                          width: 250,
-                          height: 250,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                blurRadius: 20,
-                                spreadRadius: 5,
+                        // Título y autores
+                        Column(
+                          children: [
+                            // Título principal
+                            Text(
+                              'Pókedex',
+                              style: GoogleFonts.limelight(
+                                fontSize: 48,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                                letterSpacing: 3.0,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black.withOpacity(0.5),
+                                    offset: const Offset(2, 2),
+                                    blurRadius: 8,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.asset(
-                              'assets/images/logo.png',
-                              fit: BoxFit.contain,
-                              errorBuilder: (context, error, stackTrace) {
-                                // Fallback if image not found
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: const Icon(
-                                    Icons.catching_pokemon,
-                                    size: 120,
-                                    color: Color(0xFFE63946),
-                                  ),
-                                );
-                              },
                             ),
-                          ),
+                            const SizedBox(height: 16),
+                            // Subtítulo con autores
+                            Text(
+                              'by: Amberly R y Erick D',
+                              style: GoogleFonts.nunito(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white.withOpacity(0.9),
+                                letterSpacing: 1.0,
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 30),
                         // Loading indicator

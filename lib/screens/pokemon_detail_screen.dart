@@ -323,7 +323,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                                         runSpacing: 6,
                                         children: _detail!.moves
                                             .take(10)
-                                            .map((m) => InputChip(label: Text(m)))
+                                            .map((m) => Chip(label: Text(_capitalize(m))))
                                             .toList(),
                                       ),
                                   ],
