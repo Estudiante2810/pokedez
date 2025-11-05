@@ -1,11 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/pokemon_list_item.dart';
 import '../services/poke_api.dart';
-import '../services/sound_service.dart';
 import '../widgets/animated_list_item.dart';
 import '../widgets/page_transitions.dart';
 import '../widgets/shimmer_loading.dart';
@@ -232,17 +232,17 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                     // Generación
                     Text('Generación', style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(height: 8),
-                    DropdownButton<String?>(
-                      isExpanded: true,
-                      value: selectedGeneration,
-                      hint: const Text('Selecciona generación (opcional)'),
-                      items: [null, ...generations].map((g) {
-                        return DropdownMenuItem<String?>(
-                          value: g,
-                          child: Text(g == null ? 'Sin filtro' : 'Generación $g'),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 6,
+                      children: generations.map((g) {
+                        final selected = selectedGeneration == g;
+                        return FilterChip(
+                          label: Text('Gen $g'),
+                          selected: selected,
+                          onSelected: (_) => setModalState(() => selectedGeneration = selected ? null : g),
                         );
                       }).toList(),
-                      onChanged: (v) => setModalState(() => selectedGeneration = v),
                     ),
 
                     const SizedBox(height: 16),
@@ -267,16 +267,31 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
 
                     const SizedBox(height: 16),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancelar')),
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            onPressed: () {
+                              // Clear all filters and close
+                              Navigator.of(context).pop({'generation': null, 'types': []});
+                            },
+                            icon: const Icon(Icons.clear_all),
+                            label: const Text('Sin filtro'),
+                            style: OutlinedButton.styleFrom(
+                              side: const BorderSide(color: Color(0xFFE63946)),
+                            ),
+                          ),
+                        ),
                         const SizedBox(width: 8),
-                        ElevatedButton(
-                          onPressed: () {
-                            // Return the selected filters to the caller
-                            Navigator.of(context).pop({'generation': selectedGeneration, 'types': selectedTypes});
-                          },
-                          child: const Text('Aplicar filtros'),
+                        Expanded(
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              // Return the selected filters to the caller
+                              Navigator.of(context).pop({'generation': selectedGeneration, 'types': selectedTypes});
+                            },
+                            icon: const Icon(Icons.check),
+                            label: const Text('Aplicar'),
+                          ),
                         ),
                       ],
                     ),
@@ -292,6 +307,14 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
 
     // result will be a map like { 'generation': selectedGeneration, 'types': selectedTypes }
     if (result != null) {
+      // Show loading animation before applying filters
+      setState(() {
+        _loading = true;
+      });
+
+      // Animate transition
+      await Future.delayed(const Duration(milliseconds: 300));
+
       // Save filters to prefs
       final gen = result['generation'] as String?;
       final types = (result['types'] as List<dynamic>?)?.cast<String>() ?? [];
@@ -311,7 +334,10 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
   Future<void> _applyFilters(String? selectedGeneration, List<String> selectedTypes) async {
     // If no filters, reset
     if ((selectedGeneration == null || selectedGeneration.isEmpty) && selectedTypes.isEmpty) {
-      setState(() => _filtered = List.of(_all));
+      setState(() {
+        _filtered = List.of(_all);
+        _loading = false;
+      });
       return;
     }
 
@@ -406,7 +432,6 @@ class _PokemonListTileState extends State<_PokemonListTile>
           borderRadius: BorderRadius.circular(12),
           onTapDown: (_) {
             _scaleController.forward();
-            SoundService.playPokemonCry(widget.pokemon.id);
           },
           onTapUp: (_) {
             _scaleController.reverse();
@@ -454,7 +479,7 @@ class _PokemonListTileState extends State<_PokemonListTile>
                     children: [
                       Text(
                         _capitalize(widget.pokemon.name),
-                        style: const TextStyle(
+                        style: GoogleFonts.nunito(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
