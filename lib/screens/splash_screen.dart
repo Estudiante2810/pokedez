@@ -14,9 +14,9 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
+  late Animation<double> _fadeInAnimation;
+  late Animation<double> _fadeOutAnimation;
   late Animation<double> _scaleAnimation;
-  late Animation<Offset> _slideAnimation;
   bool _showSplash = true;
 
   @override
@@ -29,30 +29,27 @@ class _SplashScreenState extends State<SplashScreen>
       vsync: this,
     );
 
-    // Fade in animation (0 to 1)
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+    // Fade in animation (0 to 1) - entrada suave
+    _fadeInAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.0, 0.4, curve: Curves.easeIn),
+        curve: const Interval(0.0, 0.3, curve: Curves.easeIn),
       ),
     );
 
-    // Scale animation with bounce
-    _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
+    // Fade out animation (1 to 0) - salida difuminada
+    _fadeOutAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.0, 0.5, curve: Curves.elasticOut),
+        curve: const Interval(0.7, 1.0, curve: Curves.easeOut),
       ),
     );
 
-    // Slide up animation for exit
-    _slideAnimation = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0.0, -1.5),
-    ).animate(
+    // Scale animation sin rebote - solo crecimiento suave
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.8, 1.0, curve: Curves.easeInBack),
+        curve: const Interval(0.0, 0.4, curve: Curves.easeOutCubic),
       ),
     );
 
@@ -98,13 +95,11 @@ class _SplashScreenState extends State<SplashScreen>
                 stops: [0.0, 0.25, 0.5, 0.75, 1.0],
               ),
             ),
-            child: SlideTransition(
-              position: _slideAnimation,
-              child: Center(
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: ScaleTransition(
-                    scale: _scaleAnimation,
+            child: Center(
+              child: FadeTransition(
+                opacity: _controller.value < 0.7 ? _fadeInAnimation : _fadeOutAnimation,
+                child: ScaleTransition(
+                  scale: _scaleAnimation,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -113,7 +108,7 @@ class _SplashScreenState extends State<SplashScreen>
                           children: [
                             // Título principal
                             Text(
-                              'Pókedx',
+                              'Pókedex',
                               style: GoogleFonts.limelight(
                                 fontSize: 48,
                                 fontWeight: FontWeight.w400,
@@ -166,7 +161,6 @@ class _SplashScreenState extends State<SplashScreen>
                           },
                         ),
                       ],
-                    ),
                   ),
                 ),
               ),
