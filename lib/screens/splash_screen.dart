@@ -22,9 +22,9 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     
-    // Animation controller for 2 seconds
+    // Animation controller for 4 seconds (longer animation)
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 4000),
       vsync: this,
     );
 
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.0, 0.5, curve: Curves.easeIn),
+        curve: const Interval(0.0, 0.4, curve: Curves.easeIn),
       ),
     );
 
@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen>
     _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.0, 0.6, curve: Curves.elasticOut),
+        curve: const Interval(0.0, 0.5, curve: Curves.elasticOut),
       ),
     );
 
@@ -51,15 +51,15 @@ class _SplashScreenState extends State<SplashScreen>
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.7, 1.0, curve: Curves.easeInBack),
+        curve: const Interval(0.8, 1.0, curve: Curves.easeInBack),
       ),
     );
 
     // Start animation
     _controller.forward();
 
-    // Wait 2.5 seconds then hide splash
-    Timer(const Duration(milliseconds: 2500), () {
+    // Wait 5 seconds then hide splash
+    Timer(const Duration(milliseconds: 5000), () {
       if (mounted) {
         setState(() => _showSplash = false);
       }
@@ -147,7 +147,7 @@ class _SplashScreenState extends State<SplashScreen>
                         // Loading indicator
                         TweenAnimationBuilder<double>(
                           tween: Tween(begin: 0.0, end: 1.0),
-                          duration: const Duration(milliseconds: 1500),
+                          duration: const Duration(milliseconds: 4000),
                           builder: (context, value, child) {
                             return SizedBox(
                               width: 200,

@@ -278,19 +278,24 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                             icon: const Icon(Icons.clear_all),
                             label: const Text('Sin filtro'),
                             style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: Color(0xFFE63946)),
+                              side: const BorderSide(color: Color(0xFFFF0080), width: 2),
+                              foregroundColor: const Color(0xFFFF0080),
                             ),
                           ),
                         ),
                         const SizedBox(width: 8),
                         Expanded(
-                          child: ElevatedButton.icon(
+                          child: OutlinedButton.icon(
                             onPressed: () {
                               // Return the selected filters to the caller
                               Navigator.of(context).pop({'generation': selectedGeneration, 'types': selectedTypes});
                             },
                             icon: const Icon(Icons.check),
                             label: const Text('Aplicar'),
+                            style: OutlinedButton.styleFrom(
+                              side: const BorderSide(color: Color(0xFF00D9FF), width: 2),
+                              foregroundColor: const Color(0xFF00D9FF),
+                            ),
                           ),
                         ),
                       ],

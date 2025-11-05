@@ -94,9 +94,11 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5), // Fondo blanquecino
       appBar: AppBar(
         title: Text(_capitalize(widget.name)),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Colors.white,
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
