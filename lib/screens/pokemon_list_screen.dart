@@ -46,7 +46,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
   void _onSearchChanged() {
     final q = _searchController.text.trim().toLowerCase();
     if (q.isEmpty) {
-      setState(() => _filtered = List.of(_all));
+      setState(() => _filtered = List.of(_all)); // Reset to full list when search is cleared
     } else {
       // Buscar por nombre O por ID numérico
       final numericId = int.tryParse(q);
