@@ -31,42 +31,66 @@ class _ShimmerLoadingState extends State<ShimmerLoading>
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.itemCount,
-      padding: const EdgeInsets.all(16),
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return ShaderMask(
-                shaderCallback: (bounds) {
-                  return LinearGradient(
-                    colors: const [
-                      Color(0xFFEBEBF4),
-                      Color(0xFFF4F4F4),
-                      Color(0xFFEBEBF4),
-                    ],
-                    stops: [
-                      _controller.value - 0.3,
-                      _controller.value,
-                      _controller.value + 0.3,
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ).createShader(bounds);
-                },
-                child: Container(
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              );
-            },
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Same responsive logic as main grid
+        int crossAxisCount = 2;
+        double childAspectRatio = 0.80;
+        
+        if (constraints.maxWidth > 900) {
+          crossAxisCount = 4;
+          childAspectRatio = 0.75;
+        } else if (constraints.maxWidth > 600) {
+          crossAxisCount = 3;
+          childAspectRatio = 0.78;
+        }
+        
+        return GridView.builder(
+          itemCount: widget.itemCount,
+          padding: const EdgeInsets.all(12),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            childAspectRatio: childAspectRatio,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
           ),
+          itemBuilder: (context, index) {
+            return AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) {
+                return ShaderMask(
+                  shaderCallback: (bounds) {
+                    return LinearGradient(
+                      colors: const [
+                        Color(0xFFEBEBF4),
+                        Color(0xFFF4F4F4),
+                        Color(0xFFEBEBF4),
+                      ],
+                      stops: [
+                        _controller.value - 0.3,
+                        _controller.value,
+                        _controller.value + 0.3,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ).createShader(bounds);
+                  },
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
         );
       },
     );

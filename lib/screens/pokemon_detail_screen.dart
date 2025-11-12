@@ -26,6 +26,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
   late AnimationController _slideController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -51,6 +52,8 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
       CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
     );
 
+    _tabController = TabController(length: 2, vsync: this);
+
     _load();
   }
 
@@ -58,6 +61,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
   void dispose() {
     _fadeController.dispose();
     _slideController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -99,6 +103,18 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
         title: Text(_capitalize(widget.name)),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
+        bottom: _loading || _error != null || _detail == null
+            ? null
+            : TabBar(
+                controller: _tabController,
+                indicatorColor: Colors.white,
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white70,
+                tabs: const [
+                  Tab(text: 'Info Básica', icon: Icon(Icons.info_outline)),
+                  Tab(text: 'Estadísticas', icon: Icon(Icons.bar_chart)),
+                ],
+              ),
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
@@ -119,221 +135,299 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                       opacity: _fadeAnimation,
                       child: SlideTransition(
                         position: _slideAnimation,
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              if (_detail!.spriteUrl.isNotEmpty)
-                                Hero(
-                                  tag: 'pokemon_${_detail!.id}',
-                                  child: Center(
-                                    child: _FloatingPokemonImage(
-                                      imageUrl: _detail!.spriteUrl,
-                                    ),
-                                  ),
-                                ),
-                              const SizedBox(height: 12),
-                              _AnimatedDetailSection(
-                                delay: const Duration(milliseconds: 400), // Más lento
-                                child: Center(
-                                  child: Text(
-                                    '#${_detail!.id}  ${_capitalize(_detail!.name)}',
-                                    style: Theme.of(context).textTheme.headlineSmall,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-
-                              // types
-                              _AnimatedDetailSection(
-                                delay: const Duration(milliseconds: 600), // Más lento
-                                child: Center(
-                                  child: Wrap(
-                                    spacing: 8,
-                                    children: _detail!.types
-                                        .map((t) => Chip(label: Text(_capitalize(t))))
-                                        .toList(),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-
-                              // basic info
-                              _AnimatedDetailSection(
-                                delay: const Duration(milliseconds: 800), // Más lento
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        const Text('Height'),
-                                        const SizedBox(height: 4),
-                                        Text('${_detail!.height / 10} m')
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        const Text('Weight'),
-                                        const SizedBox(height: 4),
-                                        Text('${_detail!.weight / 10} kg')
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-
-                              // stats
-                              _AnimatedDetailSection(
-                                delay: const Duration(milliseconds: 1000), // Más lento
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Stats',
-                                        style: Theme.of(context).textTheme.titleMedium),
-                                    const SizedBox(height: 8),
-                                    ..._detail!.stats.entries.map((e) {
-                                      final value = e.value;
-                                      final pct = (value / 255).clamp(0.0, 1.0);
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 6.0),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(_capitalize(e.key)),
-                                                Text(value.toString())
-                                              ],
-                                            ),
-                                            const SizedBox(height: 6),
-                                            TweenAnimationBuilder<double>(
-                                              tween: Tween(begin: 0.0, end: pct),
-                                              duration: const Duration(milliseconds: 2000), // MÁS LENTO
-                                              curve: Curves.easeOutCubic,
-                                              builder: (context, animValue, child) {
-                                                return LinearProgressIndicator(
-                                                  value: animValue,
-                                                  minHeight: 8,
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-
-                              // abilities
-                              _AnimatedDetailSection(
-                                delay: const Duration(milliseconds: 1200), // Más lento
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Abilities',
-                                        style: Theme.of(context).textTheme.titleMedium),
-                                    const SizedBox(height: 8),
-                                    Wrap(
-                                      spacing: 8,
-                                      children: _detail!.abilities
-                                          .map((a) => Chip(label: Text(_capitalize(a))))
-                                          .toList(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-
-                              // evolutions
-                              _AnimatedDetailSection(
-                                delay: const Duration(milliseconds: 1400), // Más lento
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Evolutions',
-                                        style: Theme.of(context).textTheme.titleMedium),
-                                    const SizedBox(height: 8),
-                                    if (_evolutions.isEmpty)
-                                      const Text('No evolutions found')
-                                    else
-                                      SizedBox(
-                                        height: 120,
-                                        child: ListView.separated(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: _evolutions.length,
-                                          separatorBuilder: (_, __) =>
-                                              const SizedBox(width: 12),
-                                          itemBuilder: (context, i) {
-                                            final ev = _evolutions[i];
-                                            return GestureDetector(
-                                              onTap: () {
-                                                Navigator.of(context).push(
-                                                  ScalePageRoute(
-                                                    page: PokemonDetailScreen(
-                                                        id: ev.id, name: ev.name),
-                                                  ),
-                                                );
-                                              },
-                                              child: Column(
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius: BorderRadius.circular(12),
-                                                    child: Image.network(
-                                                      ev.imageUrl,
-                                                      width: 80,
-                                                      height: 80,
-                                                      errorBuilder: (_, __, ___) =>
-                                                          const Icon(Icons
-                                                              .image_not_supported),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 6),
-                                                  Text(_capitalize(ev.name)),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-
-                              // moves (first 10)
-                              _AnimatedDetailSection(
-                                delay: const Duration(milliseconds: 1600), // Más lento
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Moves',
-                                        style: Theme.of(context).textTheme.titleMedium),
-                                    const SizedBox(height: 8),
-                                    if (_detail!.moves.isEmpty)
-                                      const Text('No moves available')
-                                    else
-                                      Wrap(
-                                        spacing: 6,
-                                        runSpacing: 6,
-                                        children: _detail!.moves
-                                            .take(10)
-                                            .map((m) => Chip(label: Text(_capitalize(m))))
-                                            .toList(),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                        child: TabBarView(
+                          controller: _tabController,
+                          children: [
+                            _buildBasicInfoTab(),
+                            _buildStatsTab(),
+                          ],
                         ),
                       ),
                     ),
+    );
+  }
+
+  Widget _buildBasicInfoTab() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (_detail!.spriteUrl.isNotEmpty)
+            Hero(
+              tag: 'pokemon_${_detail!.id}',
+              child: Center(
+                child: _FloatingPokemonImage(
+                  imageUrl: _detail!.spriteUrl,
+                ),
+              ),
+            ),
+          const SizedBox(height: 12),
+          _AnimatedDetailSection(
+            delay: const Duration(milliseconds: 400),
+            child: Center(
+              child: Text(
+                '#${_detail!.id}  ${_capitalize(_detail!.name)}',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+
+          // types
+          _AnimatedDetailSection(
+            delay: const Duration(milliseconds: 600),
+            child: Center(
+              child: Wrap(
+                spacing: 8,
+                children: _detail!.types
+                    .map((t) => Chip(label: Text(_capitalize(t))))
+                    .toList(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // basic info
+          _AnimatedDetailSection(
+            delay: const Duration(milliseconds: 800),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    const Text('Height'),
+                    const SizedBox(height: 4),
+                    Text('${_detail!.height / 10} m')
+                  ],
+                ),
+                Column(
+                  children: [
+                    const Text('Weight'),
+                    const SizedBox(height: 4),
+                    Text('${_detail!.weight / 10} kg')
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // abilities
+          _AnimatedDetailSection(
+            delay: const Duration(milliseconds: 1000),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Abilities',
+                    style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  children: _detail!.abilities
+                      .map((a) => Chip(label: Text(_capitalize(a))))
+                      .toList(),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // evolutions
+          _AnimatedDetailSection(
+            delay: const Duration(milliseconds: 1200),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Evolutions',
+                    style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(height: 8),
+                if (_evolutions.isEmpty)
+                  const Text('No evolutions found')
+                else
+                  SizedBox(
+                    height: 130,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _evolutions.length,
+                      separatorBuilder: (_, i) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 32,
+                          ),
+                          const SizedBox(height: 4),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              'Lv ${16 + (i * 16)}',
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF00D9FF), // Cyan neón
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      itemBuilder: (context, i) {
+                        final ev = _evolutions[i];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              ScalePageRoute(
+                                page: PokemonDetailScreen(
+                                    id: ev.id, name: ev.name),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withOpacity(0.3),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Image.network(
+                                    ev.imageUrl,
+                                    width: 70,
+                                    height: 70,
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (_, __, ___) =>
+                                        const Icon(Icons.image_not_supported, size: 50),
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  _capitalize(ev.name),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  '#${ev.id}',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatsTab() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // stats
+          _AnimatedDetailSection(
+            delay: const Duration(milliseconds: 400),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Stats',
+                    style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(height: 8),
+                ..._detail!.stats.entries.map((e) {
+                  final value = e.value;
+                  final pct = (value / 255).clamp(0.0, 1.0);
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(_capitalize(e.key)),
+                            Text(value.toString())
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        TweenAnimationBuilder<double>(
+                          tween: Tween(begin: 0.0, end: pct),
+                          duration: const Duration(milliseconds: 2000),
+                          curve: Curves.easeOutCubic,
+                          builder: (context, animValue, child) {
+                            return LinearProgressIndicator(
+                              value: animValue,
+                              minHeight: 8,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // moves
+          _AnimatedDetailSection(
+            delay: const Duration(milliseconds: 600),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Moves',
+                    style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(height: 8),
+                if (_detail!.moves.isEmpty)
+                  const Text('No moves available')
+                else
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: _detail!.moves
+                        .take(10)
+                        .map((m) => Chip(label: Text(_capitalize(m))))
+                        .toList(),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

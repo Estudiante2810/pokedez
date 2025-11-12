@@ -115,7 +115,7 @@ class PokemonDetail {
         }
       }
     } catch (_) {
-      sprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png';
+      sprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png';
     }
 
     // Parse moves from GraphQL format

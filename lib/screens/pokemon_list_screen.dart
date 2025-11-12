@@ -48,7 +48,15 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
     if (q.isEmpty) {
       setState(() => _filtered = List.of(_all));
     } else {
-      setState(() => _filtered = _all.where((p) => p.name.contains(q)).toList());
+      // Buscar por nombre O por ID numérico
+      final numericId = int.tryParse(q);
+      setState(() {
+        _filtered = _all.where((p) {
+          final matchName = p.name.contains(q);
+          final matchId = numericId != null && p.id == numericId;
+          return matchName || matchId;
+        }).toList();
+      });
     }
   }
 
@@ -100,7 +108,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
           child: TextField(
             controller: _searchController,
             decoration: InputDecoration(
-              hintText: 'Buscar Pokémon por nombre',
+              hintText: 'Buscar por nombre o ID (1-1025)',
               filled: true,
               fillColor: Colors.white.withOpacity(0.9),
               prefixIcon: const Icon(Icons.search, color: Color(0xFF00D9FF)),
@@ -143,24 +151,47 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                             Center(child: Text('No se encontraron Pokémon')),
                           ],
                         )
-                      : ListView.builder(
-                          itemCount: _filtered.length,
-                          itemBuilder: (context, index) {
-                            final p = _filtered[index];
-                            return AnimatedListItem(
-                              index: index,
-                              delay: const Duration(milliseconds: 30),
-                              child: _PokemonListTile(
-                                pokemon: p,
-                                typesCache: _typesCache,
-                                onUpdateCache: (id, types) {
-                                  if (mounted) {
-                                    setState(() {
-                                      _typesCache[id] = types;
-                                    });
-                                  }
-                                },
+                      : LayoutBuilder(
+                          builder: (context, constraints) {
+                            // Responsive: 4 columnas en web/desktop, 2 en móvil
+                            int crossAxisCount = 2;
+                            double childAspectRatio = 0.80; // Más cuadradas para móvil
+                            
+                            if (constraints.maxWidth > 900) {
+                              crossAxisCount = 4;
+                              childAspectRatio = 0.75;
+                            } else if (constraints.maxWidth > 600) {
+                              crossAxisCount = 3;
+                              childAspectRatio = 0.78;
+                            }
+                            
+                            return GridView.builder(
+                              padding: const EdgeInsets.all(12),
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: crossAxisCount,
+                                childAspectRatio: childAspectRatio,
+                                crossAxisSpacing: 12,
+                                mainAxisSpacing: 12,
                               ),
+                              itemCount: _filtered.length,
+                              itemBuilder: (context, index) {
+                                final p = _filtered[index];
+                                return AnimatedListItem(
+                                  index: index,
+                                  delay: const Duration(milliseconds: 30),
+                                  child: _PokemonCard(
+                                    pokemon: p,
+                                    typesCache: _typesCache,
+                                    onUpdateCache: (id, types) {
+                                      if (mounted) {
+                                        setState(() {
+                                          _typesCache[id] = types;
+                                        });
+                                      }
+                                    },
+                                  ),
+                                );
+                              },
                             );
                           },
                         ),
@@ -381,6 +412,180 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
       setState(() { _error = e.toString(); _loading = false; });
     }
   }
+}
+
+/// Widget for Pokemon card in grid layout
+class _PokemonCard extends StatefulWidget {
+  final PokemonListItem pokemon;
+  final Map<int, List<String>> typesCache;
+  final Function(int, List<String>) onUpdateCache;
+
+  const _PokemonCard({
+    required this.pokemon,
+    required this.typesCache,
+    required this.onUpdateCache,
+  });
+
+  @override
+  State<_PokemonCard> createState() => _PokemonCardState();
+}
+
+class _PokemonCardState extends State<_PokemonCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _scaleController;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _scaleController = AnimationController(
+      duration: const Duration(milliseconds: 150),
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
+      CurvedAnimation(parent: _scaleController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _scaleController.dispose();
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: _scaleAnimation,
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTapDown: (_) => _scaleController.forward(),
+          onTapUp: (_) {
+            _scaleController.reverse();
+            Future.delayed(const Duration(milliseconds: 100), () {
+              Navigator.of(context).push(
+                SlidePageRoute(
+                  page: PokemonDetailScreen(
+                    id: widget.pokemon.id,
+                    name: widget.pokemon.name,
+                  ),
+                ),
+              );
+            });
+          },
+          onTapCancel: () => _scaleController.reverse(),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // ID Badge - más pequeño y blanco
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    '#${widget.pokemon.id.toString().padLeft(3, '0')}',
+                    style: const TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                // Imagen del Pokémon MÁS GRANDE
+                Expanded(
+                  child: Hero(
+                    tag: 'pokemon_${widget.pokemon.id}',
+                    child: Image.network(
+                      widget.pokemon.imageUrl,
+                      fit: BoxFit.contain,
+                      errorBuilder: (c, e, s) => const Icon(
+                        Icons.catching_pokemon,
+                        size: 50,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                // Nombre - más pequeño
+                Text(
+                  _capitalize(widget.pokemon.name),
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.nunito(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+                // Tipos - MÁS COMPACTOS Y BLANCOS
+                widget.typesCache.containsKey(widget.pokemon.id)
+                    ? _buildTypeChips(widget.typesCache[widget.pokemon.id]!)
+                    : FutureBuilder<List<String>>(
+                        future: PokeApi.fetchPokemonTypes(widget.pokemon.id),
+                        builder: (ctx, snap) {
+                          if (snap.connectionState == ConnectionState.waiting) {
+                            return const SizedBox(
+                              width: 10,
+                              height: 10,
+                              child: CircularProgressIndicator(strokeWidth: 1.5),
+                            );
+                          }
+                          if (snap.hasError || snap.data == null) {
+                            return const SizedBox(height: 18);
+                          }
+                          final types = snap.data!;
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            widget.onUpdateCache(widget.pokemon.id, types);
+                          });
+                          return _buildTypeChips(types);
+                        },
+                      ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTypeChips(List<String> types) {
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 3,
+      runSpacing: 2,
+      children: types
+          .map((t) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  _capitalize(t),
+                  style: const TextStyle(
+                    fontSize: 8,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ))
+          .toList(),
+    );
+  }
+
+  String _capitalize(String s) =>
+      s.isEmpty ? s : (s[0].toUpperCase() + s.substring(1));
 }
 
 /// Widget for individual Pokemon list item with tap animation

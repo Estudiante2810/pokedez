@@ -74,7 +74,7 @@ class PokeApi {
                 name: pokemonName,
                 id: id,
                 imageUrl:
-                    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png',
+                    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png',
               ),
             );
           }

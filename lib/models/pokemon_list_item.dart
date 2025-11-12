@@ -21,7 +21,8 @@ class PokemonListItem {
       }
     }
 
-    final imageUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png';
+    // Usar sprites de HOME (256x256) - mejor calidad y siempre disponibles
+    final imageUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png';
 
     return PokemonListItem(name: name, id: id, imageUrl: imageUrl);
   }
