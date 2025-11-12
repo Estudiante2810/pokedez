@@ -1,12 +1,9 @@
-import 'dart:convert';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:http/http.dart' as http;
 import '../models/pokemon_list_item.dart';
 import '../models/pokemon_detail.dart';
 
 class PokeApi {
   static const _graphqlEndpoint = 'https://beta.pokeapi.co/graphql/v1beta';
-  static const _restBase = 'https://pokeapi.co/api/v2';
   static late GraphQLClient _client;
 
   /// Initialize the GraphQL client (call this once on app startup)
@@ -157,46 +154,49 @@ class PokeApi {
     }
   }
 
-  /// Fetch the evolution chain using REST API (hybrid approach for better coverage)
+  /// Fetch the evolution chain using GraphQL
   static Future<List<PokemonListItem>> fetchEvolutionChain(int pokemonId) async {
-    try {
-      final speciesUri = Uri.parse('$_restBase/pokemon-species/$pokemonId');
-      final speciesRes = await http.get(speciesUri);
-      if (speciesRes.statusCode != 200) {
-        throw Exception('Error fetching species info: ${speciesRes.statusCode}');
-      }
-
-      final Map<String, dynamic> speciesData =
-          json.decode(speciesRes.body) as Map<String, dynamic>;
-      final evo =
-          (speciesData['evolution_chain'] as Map<String, dynamic>?)?['url'] as String?;
-      if (evo == null || evo.isEmpty) return [];
-
-      final evoRes = await http.get(Uri.parse(evo));
-      if (evoRes.statusCode != 200) {
-        throw Exception('Error fetching evolution chain: ${evoRes.statusCode}');
-      }
-
-      final Map<String, dynamic> evoData =
-          json.decode(evoRes.body) as Map<String, dynamic>;
-      final List<PokemonListItem> result = [];
-
-      void parseNode(Map<String, dynamic> node) {
-        final species = node['species'] as Map<String, dynamic>;
-        final name = species['name'] as String;
-        final url = species['url'] as String;
-        result.add(PokemonListItem.fromJson({'name': name, 'url': url}));
-        final evolvesTo = node['evolves_to'] as List<dynamic>;
-        for (final child in evolvesTo) {
-          parseNode(child as Map<String, dynamic>);
+    const query = '''
+      query GetEvolutionChain(\$pokemonId: Int!) {
+        pokemon_v2_pokemonspecies(where: {id: {_eq: \$pokemonId}}) {
+          pokemon_v2_evolutionchain {
+            pokemon_v2_pokemonspecies(order_by: {id: asc}) {
+              id
+              name
+            }
+          }
         }
       }
+    ''';
 
-      final chain = evoData['chain'] as Map<String, dynamic>;
-      parseNode(chain);
-      return result;
+    try {
+      final result = await _client.query(
+        QueryOptions(
+          document: gql(query),
+          variables: {'pokemonId': pokemonId},
+        ),
+      );
+
+      if (result.hasException) {
+        throw Exception('Error fetching evolution chain: ${result.exception}');
+      }
+
+      final species = result.data?['pokemon_v2_pokemonspecies'] as List<dynamic>? ?? [];
+      if (species.isEmpty) return [];
+
+      final evolutionChain = (species[0] as Map<String, dynamic>)['pokemon_v2_evolutionchain'] 
+          as Map<String, dynamic>?;
+      
+      if (evolutionChain == null) return [];
+
+      final allSpecies = evolutionChain['pokemon_v2_pokemonspecies'] as List<dynamic>? ?? [];
+      
+      return allSpecies.map((s) {
+        final speciesData = s as Map<String, dynamic>;
+        return PokemonListItem.fromGraphQL(speciesData);
+      }).toList();
     } catch (e) {
-      print('Error fetching evolution chain: $e');
+      // Error fetching evolution chain - returning empty list
       return [];
     }
   }

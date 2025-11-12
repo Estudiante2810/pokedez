@@ -5,23 +5,12 @@ class PokemonListItem {
 
   PokemonListItem({required this.name, required this.id, required this.imageUrl});
 
-  factory PokemonListItem.fromJson(Map<String, dynamic> json) {
+  /// Parse PokemonListItem from GraphQL response
+  factory PokemonListItem.fromGraphQL(Map<String, dynamic> json) {
+    final id = json['id'] as int;
     final name = json['name'] as String;
-    final url = json['url'] as String; // ends with /<id>/
-    final segments = url.split('/');
-    int id = 0;
-    if (segments.isNotEmpty) {
-      // last non-empty segment should be the id
-      for (var i = segments.length - 1; i >= 0; i--) {
-        final s = segments[i];
-        if (s.isNotEmpty) {
-          id = int.tryParse(s) ?? 0;
-          break;
-        }
-      }
-    }
 
-    // Usar sprites de HOME (256x256) - mejor calidad y siempre disponibles
+    // Generar URL de imagen usando el ID (sprites de HOME - 256x256px)
     final imageUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png';
 
     return PokemonListItem(name: name, id: id, imageUrl: imageUrl);

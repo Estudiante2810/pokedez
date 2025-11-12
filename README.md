@@ -1,16 +1,35 @@
-# pokedez
+# Pokédex App by Amber and Erick
 
-A new Flutter project.
+A Flutter project.
 
-## Getting Started
+## Avance
+  **Funcionalidades:**
+  - Múltiples filtros simultáneamente
+  - Botón "Sin filtro" para limpiar y mostrar todos los Pokémon
+  - Botón "Aplicar" con animación de shimmer loading
+  - Botones con solo bordes (no relleno) para aplicar filtros
 
-This project is a starting point for a Flutter application.
+-  **Búsqueda:**
+  - Por nombre de Pokémon
+  - Por ID numérico (1-1025)
 
-A few resources to get you started if this is your first Flutter project:
+### **Animaciones y Transicione**
+-  **Splash Screen (5 segundos):**
+  - Título "Pókedex" en amarillo dorado con sombras
+  - Subtítulo "by: Amberly R y Erick D" en Nunito
+  - Barra de carga amarilla con fade-out suave
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+-  **Transiciones entre pantallas:**
+  - Slide + Fade al navegar (SlidePageRoute)
+  - Scale con bounce para evoluciones (ScalePageRoute)
+  - Hero animation en imágenes
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+-  **Animaciones en lista:**
+  - Shimmer loading (efecto de carga)
+  - Staggered fade-in (cada tarjeta aparece con delay)
+
+-  **Animaciones en detalles:**
+  - Imagen flotante continua (3s loop)
+  - Contenido progresivo (delay 100ms entre secciones)
+  - Barras de estadísticas animadas (2s para llenar)
+
