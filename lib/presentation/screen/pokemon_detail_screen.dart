@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../models/pokemon_detail.dart';
-import '../models/pokemon_list_item.dart';
-import '../services/poke_api.dart';
+import '../../data/models/pokemon_detail.dart';
+import '../../data/models/pokemon_list_item.dart';
+import '../../data/datasources/poke_api.dart';
 import '../widgets/page_transitions.dart';
 
 class PokemonDetailScreen extends StatefulWidget {

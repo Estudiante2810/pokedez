@@ -16,7 +16,7 @@ class PokeApi {
   }
 
   /// Fetch the full list of pokemons using GraphQL with offset/limit pagination
-  static Future<List<PokemonListItem>> fetchAllPokemons() async {
+  static Future<List<PokemonListItem>> fetchAllPokemons({int limit = 50, int offset = 0}) async {
     const query = '''
       query GetPokemons(\$limit: Int!, \$offset: Int!) {
         pokemon_v2_pokemonspecies(limit: \$limit, offset: \$offset, order_by: {id: asc}) {
@@ -30,63 +30,42 @@ class PokeApi {
       }
     ''';
 
-    final List<PokemonListItem> allPokemons = [];
-    int offset = 0;
-    const pageSize = 50;
-    bool hasMore = true;
+    try {
+      final result = await _client.query(
+        QueryOptions(
+          document: gql(query),
+          variables: {
+            'limit': limit,
+            'offset': offset,
+          },
+        ),
+      );
 
-    while (hasMore) {
-      try {
-        final result = await _client.query(
-          QueryOptions(
-            document: gql(query),
-            variables: {
-              'limit': pageSize,
-              'offset': offset,
-            },
-          ),
-        );
-
-        if (result.hasException) {
-          throw Exception('Error fetching pokemon list: ${result.exception}');
-        }
-
-        final species = result.data?['pokemon_v2_pokemonspecies'] as List<dynamic>? ?? [];
-        
-        if (species.isEmpty) {
-          hasMore = false;
-          break;
-        }
-
-        for (final s in species) {
-          final speciesData = s as Map<String, dynamic>;
-          final id = speciesData['id'] as int;
-          final pokemons = speciesData['pokemon_v2_pokemons'] as List<dynamic>? ?? [];
-
-          if (pokemons.isNotEmpty) {
-            final pokemon = pokemons[0] as Map<String, dynamic>;
-            final pokemonName = pokemon['name'] as String;
-            allPokemons.add(
-              PokemonListItem(
-                name: pokemonName,
-                id: id,
-                imageUrl:
-                    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png',
-              ),
-            );
-          }
-        }
-
-        offset += pageSize;
-        if (species.length < pageSize) {
-          hasMore = false;
-        }
-      } catch (e) {
-        throw Exception('Error fetching pokemon list: $e');
+      if (result.hasException) {
+        throw Exception('Error fetching pokemon list: ${result.exception}');
       }
-    }
 
-    return allPokemons;
+      final species = result.data?['pokemon_v2_pokemonspecies'] as List<dynamic>? ?? [];
+      return species.map((s) {
+        final speciesData = s as Map<String, dynamic>;
+        final id = speciesData['id'] as int;
+        final pokemons = speciesData['pokemon_v2_pokemons'] as List<dynamic>? ?? [];
+
+        if (pokemons.isNotEmpty) {
+          final pokemon = pokemons[0] as Map<String, dynamic>;
+          final pokemonName = pokemon['name'] as String;
+          return PokemonListItem(
+            name: pokemonName,
+            id: id,
+            imageUrl:
+                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png',
+          );
+        }
+        return null;
+      }).whereType<PokemonListItem>().toList();
+    } catch (e) {
+      throw Exception('Error fetching pokemon list: $e');
+    }
   }
 
   /// Fetch detailed info for a single pokemon by id using GraphQL

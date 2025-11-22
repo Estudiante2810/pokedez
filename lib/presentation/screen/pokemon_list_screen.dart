@@ -3,28 +3,35 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/pokemon_list_item.dart';
-import '../services/poke_api.dart';
+import '../../data/models/pokemon_list_item.dart';
+import '../../data/datasources/poke_api.dart';
 import '../widgets/animated_list_item.dart';
 import '../widgets/page_transitions.dart';
 import '../widgets/shimmer_loading.dart';
 import 'pokemon_detail_screen.dart';
+import '../../data/providers/pokemon_providers.dart';
 
-class PokemonListScreen extends StatefulWidget {
+class PokemonListScreen extends ConsumerStatefulWidget {
   const PokemonListScreen({super.key});
 
   @override
-  State<PokemonListScreen> createState() => _PokemonListScreenState();
+  ConsumerState<PokemonListScreen> createState() => _PokemonListScreenState();
 }
 
-class _PokemonListScreenState extends State<PokemonListScreen> {
+class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   List<PokemonListItem> _all = [];
   List<PokemonListItem> _filtered = [];
   bool _loading = true;
   String? _error;
   final TextEditingController _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   final Map<int, List<String>> _typesCache = {};
+
+  int _offset = 0;
+  static const int _pageSize = 50;
+  bool _hasMore = true;
 
   static const _prefsKeyGen = 'pokedez_filter_generation';
   static const _prefsKeyTypes = 'pokedez_filter_types';
@@ -34,12 +41,15 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
     super.initState();
     _load();
     _searchController.addListener(_onSearchChanged);
+    _scrollController.addListener(_onScroll);
   }
 
   @override
   void dispose() {
     _searchController.removeListener(_onSearchChanged);
     _searchController.dispose();
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -60,14 +70,26 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
     }
   }
 
+  void _onScroll() {
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200 && !_loading && _hasMore) {
+      _loadMore();
+    }
+  }
+
   Future<void> _load() async {
     setState(() {
       _loading = true;
       _error = null;
     });
     try {
-      final list = await PokeApi.fetchAllPokemons();
-      setState(() { _all = list; });
+      final list = await PokeApi.fetchAllPokemons(limit: _pageSize, offset: _offset);
+      setState(() {
+        _all.addAll(list);
+        _filtered = List.of(_all);
+        _offset += list.length;
+        _hasMore = list.length == _pageSize;
+        _loading = false;
+      });
 
       // Check saved filters and apply if present
       final prefs = await SharedPreferences.getInstance();
@@ -84,10 +106,34 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
     }
   }
 
+  Future<void> _loadMore() async {
+    if (!_hasMore) return;
+    setState(() {
+      _loading = true;
+    });
+    try {
+      final list = await PokeApi.fetchAllPokemons(limit: _pageSize, offset: _offset);
+      setState(() {
+        _all.addAll(list);
+        _filtered = List.of(_all);
+        _offset += list.length;
+        _hasMore = list.length == _pageSize;
+        _loading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _error = e.toString();
+        _loading = false;
+      });
+    }
+  }
+
   Future<void> _refresh() => _load();
 
   @override
   Widget build(BuildContext context) {
+    final pokemonListState = ref.watch(pokemonListProvider);
+
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -128,7 +174,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
           ),
         ],
       ),
-      body: _loading
+      body: _loading && _all.isEmpty
           ? const ShimmerLoading(itemCount: 15)
           : _error != null
               ? Center(
@@ -173,8 +219,11 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                                 crossAxisSpacing: 12,
                                 mainAxisSpacing: 12,
                               ),
-                              itemCount: _filtered.length,
+                              itemCount: _filtered.length + (_hasMore ? 1 : 0),
                               itemBuilder: (context, index) {
+                                if (index == _filtered.length) {
+                                  return const Center(child: CircularProgressIndicator());
+                                }
                                 final p = _filtered[index];
                                 return AnimatedListItem(
                                   index: index,
