@@ -1,18 +1,29 @@
-class PokemonListItem {
+import 'package:hive/hive.dart';
+
+part 'pokemon_list_item.g.dart';
+
+@HiveType(typeId: 0) // Define un ID único para este modelo
+class PokemonListItem extends HiveObject {
+  @HiveField(0)
   final String name;
+
+  @HiveField(1)
   final int id;
+
+  @HiveField(2)
   final String imageUrl;
 
-  PokemonListItem({required this.name, required this.id, required this.imageUrl});
+  PokemonListItem({
+    required this.name,
+    required this.id,
+    required this.imageUrl,
+  });
 
-  /// Parse PokemonListItem from GraphQL response
-  factory PokemonListItem.fromGraphQL(Map<String, dynamic> json) {
-    final id = json['id'] as int;
-    final name = json['name'] as String;
-
-    // Generar URL de imagen usando el ID (sprites de HOME - 256x256px)
-    final imageUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png';
-
-    return PokemonListItem(name: name, id: id, imageUrl: imageUrl);
+  factory PokemonListItem.fromGraphQL(Map<String, dynamic> data) {
+    return PokemonListItem(
+      name: data['name'] as String,
+      id: data['id'] as int,
+      imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${data['id']}.png',
+    );
   }
 }

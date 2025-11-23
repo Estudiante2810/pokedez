@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../data/models/pokemon_list_item.dart';
 import '../../data/datasources/poke_api.dart';
@@ -12,6 +13,7 @@ import '../widgets/page_transitions.dart';
 import '../widgets/shimmer_loading.dart';
 import 'pokemon_detail_screen.dart';
 import '../../data/providers/pokemon_providers.dart';
+import 'favorites_screen.dart';
 
 class PokemonListScreen extends ConsumerStatefulWidget {
   const PokemonListScreen({super.key});
@@ -39,9 +41,25 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   @override
   void initState() {
     super.initState();
+    _initializeHive();
     _load();
     _searchController.addListener(_onSearchChanged);
     _scrollController.addListener(_onScroll);
+  }
+
+  Future<void> _initializeHive() async {
+    await Hive.initFlutter();
+    Hive.registerAdapter(PokemonListItemAdapter());
+    final box = await Hive.openBox<PokemonListItem>('pokemonBox');
+
+    // Cargar datos locales si existen
+    final savedPokemons = box.values.toList();
+    if (savedPokemons.isNotEmpty) {
+      setState(() {
+        _all = savedPokemons;
+        _filtered = List.of(_all);
+      });
+    }
   }
 
   @override
@@ -71,6 +89,10 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   }
 
   void _onScroll() {
+    // Imprimir el valor de la posición actual del scroll en píxeles
+    debugPrint('Scroll position: \\${_scrollController.position.pixels}');
+
+    // Detectar si el usuario está cerca del final de la lista
     if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200 && !_loading && _hasMore) {
       _loadMore();
     }
@@ -114,6 +136,7 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
     try {
       final list = await PokeApi.fetchAllPokemons(limit: _pageSize, offset: _offset);
       setState(() {
+        // Agregar los nuevos Pokémon a la lista existente sin restricciones
         _all.addAll(list);
         _filtered = List.of(_all);
         _offset += list.length;
@@ -132,7 +155,7 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonListState = ref.watch(pokemonListProvider);
+    
 
     return Scaffold(
       appBar: AppBar(
@@ -245,6 +268,28 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
                           },
                         ),
                 ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0, // Índice para la pantalla actual
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const FavoritesScreen(),
+              ),
+            );
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Lista',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favoritos',
+          ),
+        ],
+      ),
     );
   }
 
@@ -460,6 +505,12 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
     } catch (e) {
       setState(() { _error = e.toString(); _loading = false; });
     }
+  }
+
+  Future<void> _saveToLocalStorage() async {
+    final box = await Hive.openBox<PokemonListItem>('pokemonBox');
+    await box.clear(); // Limpiar datos antiguos
+    await box.addAll(_all); // Guardar la lista actual
   }
 }
 

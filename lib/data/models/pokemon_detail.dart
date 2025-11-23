@@ -1,13 +1,38 @@
+import 'package:hive/hive.dart';
+
+part 'pokemon_detail.g.dart';
+
+@HiveType(typeId: 1)
 class PokemonDetail {
+  @HiveField(0)
   final int id;
+
+  @HiveField(1)
   final String name;
+
+  @HiveField(2)
   final int height;
+
+  @HiveField(3)
   final int weight;
+
+  @HiveField(4)
   final List<String> types;
+
+  @HiveField(5)
   final List<String> abilities;
+
+  @HiveField(6)
   final Map<String, int> stats;
+
+  @HiveField(7)
   final String spriteUrl;
+
+  @HiveField(8)
   final List<String> moves;
+
+  @HiveField(9)
+  bool isFavorite = false; // Campo para marcar si el Pokémon es favorito
 
   PokemonDetail({
     required this.id,
@@ -19,6 +44,7 @@ class PokemonDetail {
     required this.stats,
     required this.spriteUrl,
     required this.moves,
+    this.isFavorite = false, // Inicializar como no favorito por defecto
   });
 
   /// Parse PokemonDetail from GraphQL response
@@ -88,6 +114,11 @@ class PokemonDetail {
       stats: statsMap,
       spriteUrl: sprite,
       moves: movesList,
+      isFavorite: (json['is_favorite'] as bool?) ?? false, // Manejo de nulos
     );
+  }
+
+  void toggleFavorite() {
+    isFavorite = !isFavorite;
   }
 }

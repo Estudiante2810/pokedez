@@ -12,8 +12,8 @@ class PokemonListNotifier extends StateNotifier<AsyncValue<List<PokemonListItem>
   }
 
   int _offset = 0;
-  final int _pageSize = 20; // Load 20 Pokémon at a time
-  final int _maxPokemons = 60; // Maximum of 60 Pokémon in the list
+  final int _pageSize = 50; // Load 50 Pokémon at a time
+  final int _maxPokemons = 200; // Maximum of 200 Pokémon in the list
   bool _hasMore = true;
   bool _isFetching = false; // Prevent multiple simultaneous fetches
 

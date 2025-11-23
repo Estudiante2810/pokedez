@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../data/models/pokemon_detail.dart';
 import '../../data/models/pokemon_list_item.dart';
@@ -77,11 +78,19 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
       final results = await Future.wait([detailFuture, evoFuture]);
       final d = results[0] as PokemonDetail;
       final ev = results[1] as List<PokemonListItem>;
+
+      // Verificar si el Pokémon es favorito
+      final box = await Hive.openBox<PokemonDetail>('favorites');
+      if (box.containsKey(d.id)) {
+        d.isFavorite = true;
+      }
+
       setState(() {
         _detail = d;
         _evolutions = ev;
         _loading = false;
       });
+
       // Start animations after data loads
       _fadeController.forward();
       _slideController.forward();
@@ -144,6 +153,30 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                         ),
                       ),
                     ),
+      floatingActionButton: _loading || _error != null || _detail == null
+          ? null
+          : FloatingActionButton(
+              onPressed: () async {
+                setState(() {
+                  _detail!.toggleFavorite();
+                });
+
+                // Guardar o eliminar en Hive
+                final box = await Hive.openBox<PokemonDetail>('favorites');
+                if (_detail!.isFavorite) {
+                  box.put(_detail!.id, _detail!);
+                } else {
+                  box.delete(_detail!.id);
+                }
+              },
+              backgroundColor: _detail!.isFavorite
+                  ? Colors.red
+                  : Theme.of(context).colorScheme.primary,
+              child: Icon(
+                _detail!.isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: Colors.white,
+              ),
+            ),
     );
   }
 
