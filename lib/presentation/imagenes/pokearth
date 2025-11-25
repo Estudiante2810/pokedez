@@ -1,0 +1,1693 @@
+<html><head>
+
+<title>Serebii.net Pokéarth</title>
+
+
+<link rel="preconnect" href="https://securepubads.g.doubleclick.net/" crossorigin="">
+<link rel="preconnect" href="https://cdn.consentmanager.mgr.consensu.org/" crossorigin="">
+<link rel="preconnect" href="https://kumo.network-n.com/" crossorigin="">
+<meta http-equiv="imagetoolbar" content="no">
+	<link rel="stylesheet" type="text/css" href="/style/layout.css">
+<meta name="viewport" content="width=device-width,initial-scale=1" id="viewport-meta">
+
+<!-- GDPR Compliancy -->
+<style>
+body {
+	--cmpBgColor: #507C36;
+	--cmpTextColor: #000000;
+	--cmpLinkColor: #ffffff;
+	--cmpPurposesColor: #000000;
+	--cmpBrandColor: #000000;
+	--cmpLogo: url('https://www.serebii.net/extralogo.png');
+}
+</style>
+<!-- GDPR Compliancy -->
+
+<link rel="search" href="/serebii-opensearch.xml" type="application/opensearchdescription+xml" title="Serebii Open Search">
+<link rel="shortcut icon" href="/favicon.ico">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<link href="https://kumo.network-n.com/dist/css/serebii.css" rel="stylesheet" id="kumo-css"><script src="https://secure.quantserve.com/quant.js" defer="" nnid="nn-446976bc"></script><script src="https://static.anonymised.io/light/loader.js" async="" nnid="nn-482cb016" id="idward-plugin-js" idw_client_id="NTU=" idw_hide_button="true"></script><script src="https://boot.pbstck.com/v1/tag/bcc2bb5b-e36e-4d67-89b7-74a69e597998" async="" nnid="nn-add7853"></script><script src="https://btloader.com/tag?o=5684350990417920&amp;upapi=true" async="" nnid="nn-78bf31fb"></script><script src="https://cdn.privacy-mgmt.com/unified/wrapperMessagingWithoutDetection.js" async="" nnid="nn-31ce57da"></script><script src="https://www.googletagmanager.com/gtag/js?id=G-0CPE0JFSCT" async="" nnid="nn-77ed23dc"></script><script src="https://scripts.webcontentassessor.com/scripts/25c58b2519db968006a08e9d306d111ea9404af8b784881b5dcd3e6ab917b444" nnid="nn-b9e5584"></script><script src="https://kumo.network-n.com/dist/1.62.0/quantcast.js" async="" nnid="nn-64c1d980"></script><script src="https://kumo.network-n.com/dist/1.62.0/galaxy-board.js" async="" nnid="nn-74d1ae3d"></script><script src="https://kumo.network-n.com/dist/1.62.0/celtra-bfab.js" async="" nnid="nn-821c6c9"></script><script src="https://kumo.network-n.com/dist/1.62.0/anonymised.js" async="" nnid="nn-2b78c13d"></script><script src="https://kumo.network-n.com/dist/1.62.0/analytics.js" async="" nnid="nn-46526a7c"></script><script src="https://kumo.network-n.com/dist/1.62.0/pubstack.js" async="" nnid="nn-27bbc941"></script><script src="https://kumo.network-n.com/dist/1.62.0/adengine.js" async="" nnid="nn-496a4487"></script><script src="https://kumo.network-n.com/dist/1.62.0/tagging.js" async="" nnid="nn-1abbedad"></script><script src="https://kumo.network-n.com/dist/1.62.0/mediatrust.js" async="" nnid="nn-63360018"></script><script src="https://kumo.network-n.com/dist/1.62.0/blockthrough.js" async="" nnid="nn-3052e44c"></script><script src="https://kumo.network-n.com/dist/1.62.0/custom-css.js" async="" nnid="nn-566f657b"></script><script src="https://kumo.network-n.com/dist/1.62.0/cmp-sourcepoint.js" async="" nnid="nn-151a0c74"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-05Q66T7ENJ&amp;cx=c&amp;gtm=4e5bi1"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-128947957-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-128947957-1');
+</script>
+<!-- Place the below code anywhere you like in the <head> (higher is better) -->
+
+
+<script async="" src="https://kumo.network-n.com/dist/app.js" site="serebii"></script>
+
+
+
+<style type="text/css">
+iframe {
+border:0px;
+
+}</style>
+<link rel="stylesheet" type="text/css" href="/style/dexy-new.css">
+<link rel="stylesheet" href="/style/pokearthnew.css" type="text/css" media="screen">	
+
+<style type="text/css" id="operaUserStyle">
+  video {
+    filter: -opera-shader(url(data:text/plain;base64,Ly8gaHR0cHM6Ly9naXRodWIuY29tL0dQVU9wZW4tRWZmZWN0cy9GaWRlbGl0eUZYLUNBUwovLyB2MwoKdW5pZm9ybSBzaGFkZXIgaUNodW5rOwp1bmlmb3JtIGZsb2F0MiBpQ2h1bmtTaXplOwp1bmlmb3JtIGZsb2F0MiBpTW91c2U7CnVuaWZvcm0gZmxvYXQgaUFyZ3NbMV07Cgpjb25zdCBmbG9hdCBFUFNJT04gPSAwLjE7CmNvbnN0IGZsb2F0IFZfTUlOID0gMDsKY29uc3QgZmxvYXQgVl9MT1cgPSAwLjI1Owpjb25zdCBmbG9hdCBWX01FRCA9IDAuNTsKY29uc3QgZmxvYXQgVl9ISUdIID0gMC43NTsKY29uc3QgZmxvYXQgVl9NQVggPSAxOwoKY29uc3QgZmxvYXQgVEhSRVNIT0xEX0FSRUEgPSA4MDAgKiA2MDA7CmNvbnN0IGZsb2F0IE1JTl9BUkVBID0gNDAwICogMTAwOwpjb25zdCBmbG9hdCBNSU5fU1RSSVAgPSAyMDsKY29uc3QgZmxvYXQgTUFSR0lOID0gMTsKCmZsb2F0MyBwaXhlbChpbnQgeCwgaW50IHksIGZsb2F0MiB4eSkgewogICAgcmV0dXJuIGlDaHVuay5ldmFsKHh5ICsgZmxvYXQyKHgsIHkpKS5yZ2I7Cn0KCmZsb2F0MyBzaGFycGVuKGZsb2F0MiB4eSkgewogICAgZmxvYXQzIGYgPQogICAgICAgIHBpeGVsKC0xLCAtMSwgeHkpICogIDEgKwogICAgICAgIHBpeGVsKCAwLCAtMSwgeHkpICogLTEgKwogICAgICAgIHBpeGVsKCAxLCAtMSwgeHkpICogIDEgKwoKICAgICAgICBwaXhlbCgtMSwgMCwgeHkpICogLTEgICsKICAgICAgICBwaXhlbCggMCwgMCwgeHkpICogLTEgICsKICAgICAgICBwaXhlbCggMSwgMCwgeHkpICogLTEgICsKCiAgICAgICAgcGl4ZWwoLTEsIDEsIHh5KSAqIDEgICArCiAgICAgICAgcGl4ZWwoIDAsIDEsIHh5KSAqIC0xICArCiAgICAgICAgcGl4ZWwoIDEsIDEsIHh5KSAqIDE7CiAgICByZXR1cm4gZiAvIC0xOwp9CgpmbG9hdDQgUkdYMihmbG9hdDIgeHkpIHsKICAgIGZsb2F0NCBjb2xvciA9IGlDaHVuay5ldmFsKHh5KTsKCiAgICBpZiAoaUNodW5rU2l6ZS54ICogaUNodW5rU2l6ZS55IDwgTUlOX0FSRUEpIHsKICAgICAgICByZXR1cm4gY29sb3I7CiAgICB9CgogICAgaWYgKGlDaHVua1NpemUueSA8IE1JTl9TVFJJUCB8fCBpQ2h1bmtTaXplLnggPCBNSU5fU1RSSVApIHsKICAgICAgICByZXR1cm4gY29sb3I7CiAgICB9CgogICAgaWYgKHh5LnggPCBNQVJHSU4gfHwgeHkueCA+IChpQ2h1bmtTaXplLnggLSBNQVJHSU4pIHx8CiAgICAgICAgeHkueSA8IE1BUkdJTiB8fCB4eS55ID4gKGlDaHVua1NpemUueSAtIE1BUkdJTikpIHsKICAgICAgICByZXR1cm4gY29sb3I7CiAgICB9CgogICAgcmV0dXJuIGZsb2F0NChzaGFycGVuKHh5KSwgMSk7Cn0KCmZsb2F0IG1pbjMoZmxvYXQgeCwgZmxvYXQgeSwgZmxvYXQgeikgewogICAgcmV0dXJuIG1pbih4LCBtaW4oeSwgeikpOwp9CgpmbG9hdCBtYXgzKGZsb2F0IHgsIGZsb2F0IHksIGZsb2F0IHopIHsKICAgIHJldHVybiBtYXgoeCwgbWF4KHksIHopKTsKfQoKZmxvYXQgcmNwKGZsb2F0IHYpIHsKICAgIHJldHVybiAxIC8gdjsKfQoKZmxvYXQzIFJHWDMoZmxvYXQyIHh5LCBmbG9hdCBzdHJlbmd0aCkgewogICAgZmxvYXQzIGEgPSBwaXhlbCgtMSwgLTEsIHh5KTsKICAgIGZsb2F0MyBiID0gcGl4ZWwoIDAsIC0xLCB4eSk7CiAgICBmbG9hdDMgYyA9IHBpeGVsKCAxLCAtMSwgeHkpOwoKICAgIGZsb2F0MyBkID0gcGl4ZWwoLTEsIDAsIHh5KTsKICAgIGZsb2F0MyBlID0gcGl4ZWwoIDAsIDAsIHh5KTsKICAgIGZsb2F0MyBmID0gcGl4ZWwoIDEsIDAsIHh5KTsKCiAgICBmbG9hdDMgZyA9IHBpeGVsKC0xLCAxLCB4eSk7CiAgICBmbG9hdDMgaCA9IHBpeGVsKCAwLCAxLCB4eSk7CiAgICBmbG9hdDMgaSA9IHBpeGVsKCAxLCAxLCB4eSk7CgogICAgZmxvYXQgbW5SID0gbWluMyhtaW4zKGQuciwgZS5yLCBmLnIpLCBiLnIsIGgucik7CiAgICBmbG9hdCBtbkcgPSBtaW4zKG1pbjMoZC5nLCBlLmcsIGYuZyksIGIuZywgaC5nKTsKICAgIGZsb2F0IG1uQiA9IG1pbjMobWluMyhkLmIsIGUuYiwgZi5iKSwgYi5iLCBoLmIpOwoKICAgIGZsb2F0IG1uUjIgPSBtaW4zKG1pbjMobW5SLCBhLnIsIGMuciksIGcuciwgaS5yKTsKICAgIGZsb2F0IG1uRzIgPSBtaW4zKG1pbjMobW5HLCBhLmcsIGMuZyksIGcuZywgaS5nKTsKICAgIGZsb2F0IG1uQjIgPSBtaW4zKG1pbjMobW5CLCBhLmIsIGMuYiksIGcuYiwgaS5iKTsKCiAgICBtblIgPSBtblIgKyBtblIyOwogICAgbW5HID0gbW5HICsgbW5HMjsKICAgIG1uQiA9IG1uQiArIG1uQjI7CgogICAgZmxvYXQgbXhSID0gbWF4MyhtYXgzKGQuciwgZS5yLCBmLnIpLCBiLnIsIGgucik7CiAgICBmbG9hdCBteEcgPSBtYXgzKG1heDMoZC5nLCBlLmcsIGYuZyksIGIuZywgaC5nKTsKICAgIGZsb2F0IG14QiA9IG1heDMobWF4MyhkLmIsIGUuYiwgZi5iKSwgYi5iLCBoLmIpOwoKICAgIGZsb2F0IG14UjIgPSBtYXgzKG1heDMobXhSLCBhLnIsIGMuciksIGcuciwgaS5yKTsKICAgIGZsb2F0IG14RzIgPSBtYXgzKG1heDMobXhHLCBhLmcsIGMuZyksIGcuZywgaS5nKTsKICAgIGZsb2F0IG14QjIgPSBtYXgzKG1heDMobXhCLCBhLmIsIGMuYiksIGcuYiwgaS5iKTsKCiAgICBteFIgPSBteFIgKyBteFIyOwogICAgbXhHID0gbXhHICsgbXhHMjsKICAgIG14QiA9IG14QiArIG14QjI7CgogICAgZmxvYXQgcmNwTVIgPSByY3AobXhSKTsKICAgIGZsb2F0IHJjcE1HID0gcmNwKG14Ryk7CiAgICBmbG9hdCByY3BNQiA9IHJjcChteEIpOwoKICAgIGZsb2F0IGFtcFIgPSBzYXR1cmF0ZShtaW4obW5SLCAyIC0gbXhSKSAqIHJjcE1SKTsKICAgIGZsb2F0IGFtcEcgPSBzYXR1cmF0ZShtaW4obW5HLCAyIC0gbXhHKSAqIHJjcE1HKTsKICAgIGZsb2F0IGFtcEIgPSBzYXR1cmF0ZShtaW4obW5CLCAyIC0gbXhCKSAqIHJjcE1CKTsKCiAgICBhbXBSID0gc3FydChhbXBSKTsKICAgIGFtcEcgPSBzcXJ0KGFtcEcpOwogICAgYW1wQiA9IHNxcnQoYW1wQik7CgogICAgZmxvYXQgcGVhayA9IC1yY3AobWl4KDgsIDUsIHN0cmVuZ3RoKSk7CgogICAgZmxvYXQgd1IgPSBhbXBSICogcGVhazsKICAgIGZsb2F0IHdHID0gYW1wRyAqIHBlYWs7CiAgICBmbG9hdCB3QiA9IGFtcEIgKiBwZWFrOwoKICAgIGZsb2F0IHJjcFdlaWdodFIgPSByY3AoMSArIDQgKiB3Uik7CiAgICBmbG9hdCByY3BXZWlnaHRHID0gcmNwKDEgKyA0ICogd0cpOwogICAgZmxvYXQgcmNwV2VpZ2h0QiA9IHJjcCgxICsgNCAqIHdCKTsKCiAgICByZXR1cm4gZmxvYXQzKAogICAgICAgIHNhdHVyYXRlKChiLnIgKiB3UiArIGQuciAqIHdSICsgZi5yICogd1IgKyBoLnIgKiB3UiArIGUucikgKiByY3BXZWlnaHRSKSwKICAgICAgICBzYXR1cmF0ZSgoYi5nICogd0cgKyBkLmcgKiB3RyArIGYuZyAqIHdHICsgaC5nICogd0cgKyBlLmcpICogcmNwV2VpZ2h0RyksCiAgICAgICAgc2F0dXJhdGUoKGIuYiAqIHdCICsgZC5iICogd0IgKyBmLmIgKiB3QiArIGguYiAqIHdCICsgZS5iKSAqIHJjcFdlaWdodEIpKTsKfQoKCmZsb2F0NCBtYWluKGZsb2F0MiB4eSkgewoKICAgIGZsb2F0NCBvcmlnaW5hbENvbG9yID0gaUNodW5rLmV2YWwoeHkpOwogICAgaWYgKG9yaWdpbmFsQ29sb3IuYSA8IDEpIHsKICAgICAgICByZXR1cm4gaUNodW5rLmV2YWwoeHkpOwogICAgfQoKICAgIGZsb2F0IGludGVuc2l0eSA9IGlBcmdzWzBdOwogICAgZmxvYXQgc3RyZW5ndGggPSAwOwogICAgZmxvYXQzIGNvbG9yOwoKICAgIGlmIChpbnRlbnNpdHkgPCBWX01JTiArIEVQU0lPTikgewogICAgICAgIHN0cmVuZ3RoID0gMC4xMDsKICAgICAgICBjb2xvciA9IFJHWDMoeHksIHN0cmVuZ3RoKTsKCiAgICB9IGVsc2UgaWYgKGludGVuc2l0eSA+IFZfTE9XIC0gRVBTSU9OICYmIGludGVuc2l0eSA8IFZfTE9XICsgRVBTSU9OKSB7CiAgICAgICAgc3RyZW5ndGggPSAwLjMzOwogICAgICAgIGNvbG9yID0gUkdYMyh4eSwgc3RyZW5ndGgpOwoKICAgIH0gZWxzZSBpZiAoaW50ZW5zaXR5ID4gVl9NRUQgLSBFUFNJT04gJiYgaW50ZW5zaXR5IDwgVl9NRUQgKyBFUFNJT04pIHsKICAgICAgICBzdHJlbmd0aCA9IDAuNTsKICAgICAgICBjb2xvciA9IFJHWDMoeHksIHN0cmVuZ3RoKTsKCiAgICB9IGVsc2UgaWYgKGludGVuc2l0eSA+IFZfSElHSCAtIEVQU0lPTiAmJiBpbnRlbnNpdHkgPCBWX0hJR0ggKyBFUFNJT04pIHsKICAgICAgICBzdHJlbmd0aCA9IDAuOTk7CiAgICAgICAgY29sb3IgPSBSR1gzKHh5LCBzdHJlbmd0aCk7CgogICAgfSBlbHNlIGlmIChpbnRlbnNpdHkgPiBWX01BWCAtIEVQU0lPTikgewogICAgICAgIHN0cmVuZ3RoID0gMTsKICAgICAgICBjb2xvciA9IFJHWDIoeHkpLnJnYjsKICAgIH0KCiAgICByZXR1cm4gZmxvYXQ0KGNvbG9yLCBvcmlnaW5hbENvbG9yLmEpOwp9) -opera-args(0.75 calc(env(-opera-accent-color-r, 255)/255) calc(env(-opera-accent-color-g, 255)/255) calc(env(-opera-accent-color-b, 255)/255)));
+  }
+</style><style type="text/css">:root img[width="728"][height="90"], :root [href="https://adstub.net/cina777/"], :root [href="https://adstub.net/arab777/"], :root [href="https://adstub.net/ratu89/"], :root [href="https://adstub.net/judi89/"], :root [href^="//mage98rquewz.com/"], :root [href^="//x4pollyxxpush.com/"], :root span[id^="ezoic-pub-ad-placeholder-"], :root ins.adsbygoogle[data-ad-slot], :root ins.adsbygoogle[data-ad-client], :root img[src^="https://s-img.adskeeper.com/"], :root guj-ad, :root gpt-ad, :root div[id^="zergnet-widget"], :root div[id^="vuukle-ad-"], :root div[id^="taboola-stream-"], :root div[id^="sticky_ad_"], :root div[id^="st"][style^="z-index: 999999999;"], :root div[id^="gpt_ad_"], :root div[id^="ezoic-pub-ad-"], :root div[id^="dfp-ad-"], :root div[id^="crt-"][style], :root div[id^="apn_native_ad_slot_"], :root div[id^="adspot-"], :root div[id^="adrotate_widgets-"], :root ps-connatix-module, :root div[id^="ad_position_"], :root div[id^="ad-div-"], :root div[id*="ScriptRoot"], :root div[id*="MarketGid"], :root [href="https://adstub.net/rusia777/"], :root div[data-id-advertdfpconf], :root div[data-dfp-id], :root hl-adsense, :root div[data-contentexchange-widget], :root div[data-alias="300x250 Ad 2"], :root div[data-adzone], :root div[data-adunit-path], :root div[data-adname], :root div[data-ad-targeting], :root div[data-ad-region], :root div[data-ad-placeholder], :root div[aria-label="Ads"], :root display-ads, :root display-ad-component, :root atf-ad-slot, :root aside[id^="adrotate_widgets-"], :root amp-fx-flying-carpet, :root amp-embed[type="taboola"], :root amp-connatix-player, :root amp-ad-custom, :root amp-ad, :root div[id^="google_dfp_"], :root ad-slot, :root ad-shield-ads, :root a[style="width:100%;height:100%;z-index:10000000000000000;position:absolute;top:0;left:0;"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"] + .ob_source, :root a[onclick^="window.location.replace('https://random-affiliate.atimaze.com/"], :root a[href^="https://xbet-4.com/"], :root div[id^="ad-position-"], :root a[href^="https://www.toprevenuegate.com/"], :root a[href^="https://www.purevpn.com/"][href*="&utm_source=aff-"], :root a[href^="https://www.privateinternetaccess.com/"] > img, :root a[href^="https://financeads.net/tc.php?"], :root a[href^="https://www.mrskin.com/tour"], :root a[href^="https://www.infowarsstore.com/"] > img, :root a[href^="https://www.highperformancecpmgate.com/"], :root a[href^="https://www.highcpmrevenuenetwork.com/"], :root a[href^="https://www.get-express-vpn.com/offer/"], :root a[href^="https://lnkxt.bannerator.com/"], :root a[href^="https://www.geekbuying.com/dynamic-ads/"], :root a[href^="https://www.financeads.net/tc.php?"], :root a[href^="https://www.effectiveratecpm.com/"], :root [href^="https://www.herbanomic.com/"] > img, :root a[href^="https://maymooth-stopic.com/"], :root a[href^="https://www.dql2clk.com/"], :root a[href^="https://www.nutaku.net/signup/landing/"], :root a[href^="https://www.dating-finder.com/signup/?ai_d="], :root a[href^="https://explore-site.com/"], :root a[href^="https://www.brazzersnetwork.com/landing/"], :root [data-template-type="nativead"], :root a[href^="https://www.endorico.com/Smartlink/"], :root a[href^="https://www.adultempire.com/"][href*="?partner_id="], :root a[href^="https://voluum.prom-xcams.com/"], :root a[href^="https://twinrdsyte.com/"], :root a[href^="https://twinrdsrv.com/"], :root a[href^="https://trk.nfl-online-streams.club/"], :root a[href^="https://tracking.avapartner.com/"], :root a[href^="https://track.wg-aff.com"], :root a[href^="https://track.ultravpn.com/"], :root a[href^="https://track.afcpatrk.com/"], :root a[href^="https://torguard.net/aff.php"] > img, :root [data-identity="adhesive-ad"], :root a[href^="https://tc.tradetracker.net/"] > img, :root a[href^="https://tatrck.com/"], :root a[href^="https://click.candyoffers.com/"], :root [href^="https://zstacklife.com/"] img, :root a[href^="https://t.aslnk.link/"], :root a[href^="https://t.adating.link/"], :root a[href^="https://go.trackitalltheway.com/"], :root [href^="https://track.fiverr.com/visit/"] > img, :root a[href^="https://syndication.exoclick.com/"], :root a[href^="https://syndication.dynsrvtbg.com/"], :root div[data-alias="300x250 Ad 1"], :root a[href^="https://syndicate.contentsserved.com/"], :root a[href^="https://svb-analytics.trackerrr.com/"], :root a[href^="https://track.aftrk5.com/"], :root a[href^="https://slkmis.com/"], :root a[href^="https://myclick-2.com/"], :root a[href^="https://sexynearme.com/"], :root [data-ad-manager-id], :root a[href^="https://s.zlinkr.com/"], :root bottomadblock, :root a[href^="https://s.zlinkd.com/"], :root [href="https://adstub.net/gaza88/"], :root a[href^="https://ad.doubleclick.net/"], :root a[href^="https://static.fleshlight.com/images/banners/"], :root a[href^="https://s.zlink7.com/"], :root a[href^="https://s.zlink3.com/"], :root a[href^="https://www.mrskin.com/account/"], :root a[href^="https://s.optzsrv.com/"], :root a[href^="https://s.ma3ion.com/"], :root a[href^="https://s.eunow4u.com/"], :root #kt_player > div[style$="display: block;"][style*="inset: 0px;"], :root [href$="/sexdating.php"], :root a[href^="https://quotationfirearmrevision.com/"], :root a[href^="https://pubads.g.doubleclick.net/"], :root a[href^="https://prf.hn/click/"][href*="/camref:"] > img, :root a[href^="https://www.dating-finder.com/?ai_d="], :root a[href^="https://serve.awmdelivery.com/"], :root a[href^="https://prf.hn/click/"][href*="/adref:"] > img, :root app-ad, :root [href^="https://ap.octopuspop.com/click/"] > img, :root a[href^="https://postback1win.com/"], :root a[href^="https://mmwebhandler.aff-online.com/"], :root a[href^="https://www.bet365.com/"][href*="affiliate="], :root a[href^="https://pb-track.com/"], :root a[href^="https://pb-front.com/"], :root a[href^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://streamate.com/landing/click/"], :root div[class^="Adstyled__AdWrapper-"], :root a[href^="https://osfultrbriolenai.info/"], :root a[href^="https://upsups.click/"], :root a[href^="https://ndt5.net/"], :root a[href^="https://natour.naughtyamerica.com/track/"], :root a[href^="https://mediaserver.entainpartners.com/renderBanner.do?"], :root a[href^="https://lead1.pl/"], :root a[href^="https://landing.brazzersnetwork.com/"], :root a[href^="https://join.virtuallust3d.com/"], :root a[href^="https://kiksajex.com/"], :root a[href^="https://juicyads.in/"], :root a[href^="https://snowdayonline.xyz/"], :root a[href^="https://mediaserver.gvcaffiliates.com/renderBanner.do?"], :root a[href^="https://join.dreamsexworld.com/"], :root a[href^="https://join.bannedsextapes.com/track/"], :root a[href^="https://jaxofuna.com/"], :root a[href^="https://italarizege.xyz/"], :root a[href^="https://iqbroker.com/"][href*="?aff="], :root a[href^="https://identicaldrench.com/"], :root a[href^="https://hot-growngames.life/"], :root a[href^="https://helmethomicidal.com/"], :root a[href^="https://golinks.work/"], :root a[href^="https://s.zlinkn.com/"], :root a[href^="https://go.xxxvjmp.com/"], :root a[href^="https://go.xxxjmp.com"], :root [class^="tile-picker__CitrusBannerContainer-sc-"], :root a[href^="https://go.xxxiijmp.com"], :root a[href^="https://go.xtbaffiliates.com/"], :root [data-role="tile-ads-module"], :root a[href^="https://go.xlviirdr.com"], :root div[class$="-adlabel"], :root a[href^="https://go.xlviiirdr.com"], :root a[href^="https://ismlks.com/"], :root [href^="https://www.mypillow.com/"] > img, :root a[href^="https://go.xlirdr.com"], :root [data-css-class="dfp-inarticle"], :root a[href^="https://l.hyenadata.com/"], :root a[href^="https://go.tmrjmp.com"], :root a[href^="https://zirdough.net/"], :root a[href^="https://s.deltraff.com/"], :root a[href^="https://go.markets.com/visit/?bta="], :root a[href^="https://billing.purevpn.com/aff.php"] > img, :root a[href^="https://go.hpyrdr.com/"], :root a[href^="https://lijavaxa.com/"], :root a[href^="https://go.goaserv.com/"], :root a[href^="https://t.hrtye.com/"], :root a[href^="https://go.etoro.com/"] > img, :root a[href^="https://go.dmzjmp.com"], :root a[href^="https://www.bang.com/?aff="], :root #mgb-container > #mgb, :root a[href^="https://go.admjmp.com"], :root a[href^="https://ak.stikroltiltoowi.net/"], :root a[href^="https://get.surfshark.net/aff_c?"][href*="&aff_id="] > img, :root a[href^="https://www.adskeeper.com"], :root a[data-redirect^="https://paid.outbrain.com/network/redir?"], :root [href^="https://clicks.affstrack.com/"] > img, :root a[href^="https://engine.phn.doublepimp.com/"], :root a[href^="https://engine.blueistheneworanges.com/"], :root a[href^="https://drumskilxoa.click/"], :root a[href^="https://dl-protect.net/"], :root a[href*=".foxqck.com/"], :root a[href^="https://ctosrd.com/"], :root a[href^="https://clixtrac.com/"], :root [href^="https://noqreport.com/"] > img, :root a[href^="https://clicks.pipaffiliates.com/"], :root app-advertisement, :root a[href^="https://getmatchedlocally.com/"], :root a[href^="https://clickins.slixa.com/"], :root a[href^="https://datewhisper.life/"], :root a[href^="https://get-link.xyz/"], :root a[href^="https://click.linksynergy.com/fs-bin/"] > img, :root a[href^="https://combodef.com/"], :root a[href^="https://click.hoolig.app/"], :root a[href^="https://www.onlineusershielder.com/"], :root a[href^="https://click.ggpickaff.com/"], :root a[href^="https://track.totalav.com/"], :root a[href^="https://ctrdwm.com/"], :root img[src^="https://images.purevpnaffiliates.com"], :root a[href^="https://porntubemate.com/"], :root a[href^="https://clickadilla.com/"], :root a[href^="https://click.dtiserv2.com/"], :root a[href^="https://www.adxsrve.com/"], :root a[href^="https://click.Ggpickaff.com/"], :root a[href^="https://go.xlvirdr.com"], :root a[href^="http://www.iyalc.com/"], :root a[href^="https://stardomcoit.com/"], :root a[href^="https://claring-loccelkin.com/"], :root a[href^="https://bongacams2.com/track?"], :root a[href^="https://t.ajrkm1.com/"], :root a[href^="https://bongacams10.com/track?"], :root a[href^="https://www.sheetmusicplus.com/"][href*="?aff_id="], :root a[href^="https://bngpt.com/"], :root a[href^="//hoodingluster.com/"], :root a[href^="https://black77854.com/"], :root a[href^="http://annulmentequitycereals.com/"], :root [data-taboola-options], :root a[href^="https://believessway.com/"], :root a[href^="https://Click.ggpickaff.com/"], :root a[href^="https://banners.livepartners.com/"], :root a[href^="http://revolvemockerycopper.com/"], :root a[href^="https://awptjmp.com/"], :root a[href^="https://join.sexworld3d.com/track/"], :root a[href^="https://aweptjmp.com/"], :root a[href^="https://ausoafab.net/"], :root a[href^="https://aj1070.online/"], :root a[href^="https://bc.game/"], :root a[href^="https://ak.oalsauwy.net/"], :root a[href^="https://a.bestcontentoperation.top/"], :root a[href^="https://adultfriendfinder.com/go/"], :root a[href^="https://ads.planetwin365affiliate.com/"], :root a[href^="https://ads.leovegas.com/"], :root .nya-slot[style], :root a[href^="https://a.bestcontentweb.top/"], :root a[href^="https://a2.adform.net/"], :root a[href^="https://a.candyai.love/"], :root a[href^="https://playnano.online/offerwalls/?ref="], :root a[href^="https://a.adtng.com/"], :root .banner-img > .pbl, :root [data-m-ad-id], :root a[href^="https://a-ads.com/"], :root [id^="ad_slider"], :root a[href^="https://click.ggpickyaff.com/"], :root broadstreet-zone-container, :root a[href^="https://ak.psaltauw.net/"], :root a[href^="https://1winpb.com/"], :root div[id^="rc-widget-"], :root a[href^="https://turnstileunavailablesite.com/"], :root a[href^="https://chaturbate.com/in/?"], :root a[href^="https://prf.hn/click/"][href*="/creativeref:"] > img, :root a[href*="&maxads="], :root a[href^="http://www.adultempire.com/unlimited/promo?"][href*="&partner_id="], :root a[href^="https://1betandgonow.com/"], :root div[id^="optidigital-adslot"], :root [href^="https://wsup.ai/"], :root a[href^="https://123-stream.org/"], :root a[href^="https://in.rabbtrk.com/"], :root a[href^="http://www.h4trck.com/"], :root a[href^="http://www.friendlyduck.com/AF_"], :root a[href^="http://partners.etoro.com/"], :root [href="https://chaturbate.jjgirls.com/"] > img, :root a[href^="http://cam4com.go2cloud.org/aff_c?"], :root a[href^="https://ads.betfair.com/redirect.aspx?"], :root a[href^="http://trk.globwo.online/"], :root a[href^="http://troopsassistedstupidity.com/"], :root a[href^="https://random-affiliate.atimaze.com/"], :root a-ad, :root a[href^="https://offhandpump.com/"], :root a[href^="http://stickingrepute.com/"], :root #slashboxes > .deals-rail, :root a[href^="http://join.brokestraightboys.com/track/"], :root a[href^="http://roadcontagion.com/"], :root a[href^="http://premonitioninventdisagree.com/"], :root [href^="http://mypillow.com/"] > img, :root a[href^="http://bongacams.com/track?"], :root a[href^="https://track.adform.net/"], :root a[href^="http://avthelkp.net/"], :root a[href^="https://a.medfoodhome.com/"], :root a[href^="https://engine.flixtrial.com/"], :root [data-type="ad-vertical"], :root a[href^="//startgaming.net/tienda/" i], :root a[href^="https://a.medfoodsafety.com/"], :root a[href^="//go.eabids.com/"], :root a[href^="//ejitsirdosha.net/"], :root a[href^=" https://www.friendlyduck.com/AF_"], :root [data-cl-spot-id], :root a[href*="/jump/next.php?r="], :root a[href^="https://go.rmishe.com/"], :root [href^="https://ilovemyfreedoms.com/landing-"], :root a[href^="https://syndication.optimizesrv.com/"], :root a[href*="//daichoho.com/"], :root a[href^="https://go.nordvpn.net/aff"] > img, :root .\[\&_\.gdprAdTransparencyCogWheelButton\]\:\!pjra-z-\[5\], :root [href^="http://clicks.totemcash.com/"], :root a[href^="https://ad.zanox.com/ppc/"] > img, :root a[href^="https://lone-pack.com/"], :root [data-d-ad-id], :root a[href*=".engine.adglare.net/"], :root a[href^="https://t.ajrkm3.com/"], :root [href^="https://aads.com/campaigns/"], :root a[href^="//stighoazon.com/"], :root div[id^="lazyad-"], :root a[href^="http://com-1.pro/"], :root [href^="https://www.profitablegatecpm.com/"], :root a[href*=".cfm?domain="][href*="&fp="], :root [data-ad-name], :root a[href^="https://loboclick.com/"], :root a[data-url^="https://vulpix.bet/?ref="], :root a[href^="https://ab.advertiserurl.com/aff/"], :root a[data-oburl^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://go.xlivrdr.com"], :root [onclick^="location.href='https://1337x.vpnonly.site/"], :root [id^="section-ad-banner"], :root a[href^="https://www.goldenfrog.com/vyprvpn?offer_id="][href*="&aff_id="], :root a[href^="https://wmctjd.com/"], :root a[href*="//jjgirls.com/sex/Chaturbate"], :root [id^="ad-wrap-"], :root [href^="https://zone.gotrackier.com/"], :root a[href^="http://sarcasmadvisor.com/"], :root [href^="https://www.restoro.com/"], :root [href^="https://www.targetingpartner.com/"], :root .section-subheader > .section-hotel-prices-header, :root [href^="https://www.hostg.xyz/"] > img, :root a[href^="http://adultfriendfinder.com/go/"], :root a[href^="https://fastestvpn.com/lifetime-special-deal?a_aid="], :root a[href^="https://tour.mrskin.com/"], :root [href^="https://www.brighteonstore.com/products/"] img, :root citrus-ad-wrapper, :root a[href^="https://go.grinsbest.com/"], :root a[href^="https://vo2.qrlsx.com/"], :root [href^="https://www.avantlink.com/click.php"] img, :root [href^="https://wwp.hoqodd.com/redirect-zone/"], :root div[id^="div-ads-"], :root [href^="https://rapidgator.net/article/premium/ref/"], :root [href^="https://join.girlsoutwest.com/"], :root a[href^="https://activate-game.com/"], :root .scroll-fixable.rail-right > .deals-rail, :root [data-wpas-zoneid], :root a[href^="https://track.aftrk3.com/"], :root [href^="https://join3.bannedsextapes.com"], :root a[href^="https://bodelen.com/"], :root a[href*=".g2afse.com/"], :root div[id^="adngin-"], :root [data-rc-widget], :root span[data-ez-ph-id], :root [href^="https://track.aftrk1.com/"], :root [href^="https://join.playboyplus.com/track/"], :root a[href^="https://go.xxxijmp.com"], :root [href^="https://istlnkcl.com/"], :root a[href^="https://t.acam.link/"], :root a[href^="https://go.strpjmp.com/"], :root [href^="https://url.totaladblock.com/"], :root a[href^="https://tm-offers.gamingadult.com/"], :root [href^="https://charmingdatings.life/"], :root [href="https://adstub.net/indo666/"], :root [href^="https://glersakr.com/"], :root a[href^="https://a.bestcontentfood.top/"], :root [href^="https://cpa.10kfreesilver.com/"], :root [data-id^="div-gpt-ad"], :root a[href^="https://tracker.loropartners.com/"], :root [href^="https://awbbjmp.com/"], :root div[ow-ad-unit-wrapper], :root a[data-href^="http://ads.trafficjunky.net/"], :root [data-advadstrackid], :root a[href^="https://www.friendlyduck.com/AF_"], :root [href^="https://ad1.adfarm1.adition.com/"], :root a[href^="https://bngprm.com/"], :root [href^="https://shiftnetwork.infusionsoft.com/go/"] > img, :root a[href^="https://go.bushheel.com/"], :root a[href^="https://ctjdwm.com/"], :root a[href^="https://camfapr.com/landing/click/"], :root div[data-ad-wrapper], :root .gnt_em_vp_c[data-g-s="vp_dk"], :root [href="//sexcams.plus/"], :root [href^="http://www.mypillow.com/"] > img, :root a[href^="https://promerycergerful.com/"], :root #kt_player > a[target="_blank"], :root [href="https://ourgoldguy.com/contact/"] img, :root .ob_container .item-container-obpd, :root [id^="div-gpt-ad"], :root [href="https://jdrucker.com/gold"] > img, :root a[href^="https://join.virtualtaboo.com/track/"], :root [id^="ad_sky"], :root [name^="google_ads_iframe"], :root a[href^="https://www.liquidfire.mobi/"], :root .grid > .container > #aside-promotion, :root DFP-AD, :root [href^="https://go.xlrdr.com"], :root a[href^="https://s.cant3am.com/"], :root [data-testid^="taboola-"], :root [data-testid^="section-AdRowBillboard"], :root a[href^="https://track.1234sd123.com/"], :root zeus-ad, :root [data-testid="prism-ad-wrapper"], :root [href^="https://ad.admitad.com/"], :root [href^="https://mypillow.com/"] > img, :root [data-testid="ad_testID"], :root a[href^="https://trk.softonixs.xyz/"], :root [href^="https://www.mypatriotsupply.com/"] > img, :root [href^="https://antiagingbed.com/discount/"] > img, :root a[href*=".adsrv.eacdn.com/"], :root a[href^="https://go.cmtaffiliates.com/"], :root [href^="https://optimizedelite.com/"] > img, :root [data-testid="adBanner-wrapper"], :root [href^="https://mylead.global/stl/"] > img, :root [href^="https://mypatriotsupply.com/"] > img, :root a[href^="https://go.hpyjmp.com"], :root iframe[scrolling="no"][sandbox*="allow-popups allow-modals"][style^="width: 100%; height: 100%; border: none;"], :root [href^="https://mystore.com/"] > img, :root [href^="https://wct.link/click?"], :root div[data-adunit], :root app-large-ad, :root [href^="https://turtlebids.irauctions.com/"] img, :root a[href^="https://witnessjacket.com/"], :root [data-mobile-ad-id], :root [data-dynamic-ads], :root [class^="amp-ad-"], :root a[href^="http://handgripvegetationhols.com/"], :root a[href^="https://go.rmhfrtnd.com"], :root a[href^="https://go.bbrdbr.com"], :root a[href^="https://fc.lc/ref/"], :root [data-adshim], :root topadblock, :root a[href^="//s.zlinkd.com/"], :root #teaser1[style^="width:autopx;"], :root [href^="https://www.cloudways.com/en/?id"], :root [data-asg-ins], :root a[href^="https://gamingadlt.com/?offer="], :root a[href^="https://rixofa.com/"], :root a[href^="https://best-experience-cool.com/"], :root [data-desktop-ad-id], :root [data-adbridg-ad-class], :root #teaser3[style^="width:autopx;"], :root [data-adblockkey], :root [data-block-type="ad"], :root [data-ad-width], :root [onclick*="content.ad/"], :root AMP-AD, :root [data-ad-cls], :root [data-ez-name], :root a[href^="https://go.mnaspm.com/"], :root a[href^="https://service.bv-aff-trx.com/"], :root a[href^="https://6-partner.com/"], :root [class^="s2nPlayer"], :root [href^="https://affiliate.fastcomet.com/"] > img, :root [class^="adDisplay-module"], :root a[href^="https://adclick.g.doubleclick.net/"], :root [data-freestar-ad][id], :root AD-SLOT, :root a[href^="https://www.googleadservices.com/pagead/aclk?"] > img, :root [data-ad-module], :root a[href^="https://go.skinstrip.net"][href*="?campaignId="], :root #teaser2[style^="width:autopx;"], :root [data-revive-zoneid], :root a[href^="https://losingoldfry.com/"], :root div[id^="div-gpt-"], :root a[href^="https://gml-grp.com/"], :root .ob_dual_right > .ob_ads_header ~ .odb_div, :root a[href^="http://tc.tradetracker.net/"] > img, :root [data-testid="commercial-label-taboola"], :root [class^="div-gpt-ad"], :root a[href^="https://traffdaq.com/"], :root a[href^="https://cam4com.go2cloud.org/"], :root a[href^="http://li.blogtrottr.com/click?"], :root a[href^="https://www8.smartadserver.com/"], :root a[href^="https://pb-imc.com/"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"], :root a[href^="https://t.ajump1.com/"], :root a[href^="https://wittered-mainging.com/"], :root #teaser3[style="width: 100%;text-align: center;display: scroll;position:fixed;bottom: 0;margin: 0 auto;z-index: 103;"] { display: none !important; }</style><style>@media only screen and (min-width:900px){.bfa-maximum div[id*=primis_playerSekindoSPlayer][style*="position: fixed"]{top:var(--nnVideoOffsetTop,140px)!important}.bfa-loaded.bfa-collapsed div[id*=primis_playerSekindoSPlayer][style*="position: fixed"]{bottom:100px!important;top:auto!important}}@media(max-width:899px){.bfa-maximum div[id^=primis_playerSekindoSPlayer][style^="overflow: visible"][style*="position: fixed"]{bottom:140px!important}}</style><style>.galaxy-maximum div[id*=primis_playerSekindoSPlayer][style*="position: fixed"]{bottom:510px!important}.galaxy-loaded div[id*=primis_playerSekindoSPlayer][style*="position: fixed"]{bottom:265px!important;top:auto!important}.galaxy-loaded .notranslate.celtra-placement-sticky img{display:none}</style><script charset="utf-8" src="https://cdn.privacy-mgmt.com/unified/4.39.0/gdpr-tcf.fd0289ea28f774a797b7.bundle.js"></script><script charset="utf-8" src="https://cdn.privacy-mgmt.com/unified/4.39.0/usnat.f12613136193900e32e2.bundle.js"></script><script src="https://cdn1.anonymised.io/light/bundle.js?v=1.8.3" async="" nnid="nn-482cb016" id="idward-plugin-js" idw_client_id="NTU=" idw_hide_button="true"></script><script src="https://cdn1.anonymised.io/light/auth.js?v=1.8.3"></script><style>@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600&display=swap);</style><style>#idw-plugin-container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: content-box;
+    position: fixed;
+    left: -160px;
+    bottom: -160px;
+    z-index: 999999;
+    background-color: #fff;
+
+    height: auto;
+    max-width: 160px;
+    width: 160px;
+    min-width: 160px;
+    color: #171717;
+    line-height: 1rem;
+
+    outline: 1px solid #171717;
+    justify-content: flex-start;
+
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: left .4s, bottom .4s, opacity .1s;
+}
+
+#idw-plugin-container.idw-open {
+    left: 0;
+    bottom: 0;
+    opacity: 1;
+}
+
+#idw-plugin-buttons {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: auto;
+}
+
+#idw-plugin-container .pluginBtn {
+    border: none;
+    padding: 1px 5px !important;
+    margin: 0 !important;
+    width: auto !important;
+    height: 25px !important;
+    box-sizing: border-box !important;
+
+    border-radius: 0 !important;
+    text-align: right !important;
+
+    font-family: 'Open Sans', sans-serif !important;
+    line-height: normal !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+
+    background-color: #ffffff !important;
+    transition: background-color 0.2s;
+    cursor: pointer !important;
+}
+
+#idw-plugin-container .pluginBtn:hover {
+    outline: 1px solid #ffffff !important;
+    background-color: #171717 !important;
+    color: #ffffff !important;
+}
+
+#idw-open-trigger {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    z-index: 999999;
+    cursor: pointer;
+    -webkit-clip-path: polygon(100% 100%, 0 100%, 0 0);
+    clip-path: polygon(100% 100%, 0 100%, 0 0);
+    background-color: #171717 !important;
+}
+
+#idw-open-trigger img {
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    /* padding: 4px; */
+    bottom: -2px;
+    left: -2px;
+}</style><style>/***************/
+/*MEDIA QUERIES*/
+/***************/
+/*
+  ##Device: Tablets, Ipads (portrait)
+  ##Screen: B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+    
+}
+/*
+  ##Device: Most of the Smartphones Mobiles (Portrait)
+  ##Screen: B/w 320px to 479px
+*/
+@media (min-width: 400px) and (max-width: 480px) {
+
+}</style><style>
+      #idw-plugin-container .pluginBtn {
+            color: undefined !important;
+        }
+
+        #idw-plugin-container .pluginBtn:hover {
+            background-color: undefined !important;
+        }
+                
+        #idw-open-trigger {
+            background-color: undefined;
+        }
+    </style><script type="text/javascript" async="" src="https://cdn1.anonymised.io/light/retargeting.js?v=1.8.3" retargeting-segments-url="https://user-segments.anonymised.io/retargeting" metrics-url="https://api.anonymised.io/v3/collect/tag" tag-type="publisher"></script></head>
+<body class="">
+<script type="text/javascript">
+	var viewport_meta = document.getElementById('viewport-meta');
+	var viewport_timer;
+
+	// these body*Class are reused in the lbar mobile menu
+	function bodyAddClass(className){
+		if(document.body) document.body.classList.add(className);
+	}
+	function bodyRemoveClass(className){
+		if(document.body) document.body.className = document.body.className.replace(className,"");
+	}
+
+	function viewport_set() {
+		// Define our viewport meta values
+		var viewports = {
+			default: viewport_meta.getAttribute('content'),
+			mobileL: 'width=device-width,initial-scale=0.75',
+			mobileM: 'width=device-width,initial-scale=0.5',
+			mobileS: 'width=device-width,initial-scale=0.4'
+		};
+
+		// Change the viewport value based on screen.width
+		if(screen.width < 370){
+			viewport_meta.setAttribute('content', viewports.mobileS);
+			bodyAddClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		} else if(screen.width < 505){
+			viewport_meta.setAttribute('content', viewports.mobileM);
+			bodyRemoveClass("nav_mobileS");
+			bodyAddClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		} else if (screen.width < 760){
+			viewport_meta.setAttribute('content', viewports.mobileL);
+			bodyRemoveClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyAddClass("nav_mobileL");
+		} else{
+			viewport_meta.setAttribute('content', viewports.default);
+			bodyRemoveClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		}
+	}
+
+	// Set the correct viewport value on page load
+	viewport_set();
+
+	/* attach listener to (delay) set the correct viewport after device orientation change or resize. also onload so the nav_mobile* class gets added to body AFTER <body> has loaded */
+	if(window.addEventListener){
+		window.addEventListener('load', viewport_set);
+		window.addEventListener('resize', function(){
+			clearTimeout(viewport_timer);
+			viewport_timer = setTimeout(viewport_set, 100);
+		})
+	} else{
+		window.attachEvent('onload', viewport_set)
+		window.attachEvent('onresize', function(){
+			clearTimeout(viewport_timer);
+			viewport_timer = setTimeout(viewport_set, 100);
+		})
+	}
+
+</script>
+
+
+<header id="header">
+	<div class="banner">
+		<a href="/"><img src="/Banner.jpg" alt="Serebii.net Header" style="height:139px"></a>
+	</div>
+
+	<nav class="quicklinks">
+		<ul>
+			<li><b>Quick Links</b></li>
+			<li><a href="/index2.shtml">Home</a></li>
+			<li><a href="https://forums.serebii.net/" target="blank">Forums</a></li>
+			<li><a href="mailto:webmaster@serebii.net">Contact</a></li>
+			<li><a href="/discord.shtml">Discord</a></li>
+			<li><a href="/pokemon">Pokédex Hub</a></li>
+			<li><a href="/pokemongo/pokemon">GO Pokédex</a></li>
+			<li><a href="/pokedex-sv">Scarlet &amp; Violet Pokédex</a></li>
+			<li><a href="/pokearth">Pokéarth</a></li>
+
+			<li class="search">
+				<form id="searchbox_018410473690156091934:6gahkiyodbi" action="/search.shtml" style="margin:0px;">
+					<input type="hidden" name="cx" value="018410473690156091934:6gahkiyodbi">
+					<input type="hidden" name="cof" value="FORID:11">
+					<input name="q" type="text" size="20">
+					<input type="submit" name="sa" value="Search">
+				</form>
+				<script type="text/javascript" src="//www.google.com/coop/cse/brand?form=searchbox_018410473690156091934%3A6gahkiyodbi"></script>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+
+
+
+
+<div id="wrapper">
+
+<ul id="tbar_sticky">
+	<li>
+		<a href="#lbar" class="navheader" id="tbar_lbar_open"><img src="/hidden/2019-04/burger.svg"></a>
+	</li>
+	<li>
+		<form id="searchbox_018410473690156091934:6gahkiyodbi" action="/search.shtml" style="margin:0px;">
+			<input type="hidden" name="cx" value="018410473690156091934:6gahkiyodbi">
+			<input type="hidden" name="cof" value="FORID:11">
+			<input name="q" type="search" placeholder="Search Serebii.net...">
+		</form>
+	</li>
+	<li>
+		<a href="#rbar" class="navheader" id="tbar_rbar_open" style="padding-right:20px"><img src="/hidden/2019-04/burger.svg"></a>
+	</li>
+</ul>
+<div id="tbar_backdrop"></div>
+<p>Welcome to the Pokéarth section. This section contains access to every area from every main Pokémon game and the Ranger games. This crosses all generations and uses the sprites of that time in order for confusion to not set in.</p>
+
+<p>To navigate, click the area you require on the map or, failing that, utilise the drop down menu included above it. Please note that not all areas are accessible utilising the map. Please note the positioning of the regions is not official and was manipulated for space reasons.</p>
+
+<p align="center"></p><table align="center" width="500" border="0" cellspacing="0" cellpadding="4">
+<tbody><tr>
+
+<td align="center" width="25%"><form name="kanto"><div>
+ <select name="SelectURL" onchange="document.location.href=document.kanto.SelectURL.options[document.kanto.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/kanto/index.shtml">Pokéarth: Kanto</option>
+<option value="/pokearth/kanto/route1.shtml">Route 1</option>
+<option value="/pokearth/kanto/route2.shtml">Route 2</option>
+<option value="/pokearth/kanto/route3.shtml">Route 3</option>
+<option value="/pokearth/kanto/route4.shtml">Route 4</option>
+<option value="/pokearth/kanto/route5.shtml">Route 5</option>
+<option value="/pokearth/kanto/route6.shtml">Route 6</option>
+<option value="/pokearth/kanto/route7.shtml">Route 7</option>
+<option value="/pokearth/kanto/route8.shtml">Route 8</option>
+<option value="/pokearth/kanto/route9.shtml">Route 9</option>
+<option value="/pokearth/kanto/route10.shtml">Route 10</option>
+<option value="/pokearth/kanto/route11.shtml">Route 11</option>
+<option value="/pokearth/kanto/route12.shtml">Route 12</option>
+<option value="/pokearth/kanto/route13.shtml">Route 13</option>
+<option value="/pokearth/kanto/route14.shtml">Route 14</option>
+<option value="/pokearth/kanto/route15.shtml">Route 15</option>
+<option value="/pokearth/kanto/route16.shtml">Route 16</option>
+<option value="/pokearth/kanto/route17.shtml">Route 17</option>
+<option value="/pokearth/kanto/route18.shtml">Route 18</option>
+<option value="/pokearth/kanto/route19.shtml">Route 19</option>
+<option value="/pokearth/kanto/route20.shtml">Route 20</option>
+<option value="/pokearth/kanto/route21.shtml">Route 21</option>
+<option value="/pokearth/kanto/route22.shtml">Route 22</option>
+<option value="/pokearth/kanto/route23.shtml">Route 23</option>
+<option value="/pokearth/kanto/route24.shtml">Route 24</option>
+<option value="/pokearth/kanto/route25.shtml">Route 25</option>
+<option value="/pokearth/kanto/route26.shtml">Route 26</option>
+<option value="/pokearth/kanto/route27.shtml">Route 27</option>
+<option value="/pokearth/kanto/route28.shtml">Route 28</option>
+<option value="/pokearth/kanto/ceruleancave.shtml">Cerulean Cave</option>
+<option value="/pokearth/kanto/ceruleancity.shtml">Cerulean City</option>
+<option value="/pokearth/kanto/cinnabarisland.shtml">Cinnabar Island</option>
+<option value="/pokearth/kanto/celadoncity.shtml">Celadon City</option>
+<option value="/pokearth/kanto/diglett'scave.shtml">Diglett's Cave</option>
+<option value="/pokearth/kanto/fuchsiacity.shtml">Fuchsia City</option>
+<option value="/pokearth/kanto/indigoplateau.shtml">Indigo Plateau</option>
+<option value="/pokearth/kanto/lavendertown.shtml">Lavender Town</option>
+<option value="/pokearth/kanto/mt.moon.shtml">Mt. Moon</option>
+<option value="/pokearth/kanto/pallettown.shtml">Pallet Town</option>
+<option value="/pokearth/kanto/pewtercity.shtml">Pewter City</option>
+<option value="/pokearth/kanto/pokemonmansion.shtml">Pokémon Mansion</option>
+<option value="/pokearth/kanto/pokemontower.shtml">Pokémon Tower</option>
+<option value="/pokearth/kanto/powerplant.shtml">Power Plant</option>
+<option value="/pokearth/kanto/receptiongate.shtml">Reception Gate</option>
+<option value="/pokearth/kanto/rocktunnel.shtml">Rock Tunnel</option>
+<option value="/pokearth/kanto/rockethideout.shtml">Rocket Hideout</option>
+<option value="/pokearth/kanto/safarizone.shtml">Safari Zone</option>
+<option value="/pokearth/kanto/saffroncity.shtml">Saffron City</option>
+<option value="/pokearth/kanto/seafoamislands.shtml">Seafoam Islands</option>
+<option value="/pokearth/kanto/silphco.shtml">Silph Co.</option>
+<option value="/pokearth/kanto/ssanne.shtml">SS Anne</option>
+<option value="/pokearth/kanto/tohjofalls.shtml">Tohjo Falls</option>
+<option value="/pokearth/kanto/undergroundpath5-6.shtml">Underground Path 5-6</option>
+<option value="/pokearth/kanto/undergroundpath7-8.shtml">Underground Path 7-8</option>
+<option value="/pokearth/kanto/vermilioncity.shtml">Vermilion City</option>
+<option value="/pokearth/kanto/victoryroad.shtml">Victory Road</option>
+<option value="/pokearth/kanto/viridiancity.shtml">Viridian City</option>
+<option value="/pokearth/kanto/viridianforest.shtml">Viridian Forest</option>
+
+
+</select><div> 
+<form name="seviiisles"><div>
+
+ <select name="SelectURL" onchange="document.location.href=document.seviiisles.SelectURL.options[document.seviiisles.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+
+<option value="/pokearth/kanto/index.shtml">Pokéarth: Kanto - Sevii Islands</option>
+<option value="/pokearth/kanto/oneisland.shtml">One Island</option>
+<option value="/pokearth/kanto/kindleroad.shtml">Kindle Road</option>
+<option value="/pokearth/kanto/treasurebeach.shtml">Treasure Beach</option>
+<option value="/pokearth/kanto/mt.ember.shtml">Mt. Ember</option>
+<option value="/pokearth/kanto/twoisland.shtml">Two Island</option>
+<option value="/pokearth/kanto/capebrink.shtml">Cape Brink</option>
+<option value="/pokearth/kanto/threeisland.shtml">Three Island</option>
+<option value="/pokearth/kanto/threeisleport.shtml">Three Isle Port</option>
+<option value="/pokearth/kanto/threeislepath.shtml">Three Isle Path</option>
+<option value="/pokearth/kanto/bondbridge.shtml">Bond Bridge</option>
+<option value="/pokearth/kanto/berryforest.shtml">Berry Forest</option>
+<option value="/pokearth/kanto/fourisland.shtml">Four Island</option>
+<option value="/pokearth/kanto/icefallcave.shtml">Icefall Cave</option>
+<option value="/pokearth/kanto/fiveisland.shtml">Five Island</option>
+<option value="/pokearth/kanto/fiveislemeadow.shtml">Five Isle Meadow</option>
+<option value="/pokearth/kanto/memorialpillar.shtml">Memorial Pillar</option>
+<option value="/pokearth/kanto/waterlabyrinth.shtml">Water Labyrinth</option>
+<option value="/pokearth/kanto/resortgorgeous.shtml">Resort Gorgeous</option>
+<option value="/pokearth/kanto/rocketwarehouse.shtml">Rocket Warehouse</option>
+<option value="/pokearth/kanto/lostcave.shtml">Lost Cave</option>
+<option value="/pokearth/kanto/sixisland.shtml">Six Island</option>
+<option value="/pokearth/kanto/waterpath.shtml">Water Path</option>
+<option value="/pokearth/kanto/ruinvalley.shtml">Ruin Valley</option>
+<option value="/pokearth/kanto/dottedhole.shtml">Dotted Hole</option>
+<option value="/pokearth/kanto/greenpath.shtml">Green Path</option>
+<option value="/pokearth/kanto/patternbush.shtml">Pattern Bush</option>
+<option value="/pokearth/kanto/outcastisland.shtml">Outcast Island</option>
+<option value="/pokearth/kanto/alteringcave.shtml">Altering Cave</option>
+<option value="/pokearth/kanto/sevenisland.shtml">Seven Island</option>
+<option value="/pokearth/kanto/trainertower.shtml">Trainer Tower</option>
+<option value="/pokearth/kanto/canyonentrance.shtml">Canyon Entrance</option>
+<option value="/pokearth/kanto/sevaultcanyon.shtml">Sevault Canyon</option>
+<option value="/pokearth/kanto/tanobyruins.shtml">Tanoby Ruins</option>
+<option value="/pokearth/kanto/navelrock.shtml">Navel Rock</option>
+<option value="/pokearth/kanto/birthisland.shtml">Birth Island</option>
+</select> </div></form></div></div></form></td>
+
+<td align="center" width="25%"><form name="johto"><div>
+ <select name="SelectURL" onchange="document.location.href=document.johto.SelectURL.options[document.johto.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/johto/index.shtml">Pokéarth: Johto</option>
+<option value="/pokearth/johto/route29.shtml">Route 29</option>
+<option value="/pokearth/johto/route30.shtml">Route 30</option>
+<option value="/pokearth/johto/route31.shtml">Route 31</option>
+<option value="/pokearth/johto/route32.shtml">Route 32</option>
+<option value="/pokearth/johto/route33.shtml">Route 33</option>
+<option value="/pokearth/johto/route34.shtml">Route 34</option>
+<option value="/pokearth/johto/route35.shtml">Route 35</option>
+<option value="/pokearth/johto/route36.shtml">Route 36</option>
+<option value="/pokearth/johto/route37.shtml">Route 37</option>
+<option value="/pokearth/johto/route38.shtml">Route 38</option>
+<option value="/pokearth/johto/route39.shtml">Route 39</option>
+<option value="/pokearth/johto/route40.shtml">Route 40</option>
+<option value="/pokearth/johto/route41.shtml">Route 41</option>
+<option value="/pokearth/johto/route42.shtml">Route 42</option>
+<option value="/pokearth/johto/route43.shtml">Route 43</option>
+<option value="/pokearth/johto/route44.shtml">Route 44</option>
+<option value="/pokearth/johto/route45.shtml">Route 45</option>
+<option value="/pokearth/johto/route46.shtml">Route 46</option>
+<option value="/pokearth/johto/route47.shtml">Route 47</option>
+<option value="/pokearth/johto/route48.shtml">Route 48</option>
+<option value="/pokearth/johto/azaleatown.shtml">Azalea Town</option>
+<option value="/pokearth/johto/battlefrontier.shtml">Battle Frontier</option>
+<option value="/pokearth/johto/battletower.shtml">Battle Tower</option>
+<option value="/pokearth/johto/bellchimetrail.shtml">Bellchime Trail</option>
+<option value="/pokearth/johto/belltower.shtml">Bell Tower</option>
+<option value="/pokearth/johto/blackthorncity.shtml">Blackthorn City</option>
+<option value="/pokearth/johto/burnedtower.shtml">Burned Tower</option>
+<option value="/pokearth/johto/cherrygrovecity.shtml">Cherrygrove City</option>
+<option value="/pokearth/johto/cianwoodcity.shtml">Cianwood City</option>
+<option value="/pokearth/johto/cliffcave.shtml">Cliff Cave</option>
+<option value="/pokearth/johto/cliffedgegate.shtml">Cliff Edge Gate</option>
+<option value="/pokearth/johto/darkcave.shtml">Dark Cave</option>
+<option value="/pokearth/johto/dragon'sden.shtml">Dragon's Den</option>
+<option value="/pokearth/johto/ecruteakcity.shtml">Ecruteak City</option>
+<option value="/pokearth/johto/embeddedtower.shtml">Embedded Tower</option>
+<option value="/pokearth/johto/frontieraccess.shtml">Frontier Access</option>
+<option value="/pokearth/johto/goldenrodcity.shtml">Goldenrod City</option>
+<option value="/pokearth/johto/goldenrodunderground.shtml">Goldenrod Underground</option>
+<option value="/pokearth/johto/icepath.shtml">Ice Path</option>
+<option value="/pokearth/johto/ilexforest.shtml">Ilex Forest</option>
+<option value="/pokearth/johto/lakeofrage.shtml">Lake of Rage</option>
+<option value="/pokearth/johto/mahoganytown.shtml">Mahogany Town</option>
+<option value="/pokearth/johto/mt.mortar.shtml">Mt. Mortar</option>
+<option value="/pokearth/johto/mt.silver.shtml">Mt. Silver</option>
+<option value="/pokearth/johto/nationalpark.shtml">National Park</option>
+<option value="/pokearth/johto/newbarktown.shtml">New Bark Town</option>
+<option value="/pokearth/johto/olivinecity.shtml">Olivine City</option>
+<option value="/pokearth/johto/pokeathlondome.shtml">Pokéathlon Dome</option>
+<option value="/pokearth/johto/radiotower.shtml">Radio Tower</option>
+<option value="/pokearth/johto/rockethideout.shtml">Rocket Hideout</option>
+<option value="/pokearth/johto/ruinsofalph.shtml">Ruins of Alph</option>
+<option value="/pokearth/johto/safarizone.shtml">Safari Zone</option>
+<option value="/pokearth/johto/safarizonegate.shtml">Safari Zone Gate</option>
+<option value="/pokearth/johto/shininglighthouse.shtml">Shining Lighthouse</option>
+<option value="/pokearth/johto/sinjohruins.shtml">Sinjoh Ruins</option>
+<option value="/pokearth/johto/slowpokewell.shtml">Slowpoke Well</option>
+<option value="/pokearth/johto/sprouttower.shtml">Sprout Tower</option>
+<option value="/pokearth/johto/ssaqua.shtml">SS Aqua</option>
+<option value="/pokearth/johto/tintower.shtml">Tin Tower</option>
+<option value="/pokearth/johto/unioncave.shtml">Union Cave</option>
+<option value="/pokearth/johto/violetcity.shtml">Violet City</option>
+<option value="/pokearth/johto/whirlislands.shtml">Whirl Islands</option>
+
+</select> </div></form></td>
+<td align="center" width="25%"><form name="hoenn"><div>
+ <select name="SelectURL" onchange="document.location.href=document.hoenn.SelectURL.options[document.hoenn.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/hoenn/index.shtml">Pokéarth: Hoenn</option>
+
+<option value="/pokearth/hoenn/route101.shtml">Route 101</option>
+<option value="/pokearth/hoenn/route102.shtml">Route 102</option>
+<option value="/pokearth/hoenn/route103.shtml">Route 103</option>
+<option value="/pokearth/hoenn/route104.shtml">Route 104</option>
+<option value="/pokearth/hoenn/route105.shtml">Route 105</option>
+<option value="/pokearth/hoenn/route106.shtml">Route 106</option>
+<option value="/pokearth/hoenn/route107.shtml">Route 107</option>
+<option value="/pokearth/hoenn/route108.shtml">Route 108</option>
+<option value="/pokearth/hoenn/route109.shtml">Route 109</option>
+<option value="/pokearth/hoenn/route110.shtml">Route 110</option>
+<option value="/pokearth/hoenn/route111.shtml">Route 111</option>
+<option value="/pokearth/hoenn/route112.shtml">Route 112</option>
+<option value="/pokearth/hoenn/route113.shtml">Route 113</option>
+<option value="/pokearth/hoenn/route114.shtml">Route 114</option>
+<option value="/pokearth/hoenn/route115.shtml">Route 115</option>
+<option value="/pokearth/hoenn/route116.shtml">Route 116</option>
+<option value="/pokearth/hoenn/route117.shtml">Route 117</option>
+<option value="/pokearth/hoenn/route118.shtml">Route 118</option>
+<option value="/pokearth/hoenn/route119.shtml">Route 119</option>
+<option value="/pokearth/hoenn/route120.shtml">Route 120</option>
+<option value="/pokearth/hoenn/route121.shtml">Route 121</option>
+<option value="/pokearth/hoenn/route122.shtml">Route 122</option>
+<option value="/pokearth/hoenn/route123.shtml">Route 123</option>
+<option value="/pokearth/hoenn/route124.shtml">Route 124</option>
+<option value="/pokearth/hoenn/route125.shtml">Route 125</option>
+<option value="/pokearth/hoenn/route126.shtml">Route 126</option>
+<option value="/pokearth/hoenn/route127.shtml">Route 127</option>
+<option value="/pokearth/hoenn/route128.shtml">Route 128</option>
+<option value="/pokearth/hoenn/route129.shtml">Route 129</option>
+<option value="/pokearth/hoenn/route130.shtml">Route 130</option>
+<option value="/pokearth/hoenn/route131.shtml">Route 131</option>
+<option value="/pokearth/hoenn/route132.shtml">Route 132</option>
+<option value="/pokearth/hoenn/route133.shtml">Route 133</option>
+<option value="/pokearth/hoenn/route134.shtml">Route 134</option>
+
+
+<option value="/pokearth/hoenn/abandonedship.shtml">Abandoned Ship</option>
+<option value="/pokearth/hoenn/alteringcave.shtml">Altering Cave</option>
+<option value="/pokearth/hoenn/aquahideout.shtml">Aqua/Magma Hideout</option>
+<option value="/pokearth/hoenn/artisancave.shtml">Artisan Cave</option>
+<option value="/pokearth/hoenn/battlefrontier.shtml">Battle Frontier</option>
+<option value="/pokearth/hoenn/battleresort.shtml">Battle Resort</option>
+<option value="/pokearth/hoenn/battletower.shtml">Battle Tower</option>
+<option value="/pokearth/hoenn/birthisland.shtml">Birth Island</option>
+<option value="/pokearth/hoenn/caveoforigin.shtml">Cave of Origin</option>
+<option value="/pokearth/hoenn/crescentisle.shtml">Crescent Isle</option>
+<option value="/pokearth/hoenn/desertunderpass.shtml">Desert Underpass</option>
+<option value="/pokearth/hoenn/dewfordtown.shtml">Dewford Town</option>
+<option value="/pokearth/hoenn/evergrandecity.shtml">Evergrande City</option>
+<option value="/pokearth/hoenn/fabledcave.shtml">Fabled Cave</option>
+<option value="/pokearth/hoenn/fallarbortown.shtml">Fallarbor Town</option>
+<option value="/pokearth/hoenn/farawayisland.shtml">Faraway Island</option>
+<option value="/pokearth/hoenn/fierypath.shtml">Fiery Path</option>
+<option value="/pokearth/hoenn/fortreecity.shtml">Fortree City</option>
+<option value="/pokearth/hoenn/gnarledden.shtml">Gnarled Den</option>
+<option value="/pokearth/hoenn/granitecave.shtml">Granite Cave</option>
+<option value="/pokearth/hoenn/jaggedpass.shtml">Jagged Pass</option>
+<option value="/pokearth/hoenn/lavaridgetown.shtml">Lavaridge Town</option>
+<option value="/pokearth/hoenn/lilycovecity.shtml">Lilycove City</option>
+<option value="/pokearth/hoenn/littleroottown.shtml">Littleroot Town</option>
+<option value="/pokearth/hoenn/magmahideout.shtml">Magma Hideout</option>
+<option value="/pokearth/hoenn/marinecave.shtml">Marine Cave</option>
+<option value="/pokearth/hoenn/mauvillecity.shtml">Mauville City</option>
+<option value="/pokearth/hoenn/meteorfalls.shtml">Meteor Falls</option>
+<option value="/pokearth/hoenn/miragecave.shtml">Mirage Cave</option>
+<option value="/pokearth/hoenn/mirageforest.shtml">Mirage Forest</option>
+<option value="/pokearth/hoenn/mirageisland.shtml">Mirage Island</option>
+<option value="/pokearth/hoenn/miragemountain.shtml">Mirage Mountain</option>
+<option value="/pokearth/hoenn/miragetower.shtml">Mirage Tower</option>
+<option value="/pokearth/hoenn/mossdeepcity.shtml">Mossdeep City</option>
+<option value="/pokearth/hoenn/mt.chimney.shtml">Mt. Chimney</option>
+<option value="/pokearth/hoenn/mt.pyre.shtml">Mt. Pyre</option>
+<option value="/pokearth/hoenn/navelrock.shtml">Navel Rock</option>
+<option value="/pokearth/hoenn/namelesscavern.shtml">Nameless Cavern</option>
+<option value="/pokearth/hoenn/newmauville.shtml">New Mauville</option>
+<option value="/pokearth/hoenn/oldaletown.shtml">Oldale Town</option>
+<option value="/pokearth/hoenn/pacifidlogtown.shtml">Pacifidlog Town</option>
+<option value="/pokearth/hoenn/pathlessplain.shtml">Pathless Plain</option>
+<option value="/pokearth/hoenn/petalburgcity.shtml">Petalburg City</option>
+<option value="/pokearth/hoenn/petalburgwoods.shtml">Petalburg Woods</option>
+<option value="/pokearth/hoenn/pokemonleague.shtml">Pokémon League</option>
+<option value="/pokearth/hoenn/rustborocity.shtml">Rustboro City</option>
+<option value="/pokearth/hoenn/rusturftunnel.shtml">Rusturf Tunnel</option>
+<option value="/pokearth/hoenn/safarizone.shtml">Safari Zone</option>
+<option value="/pokearth/hoenn/scorchedslab.shtml">Scorched Slab</option>
+<option value="/pokearth/hoenn/seamauville.shtml">Sea Mauville</option>
+<option value="/pokearth/hoenn/seafloorcavern.shtml">Seafloor Cavern</option>
+<option value="/pokearth/hoenn/sealedchamber.shtml">Sealed Chamber</option>
+<option value="/pokearth/hoenn/secretislet.shtml">Secret Islet</option>
+<option value="/pokearth/hoenn/secretmeadow.shtml">Secret Meadow</option>
+<option value="/pokearth/hoenn/secretshore.shtml">Secret Shore</option>
+<option value="/pokearth/hoenn/shoalcave.shtml">Shoal Cave</option>
+<option value="/pokearth/hoenn/skypillar.shtml">Sky Pillar</option>
+<option value="/pokearth/hoenn/slateportcity.shtml">Slateport City</option>
+<option value="/pokearth/hoenn/soaringinthesky.shtml">Soaring in the Sky</option>
+<option value="/pokearth/hoenn/sootopoliscity.shtml">Sootopolis City</option>
+<option value="/pokearth/hoenn/southernisland.shtml">Southern Island</option>
+<option value="/pokearth/hoenn/sstidal.shtml">SS Tidal</option>
+<option value="/pokearth/hoenn/terracave.shtml">Terra Cave</option>
+<option value="/pokearth/hoenn/tracklessforest.shtml">Trackless Forest</option>
+<option value="/pokearth/hoenn/trainerhill.shtml">Trainer Hill</option>
+<option value="/pokearth/hoenn/verdanturftown.shtml">Verdanturf Town</option>
+<option value="/pokearth/hoenn/victoryroad.shtml">Victory Road</option>
+
+</select> </div></form></td><td align="center" width="25%"><form name="sinnoh"><div>
+ <select name="SelectURL" onchange="document.location.href=document.sinnoh.SelectURL.options[document.sinnoh.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/sinnoh/index.shtml">Pokéarth: Sinnoh</option>
+
+<option value="/pokearth/sinnoh/route201.shtml">Route 201</option>
+<option value="/pokearth/sinnoh/route202.shtml">Route 202</option>
+<option value="/pokearth/sinnoh/route203.shtml">Route 203</option>
+<option value="/pokearth/sinnoh/route204.shtml">Route 204</option>
+<option value="/pokearth/sinnoh/route205.shtml">Route 205</option>
+<option value="/pokearth/sinnoh/route206.shtml">Route 206</option>
+<option value="/pokearth/sinnoh/route207.shtml">Route 207</option>
+<option value="/pokearth/sinnoh/route208.shtml">Route 208</option>
+<option value="/pokearth/sinnoh/route209.shtml">Route 209</option>
+<option value="/pokearth/sinnoh/route210.shtml">Route 210</option>
+<option value="/pokearth/sinnoh/route211.shtml">Route 211</option>
+<option value="/pokearth/sinnoh/route212.shtml">Route 212</option>
+<option value="/pokearth/sinnoh/route213.shtml">Route 213</option>
+<option value="/pokearth/sinnoh/route214.shtml">Route 214</option>
+<option value="/pokearth/sinnoh/route215.shtml">Route 215</option>
+<option value="/pokearth/sinnoh/route216.shtml">Route 216</option>
+<option value="/pokearth/sinnoh/route217.shtml">Route 217</option>
+<option value="/pokearth/sinnoh/route218.shtml">Route 218</option>
+<option value="/pokearth/sinnoh/route219.shtml">Route 219</option>
+<option value="/pokearth/sinnoh/route220.shtml">Route 220</option>
+<option value="/pokearth/sinnoh/route221.shtml">Route 221</option>
+<option value="/pokearth/sinnoh/route222.shtml">Route 222</option>
+<option value="/pokearth/sinnoh/route223.shtml">Route 223</option>
+<option value="/pokearth/sinnoh/route224.shtml">Route 224</option>
+<option value="/pokearth/sinnoh/route225.shtml">Route 225</option>
+<option value="/pokearth/sinnoh/route226.shtml">Route 226</option>
+<option value="/pokearth/sinnoh/route227.shtml">Route 227</option>
+<option value="/pokearth/sinnoh/route228.shtml">Route 228</option>
+<option value="/pokearth/sinnoh/route229.shtml">Route 229</option>
+<option value="/pokearth/sinnoh/route230.shtml">Route 230</option>
+
+<option value="/pokearth/sinnoh/acuitylakefront.shtml">Acuity Lakefront</option>
+<option value="/pokearth/sinnoh/amitysquare.shtml">Amity Square</option>
+<option value="/pokearth/sinnoh/battlefrontier.shtml">Battle Frontier</option>
+<option value="/pokearth/sinnoh/battlepark.shtml">Battle Park</option>
+<option value="/pokearth/sinnoh/canalavecity.shtml">Canalave City</option>
+<option value="/pokearth/sinnoh/celestictown.shtml">Celestic Town</option>
+<option value="/pokearth/sinnoh/distortionworld.shtml">Distortion World</option>
+<option value="/pokearth/sinnoh/eternacity.shtml">Eterna City</option>
+<option value="/pokearth/sinnoh/eternaforest.shtml">Eterna Forest</option>
+<option value="/pokearth/sinnoh/eternagalacticbuilding.shtml">Eterna Galactic Building</option>
+<option value="/pokearth/sinnoh/fightarea.shtml">Fight Area</option>
+<option value="/pokearth/sinnoh/floaromameadow.shtml">Floaroma Meadow</option>
+<option value="/pokearth/sinnoh/floaromatown.shtml">Floaroma Town</option>
+<option value="/pokearth/sinnoh/flowerparadise.shtml">Flower Paradise</option>
+<option value="/pokearth/sinnoh/fuegoironworks.shtml">Fuego Ironworks</option>
+<option value="/pokearth/sinnoh/fullmoonisland.shtml">Full Moon Island</option>
+<option value="/pokearth/sinnoh/galacticwarehouse.shtml">Galactic Warehouse</option>
+<option value="/pokearth/sinnoh/grandlakehotel.shtml">Grand Lake Hotel</option>
+<option value="/pokearth/sinnoh/greatmarsh.shtml">Great Marsh</option>
+<option value="/pokearth/sinnoh/halloforigin.shtml">Hall of Origin</option>
+<option value="/pokearth/sinnoh/hearthomecity.shtml">Hearthome City</option>
+<option value="/pokearth/sinnoh/ironisland.shtml">Iron Island</option>
+<option value="/pokearth/sinnoh/jubilifecity.shtml">Jubilife City</option>
+<option value="/pokearth/sinnoh/lakeacuity.shtml">Lake Acuity</option>
+<option value="/pokearth/sinnoh/lakevalor.shtml">Lake Valor</option>
+<option value="/pokearth/sinnoh/lakeverity.shtml">Lake Verity</option>
+<option value="/pokearth/sinnoh/losttower.shtml">Lost Tower</option>
+<option value="/pokearth/sinnoh/mt.coronet.shtml">Mt. Coronet</option>
+<option value="/pokearth/sinnoh/newmoonisland.shtml">New Moon Island</option>
+<option value="/pokearth/sinnoh/oldchateau.shtml">Old Chateau</option>
+<option value="/pokearth/sinnoh/oreburghcity.shtml">Oreburgh City</option>
+<option value="/pokearth/sinnoh/oreburghgate.shtml">Oreburgh Gate</option>
+<option value="/pokearth/sinnoh/oreburghmine.shtml">Oreburgh Mine</option>
+<option value="/pokearth/sinnoh/palpark.shtml">Pal Park</option>
+<option value="/pokearth/sinnoh/pastoriacity.shtml">Pastoria City</option>
+<option value="/pokearth/sinnoh/pokemonleague.shtml">Pokémon League</option>
+<option value="/pokearth/sinnoh/pokemonmansion.shtml">Pokémon Mansion</option>
+<option value="/pokearth/sinnoh/ravagedpath.shtml">Ravaged Path</option>
+<option value="/pokearth/sinnoh/resortarea.shtml">Resort Area</option>
+<option value="/pokearth/sinnoh/ruinsmaniac'scave.shtml">Ruins Maniac's Cave</option>
+<option value="/pokearth/sinnoh/ruinsmaniac'stunnel.shtml">Ruins Maniac's Tunnel</option>
+<option value="/pokearth/sinnoh/sandgemtown.shtml">Sandgem Town</option>
+<option value="/pokearth/sinnoh/seabreakpath.shtml">Seabreak Path</option>
+<option value="/pokearth/sinnoh/sendoffspring.shtml">Sendoff Spring</option>
+<option value="/pokearth/sinnoh/snowpointcity.shtml">Snowpoint City</option>
+<option value="/pokearth/sinnoh/snowpointtemple.shtml">Snowpoint Temple</option>
+<option value="/pokearth/sinnoh/solaceonruins.shtml">Solaceon Ruins</option>
+<option value="/pokearth/sinnoh/solaceontown.shtml">Solaceon Town</option>
+<option value="/pokearth/sinnoh/spearpillar.shtml">Spear Pillar</option>
+<option value="/pokearth/sinnoh/starkmountain.shtml">Stark Mountain</option>
+<option value="/pokearth/sinnoh/sunyshorecity.shtml">Sunyshore City</option>
+<option value="/pokearth/sinnoh/survivalarea.shtml">Survival Area</option>
+<option value="/pokearth/sinnoh/trophygarden.shtml">Trophy Garden</option>
+<option value="/pokearth/sinnoh/turnbackcave.shtml">Turnback Cave</option>
+<option value="/pokearth/sinnoh/twinleaftown.shtml">Twinleaf Town</option>
+<option value="/pokearth/sinnoh/valleywindworks.shtml">Valley Windworks</option>
+<option value="/pokearth/sinnoh/valorlakefront.shtml">Valor Lakefront</option>
+<option value="/pokearth/sinnoh/veilstonecity.shtml">Veilstone City</option>
+<option value="/pokearth/sinnoh/veilstonegalacticbuilding.shtml">Veilstone Galactic Building</option>
+<option value="/pokearth/sinnoh/veritylakefront.shtml">Verity Lakefront</option>
+<option value="/pokearth/sinnoh/victoryroad.shtml">Victory Road</option>
+<option value="/pokearth/sinnoh/waywardcave.shtml">Wayward Cave</option>
+
+
+
+
+
+
+
+
+
+</select> </div></form></td></tr><tr>
+<td align="center" width="25%"><form name="Unova"><div>
+ <select name="SelectURL" onchange="document.location.href=document.Unova.SelectURL.options[document.Unova.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/unova/index.shtml">Pokéarth: Unova</option>
+
+<option value="/pokearth/unova/route1.shtml">Route 1</option>
+<option value="/pokearth/unova/route2.shtml">Route 2</option>
+<option value="/pokearth/unova/route3.shtml">Route 3</option>
+<option value="/pokearth/unova/route4.shtml">Route 4</option>
+<option value="/pokearth/unova/route5.shtml">Route 5</option>
+<option value="/pokearth/unova/route6.shtml">Route 6</option>
+<option value="/pokearth/unova/route7.shtml">Route 7</option>
+<option value="/pokearth/unova/route8.shtml">Route 8</option>
+<option value="/pokearth/unova/route9.shtml">Route 9</option>
+<option value="/pokearth/unova/route10.shtml">Route 10</option>
+<option value="/pokearth/unova/route11.shtml">Route 11</option>
+<option value="/pokearth/unova/route12.shtml">Route 12</option>
+<option value="/pokearth/unova/route13.shtml">Route 13</option>
+<option value="/pokearth/unova/route14.shtml">Route 14</option>
+<option value="/pokearth/unova/route15.shtml">Route 15</option>
+<option value="/pokearth/unova/route16.shtml">Route 16</option>
+<option value="/pokearth/unova/route17.shtml">Route 17</option>
+<option value="/pokearth/unova/route18.shtml">Route 18</option>
+<option value="/pokearth/unova/route19.shtml">Route 19</option>
+<option value="/pokearth/unova/route20.shtml">Route 20</option>
+<option value="/pokearth/unova/route21.shtml">Route 21</option>
+<option value="/pokearth/unova/route22.shtml">Route 22</option>
+<option value="/pokearth/unova/route23.shtml">Route 23</option>
+
+<option value="/pokearth/unova/abundantshrine.shtml">Abundant Shrine</option>
+<option value="/pokearth/unova/abyssalruins.shtml">Abyssal Ruins</option>
+<option value="/pokearth/unova/accumulatown.shtml">Accumula Town</option>
+<option value="/pokearth/unova/anvilletown.shtml">Anville Town</option>
+<option value="/pokearth/unova/aspertiacity.shtml">Aspertia City</option>
+<option value="/pokearth/unova/blackcity.shtml">Black City</option>
+<option value="/pokearth/unova/casteliacity.shtml">Castelia City</option>
+<option value="/pokearth/unova/casteliasewers.shtml">Castelia Sewers</option>
+<option value="/pokearth/unova/caveofbeing.shtml">Cave of Being</option>
+<option value="/pokearth/unova/celestialtower.shtml">Celestial Tower</option>
+<option value="/pokearth/unova/challenger'scave.shtml">Challenger's Cave</option>
+<option value="/pokearth/unova/chargestonecave.shtml">Chargestone Cave</option>
+<option value="/pokearth/unova/claytunnel.shtml">Clay Tunnel</option>
+<option value="/pokearth/unova/coldstorage.shtml">Cold Storage</option>
+<option value="/pokearth/unova/desertresort.shtml">Desert Resort</option>
+<option value="/pokearth/unova/dragonspiraltower.shtml">Dragonspiral Tower</option>
+<option value="/pokearth/unova/dreamyard.shtml">Dreamyard</option>
+<option value="/pokearth/unova/driftveildrawbridge.shtml">Driftveil Drawbridge</option>
+<option value="/pokearth/unova/driftveilcity.shtml">Driftveil City</option>
+<option value="/pokearth/unova/entralink.shtml">Entralink</option>
+<option value="/pokearth/unova/floccesytown.shtml">Floccesy Town</option>
+<option value="/pokearth/unova/floccesyranch.shtml">Floccesy Ranch</option>
+<option value="/pokearth/unova/gearstation.shtml">Gear Station</option>
+<option value="/pokearth/unova/giantchasm.shtml">Giant Chasm</option>
+<option value="/pokearth/unova/humilaucity.shtml">Humilau City</option>
+<option value="/pokearth/unova/icirruscity.shtml">Icirrus City</option>
+<option value="/pokearth/unova/joinavenue.shtml">Join Avenue</option>
+<option value="/pokearth/unova/lacunosatown.shtml">Lacunosa Town</option>
+<option value="/pokearth/unova/lentimastown.shtml">Lentimas Town</option>
+<option value="/pokearth/unova/lostlornforest.shtml">Lostlorn Forest</option>
+<option value="/pokearth/unova/libertygarden.shtml">Liberty Garden</option>
+<option value="/pokearth/unova/marinetube.shtml">Marine Tube</option>
+<option value="/pokearth/unova/marvelousbridge.shtml">Marvelous Bridge</option>
+<option value="/pokearth/unova/mistraltoncave.shtml">Mistralton Cave</option>
+<option value="/pokearth/unova/mistraltoncity.shtml">Mistralton City</option>
+<option value="/pokearth/unova/mooroficirrus.shtml">Moor of Icirrus</option>
+<option value="/pokearth/unova/n'scastle.shtml">N's Castle</option>
+<option value="/pokearth/unova/nacrenecity.shtml">Nacrene City</option>
+<option value="/pokearth/unova/naturepreserve.shtml">Nature Preserve</option>
+<option value="/pokearth/unova/nimbasacity.shtml">Nimbasa City</option>
+<option value="/pokearth/unova/nuvematown.shtml">Nuvema Town</option>
+<option value="/pokearth/unova/opelucidcity.shtml">Opelucid City</option>
+<option value="/pokearth/unova/p2laboratory.shtml">P2 Laboratory</option>
+<option value="/pokearth/unova/pinwheelforest.shtml">Pinwheel Forest</option>
+<option value="/pokearth/unova/plasmafrigate.shtml">Plasma Frigate</option>
+<option value="/pokearth/unova/pledgegrove.shtml">Pledge Grove</option>
+<option value="/pokearth/unova/pokemonleague.shtml">Pokémon League</option>
+<option value="/pokearth/unova/pokestarstudios.shtml">PokéStar Studios</option>
+<option value="/pokearth/unova/pwt.shtml">PWT</option>
+<option value="/pokearth/unova/reversalmountain.shtml">Reversal Mountain</option>
+<option value="/pokearth/unova/reliccastle.shtml">Relic Castle</option>
+<option value="/pokearth/unova/relicpassage.shtml">Relic Passage</option>
+<option value="/pokearth/unova/seasidecave.shtml">Seaside Cave</option>
+<option value="/pokearth/unova/skyarrowbridge.shtml">Skyarrow Bridge</option>
+<option value="/pokearth/unova/strangehouse.shtml">Strange House</option>
+<option value="/pokearth/unova/striatoncity.shtml">Striaton City</option>
+<option value="/pokearth/unova/tubelinebridge.shtml">Tubeline Bridge</option>
+<option value="/pokearth/unova/twistmountain.shtml">Twist Mountain</option>
+<option value="/pokearth/unova/undellabay.shtml">Undella Bay</option>
+<option value="/pokearth/unova/undellatown.shtml">Undella Town</option>
+<option value="/pokearth/unova/undergroundruins.shtml">Underground Ruins</option>
+<option value="/pokearth/unova/unitytower.shtml">Unity Tower</option>
+<option value="/pokearth/unova/victoryroad.shtml">Victory Road</option>
+<option value="/pokearth/unova/victoryroadb2w2.shtml">Victory Road</option>
+<option value="/pokearth/unova/villagebridge.shtml">Village Bridge</option>
+<option value="/pokearth/unova/virbankcity.shtml">Virbank City</option>
+<option value="/pokearth/unova/virbankcomplex.shtml">Virbank Complex</option>
+<option value="/pokearth/unova/wellspringcave.shtml">Wellspring Cave</option>
+<option value="/pokearth/unova/whiteforest.shtml">White Forest</option>
+
+
+
+
+
+
+</select> </div></form></td><td align="center" width="25%"><form name="Kalos"><div>
+ <select name="SelectURL" onchange="document.location.href=document.Kalos.SelectURL.options[document.Kalos.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/kalos/index.shtml">Pokéarth: Kalos</option>
+
+<option value="/pokearth/kalos/route1.shtml">Route 1</option>
+<option value="/pokearth/kalos/route2.shtml">Route 2</option>
+<option value="/pokearth/kalos/route3.shtml">Route 3</option>
+<option value="/pokearth/kalos/route4.shtml">Route 4</option>
+<option value="/pokearth/kalos/route5.shtml">Route 5</option>
+<option value="/pokearth/kalos/route6.shtml">Route 6</option>
+<option value="/pokearth/kalos/route7.shtml">Route 7</option>
+<option value="/pokearth/kalos/route8.shtml">Route 8</option>
+<option value="/pokearth/kalos/route9.shtml">Route 9</option>
+<option value="/pokearth/kalos/route10.shtml">Route 10</option>
+<option value="/pokearth/kalos/route11.shtml">Route 11</option>
+<option value="/pokearth/kalos/route12.shtml">Route 12</option>
+<option value="/pokearth/kalos/route13.shtml">Route 13</option>
+<option value="/pokearth/kalos/route14.shtml">Route 14</option>
+<option value="/pokearth/kalos/route15.shtml">Route 15</option>
+<option value="/pokearth/kalos/route16.shtml">Route 16</option>
+<option value="/pokearth/kalos/route17.shtml">Route 17</option>
+<option value="/pokearth/kalos/route18.shtml">Route 18</option>
+<option value="/pokearth/kalos/route19.shtml">Route 19</option>
+<option value="/pokearth/kalos/route20.shtml">Route 20</option>
+<option value="/pokearth/kalos/route21.shtml">Route 21</option>
+<option value="/pokearth/kalos/route22.shtml">Route 22</option>
+
+<option value="/pokearth/kalos/ambrettetown.shtml">Ambrette Town</option>
+<option value="/pokearth/kalos/anistarcity.shtml">Anistar City</option>
+<option value="/pokearth/kalos/aquacordetown.shtml">Aquacorde Town</option>
+<option value="/pokearth/kalos/azurebay.shtml">Azure Bay</option>
+<option value="/pokearth/kalos/battlechateau.shtml">Battle Chateau</option>
+<option value="/pokearth/kalos/battlemaison.shtml">Battle Maison</option>
+<option value="/pokearth/kalos/camphriertown.shtml">Camphrier Town</option>
+<option value="/pokearth/kalos/chamberofemptiness.shtml">Chamber of Emptiness</option>
+<option value="/pokearth/kalos/connectingcave.shtml">Connecting Cave</option>
+<option value="/pokearth/kalos/couriwaytown.shtml">Couriway Town</option>
+<option value="/pokearth/kalos/coumarinecity.shtml">Coumarine City</option>
+<option value="/pokearth/kalos/cyllagecity.shtml">Cyllage City</option>
+<option value="/pokearth/kalos/dendemilletown.shtml">Dendemille Town</option>
+<option value="/pokearth/kalos/flarecafe.shtml">Flare Cafe</option>
+<option value="/pokearth/kalos/frostcavern.shtml">Frost Cavern</option>
+<option value="/pokearth/kalos/geosengetown.shtml">Geosenge Town</option>
+<option value="/pokearth/kalos/glitteringcave.shtml">Glittering Cave</option>
+<option value="/pokearth/kalos/kalospowerplant.shtml">Kalos Power Plant</option>
+<option value="/pokearth/kalos/kiloudecity.shtml">Kiloude City</option>
+<option value="/pokearth/kalos/laverrecity.shtml">Laverre City</option>
+<option value="/pokearth/kalos/losthotel.shtml">Lost Hotel</option>
+<option value="/pokearth/kalos/lumiosecity.shtml">Lumiose City</option>
+<option value="/pokearth/kalos/lysandrelabs.shtml">Lysandre Labs</option>
+<option value="/pokearth/kalos/parfumpalace.shtml">Parfum Palace</option>
+<option value="/pokearth/kalos/pokeballfactory.shtml">Poke Ball Factory</option>
+<option value="/pokearth/kalos/pokemonleague.shtml">Pokemon League</option>
+<option value="/pokearth/kalos/pokemonvillage.shtml">Pokemon Village</option>
+<option value="/pokearth/kalos/reflectioncave.shtml">Reflection Cave</option>
+<option value="/pokearth/kalos/santalunecity.shtml">Santalune City</option>
+<option value="/pokearth/kalos/santaluneforest.shtml">Santalune Forest</option>
+<option value="/pokearth/kalos/seaspirit'sden.shtml">Sea Spirit's Den</option>
+<option value="/pokearth/kalos/shalourcity.shtml">Shalour City</option>
+<option value="/pokearth/kalos/snowbellecity.shtml">Snowbelle City</option>
+<option value="/pokearth/kalos/teamflarehq.shtml">Team Flare HQ</option>
+<option value="/pokearth/kalos/terminuscave.shtml">Terminus Cave</option>
+<option value="/pokearth/kalos/towerofmastery.shtml">Tower of Mastery</option>
+<option value="/pokearth/kalos/vanivilletown.shtml">Vaniville Town</option>
+<option value="/pokearth/kalos/victoryroad.shtml">Victory Road</option>
+
+
+
+
+</select> <br>
+<form name="lumiose"><div>
+ <select name="SelectURL" onchange="document.location.href=document.lumiose.SelectURL.options[document.lumiose.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/lumiosecity/index.shtml">Pokéarth: Lumiose City</option>
+<option value="/pokearth/lumiosecity/wildzone1.shtml">Wild Zone 1</option><option value="/pokearth/lumiosecity/wildzone2.shtml">Wild Zone 2</option><option value="/pokearth/lumiosecity/wildzone3.shtml">Wild Zone 3</option><option value="/pokearth/lumiosecity/wildzone4.shtml">Wild Zone 4</option><option value="/pokearth/lumiosecity/wildzone5.shtml">Wild Zone 5</option><option value="/pokearth/lumiosecity/wildzone6.shtml">Wild Zone 6</option><option value="/pokearth/lumiosecity/wildzone7.shtml">Wild Zone 7</option><option value="/pokearth/lumiosecity/wildzone8.shtml">Wild Zone 8</option><option value="/pokearth/lumiosecity/wildzone9.shtml">Wild Zone 9</option><option value="/pokearth/lumiosecity/wildzone10.shtml">Wild Zone 10</option><option value="/pokearth/lumiosecity/wildzone11.shtml">Wild Zone 11</option><option value="/pokearth/lumiosecity/wildzone12.shtml">Wild Zone 12</option><option value="/pokearth/lumiosecity/wildzone13.shtml">Wild Zone 13</option><option value="/pokearth/lumiosecity/wildzone14.shtml">Wild Zone 14</option><option value="/pokearth/lumiosecity/wildzone15.shtml">Wild Zone 15</option><option value="/pokearth/lumiosecity/wildzone16.shtml">Wild Zone 16</option><option value="/pokearth/lumiosecity/wildzone17.shtml">Wild Zone 17</option><option value="/pokearth/lumiosecity/wildzone18.shtml">Wild Zone 18</option><option value="/pokearth/lumiosecity/wildzone19.shtml">Wild Zone 19</option><option value="/pokearth/lumiosecity/wildzone20.shtml">Wild Zone 20</option><option value="/pokearth/lumiosecity/centricoplaza.shtml">Centrico Plaza</option><option value="/pokearth/lumiosecity/bleudistrict.shtml">Bleu District</option><option value="/pokearth/lumiosecity/jaunedistrict.shtml">Jaune District</option><option value="/pokearth/lumiosecity/magentadistrict.shtml">Magenta District</option><option value="/pokearth/lumiosecity/rougedistrict.shtml">Rouge District</option><option value="/pokearth/lumiosecity/vertdistrict.shtml">Vert District</option><option value="/pokearth/lumiosecity/northboulevard.shtml">North Boulevard</option><option value="/pokearth/lumiosecity/southboulevard.shtml">South Boulevard</option><option value="/pokearth/lumiosecity/lysandrelab.shtml">Lysandre Lab</option><option value="/pokearth/lumiosecity/oldhouse.shtml">Old House</option><option value="/pokearth/lumiosecity/thesewers-mainaccess.shtml">The Sewers - Main Access</option><option value="/pokearth/lumiosecity/thesewers-canalaccess.shtml">The Sewers - Canal Access</option><option value="/pokearth/lumiosecity/vernalavenue.shtml">Vernal Avenue</option><option value="/pokearth/lumiosecity/estivalavenue.shtml">Estival Avenue</option><option value="/pokearth/lumiosecity/autumnalavenue.shtml">Autumnal Avenue</option><option value="/pokearth/lumiosecity/hibernalavenue.shtml">Hibernal Avenue</option><option value="/pokearth/lumiosecity/quasarticoinc..shtml">Quasartico Inc.</option><option value="/pokearth/lumiosecity/hotelz.shtml">Hotel Z</option><option value="/pokearth/lumiosecity/racineconstruction.shtml">Racine Construction</option><option value="/pokearth/lumiosecity/rustsyndicateoffice.shtml">Rust Syndicate Office</option><option value="/pokearth/lumiosecity/restaurantlenah.shtml">Restaurant Le Nah</option><option value="/pokearth/lumiosecity/restaurantleyeah.shtml">Restaurant Le Yeah</option><option value="/pokearth/lumiosecity/restaurantlewow.shtml">Restaurant Le Wow</option><option value="/pokearth/lumiosecity/sushihighroller.shtml">Sushi High Roller</option><option value="/pokearth/lumiosecity/hotelrichissime.shtml">Hotel Richissime</option><option value="/pokearth/lumiosecity/pokemonresearchlab.shtml">Pokemon Research Lab</option><option value="/pokearth/lumiosecity/lookerbureau.shtml">Looker Bureau</option><option value="/pokearth/lumiosecity/battlezone.shtml">Battle Zone</option>
+
+
+</select> 
+</div></form></div></form></td><td align="center" width="25%"><form name="alola"><div>
+ <select name="SelectURL" onchange="document.location.href=document.alola.SelectURL.options[document.alola.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/alola/index.shtml">Pokéarth: Alola</option>
+<option value="/pokearth/alola/route1.shtml">Route 1</option>
+<option value="/pokearth/alola/route2.shtml">Route 2</option>
+<option value="/pokearth/alola/route3.shtml">Route 3</option>
+<option value="/pokearth/alola/route4.shtml">Route 4</option>
+<option value="/pokearth/alola/route5.shtml">Route 5</option>
+<option value="/pokearth/alola/route6.shtml">Route 6</option>
+<option value="/pokearth/alola/route7.shtml">Route 7</option>
+<option value="/pokearth/alola/route8.shtml">Route 8</option>
+<option value="/pokearth/alola/route9.shtml">Route 9</option>
+<option value="/pokearth/alola/route10.shtml">Route 10</option>
+<option value="/pokearth/alola/route11.shtml">Route 11</option>
+<option value="/pokearth/alola/route12.shtml">Route 12</option>
+<option value="/pokearth/alola/route13.shtml">Route 13</option>
+<option value="/pokearth/alola/route14.shtml">Route 14</option>
+<option value="/pokearth/alola/route15.shtml">Route 15</option>
+<option value="/pokearth/alola/route16.shtml">Route 16</option>
+<option value="/pokearth/alola/route17.shtml">Route 17</option>
+<option value="/pokearth/alola/aetherhouse.shtml">Aether House</option>
+<option value="/pokearth/alola/aetherparadise.shtml">Aether Paradise</option>
+<option value="/pokearth/alola/akalaoutskirts.shtml">Akala Outskirts</option>
+<option value="/pokearth/alola/altarofthemoone.shtml">Altar of the Moone</option>
+<option value="/pokearth/alola/altarofthesunne.shtml">Altar of the Sunne</option>
+<option value="/pokearth/alola/ancientponipath.shtml">Ancient Poni Path</option>
+<option value="/pokearth/alola/battletree.shtml">Battle Tree</option>
+<option value="/pokearth/alola/berryfields.shtml">Berry Fields</option>
+<option value="/pokearth/alola/bigwavebeach.shtml">Big Wave Beach</option>
+<option value="/pokearth/alola/blushmountain.shtml">Blush Mountain</option>
+<option value="/pokearth/alola/brooklethill.shtml">Brooklet Hill</option>
+<option value="/pokearth/alola/diglett'stunnel.shtml">Diglett's Tunnel</option>
+<option value="/pokearth/alola/dividingpeaktunnel.shtml">Dividing Peak Tunnel</option>
+<option value="/pokearth/alola/exeggutorisland.shtml">Exeggutor Island</option>
+<option value="/pokearth/alola/hainadesert.shtml">Haina Desert</option>
+<option value="/pokearth/alola/hanobeach.shtml">Hano Beach</option>
+<option value="/pokearth/alola/hanograndresort.shtml">Hano Grand Resort</option>
+<option value="/pokearth/alola/hau'olicemetery.shtml">Hau'oli Cemetery</option>
+<option value="/pokearth/alola/hau'olicity.shtml">Hau'oli City</option>
+<option value="/pokearth/alola/heaheabeach.shtml">Heahea Beach</option>
+<option value="/pokearth/alola/heaheacity.shtml">Heahea City</option>
+<option value="/pokearth/alola/hokulaniobservatory.shtml">Hokulani Observatory</option>
+<option value="/pokearth/alola/ikitown.shtml">Iki Town </option>
+<option value="/pokearth/alola/kala'ebay.shtml">Kala'e Bay</option>
+<option value="/pokearth/alola/konikonicity.shtml">Konikoni City</option>
+<option value="/pokearth/alola/lakeofthemoone.shtml">Lake of the Moone</option>
+<option value="/pokearth/alola/lakeofthesunne.shtml">Lake of the Sunne</option>
+<option value="/pokearth/alola/lushjungle.shtml">Lush Jungle</option>
+<option value="/pokearth/alola/mahalotrail.shtml">Mahalo Trail</option>
+<option value="/pokearth/alola/maliecity.shtml">Malie City</option>
+<option value="/pokearth/alola/maliegarden.shtml">Malie Garden</option>
+<option value="/pokearth/alola/megalotower.shtml">Megalo Tower</option>
+<option value="/pokearth/alola/melemelemeadow.shtml">Melemele Meadow</option>
+<option value="/pokearth/alola/melemelesea.shtml">Melemele Sea</option>
+<option value="/pokearth/alola/memorialhill.shtml">Memorial Hill</option>
+<option value="/pokearth/alola/mounthokulani.shtml">Mount Hokulani</option>
+<option value="/pokearth/alola/mountlanakila.shtml">Mount Lanakila</option>
+<option value="/pokearth/alola/paniolaranch.shtml">Paniola Ranch</option>
+<option value="/pokearth/alola/paniolatown.shtml">Paniola Town</option>
+<option value="/pokearth/alola/pikachuvalley.shtml">Pikachu Valley</option>
+<option value="/pokearth/alola/plainsgrotto.shtml">Plains Grotto</option>
+<option value="/pokearth/alola/potown.shtml">Po Town</option>
+<option value="/pokearth/alola/pokemonleague.shtml">Pokemon League</option>
+<option value="/pokearth/alola/ponibreakercoast.shtml">Poni Breaker Coast</option>
+<option value="/pokearth/alola/ponicoast.shtml">Poni Coast</option>
+<option value="/pokearth/alola/ponigauntlet.shtml">Poni Gauntlet</option>
+<option value="/pokearth/alola/ponigrove.shtml">Poni Grove</option>
+<option value="/pokearth/alola/ponimeadow.shtml">Poni Meadow</option>
+<option value="/pokearth/alola/poniplains.shtml">Poni Plains</option>
+<option value="/pokearth/alola/poniwilds.shtml">Poni Wilds</option>
+<option value="/pokearth/alola/resolutioncave.shtml">Resolution Cave</option>
+<option value="/pokearth/alola/royalavenue.shtml">Royal Avenue</option>
+<option value="/pokearth/alola/ruinsofabundance.shtml">Ruins of Abundance</option>
+<option value="/pokearth/alola/ruinsofconflict.shtml">Ruins of Conflict</option>
+<option value="/pokearth/alola/ruinsoflife.shtml">Ruins of Life</option>
+<option value="/pokearth/alola/ruinsofhope.shtml">Ruins of Hope</option>
+<option value="/pokearth/alola/sandycave.shtml">Sandy Cave</option>
+<option value="/pokearth/alola/seafolkvillage.shtml">Seafolk Village</option>
+<option value="/pokearth/alola/seawardcave.shtml">Seaward Cave</option>
+<option value="/pokearth/alola/secludedshore.shtml">Secluded Shore</option>
+<option value="/pokearth/alola/shadyhouse.shtml">Shady House</option>
+<option value="/pokearth/alola/tapuvillage.shtml">Tapu Village</option>
+<option value="/pokearth/alola/teamrocket'scastle.shtml">Team Rocket's Castle</option>
+<option value="/pokearth/alola/tencarathill.shtml">Ten Carat Hill</option>
+<option value="/pokearth/alola/thriftymegamart.shtml">Thrifty Megamart</option>
+<option value="/pokearth/alola/ula'ulabeach.shtml">Ula'ula Beach</option>
+<option value="/pokearth/alola/ula'ulameadow.shtml">Ula'ula Meadow</option>
+<option value="/pokearth/alola/ultracrater.shtml">Ultra Crater</option>
+<option value="/pokearth/alola/ultradeepsea.shtml">Ultra Deep Sea</option>
+<option value="/pokearth/alola/ultradesert.shtml">Ultra Desert</option>
+<option value="/pokearth/alola/ultraforest.shtml">Ultra Forest</option>
+<option value="/pokearth/alola/ultrajungle.shtml">Ultra Jungle</option>
+<option value="/pokearth/alola/ultramegalopolis.shtml">Ultra Megalopolis</option>
+<option value="/pokearth/alola/ultraplant.shtml">Ultra Plant</option>
+<option value="/pokearth/alola/ultraruin.shtml">Ultra Ruin</option>
+<option value="/pokearth/alola/ultraspace.shtml">Ultra Space</option>
+<option value="/pokearth/alola/ultraspacewilds.shtml">Ultra Space Wilds</option>
+<option value="/pokearth/alola/vastponicanyon.shtml">Vast Poni Canyon</option>
+<option value="/pokearth/alola/verdantcavern.shtml">Verdant Cavern</option>
+<option value="/pokearth/alola/welavolcanopark.shtml">Wela Volcano Park</option>
+
+
+
+</select> </div></form></td><td align="center" width="25%"><form name="galar"><div>
+ <select name="SelectURL" onchange="document.location.href=document.galar.SelectURL.options[document.galar.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/galar/index.shtml">Pokéarth: Galar</option>
+
+<option value="/pokearth/galar/route1.shtml">Route 1</option>
+<option value="/pokearth/galar/route2.shtml">Route 2</option>
+<option value="/pokearth/galar/route3.shtml">Route 3</option>
+<option value="/pokearth/galar/route4.shtml">Route 4</option>
+<option value="/pokearth/galar/route5.shtml">Route 5</option>
+<option value="/pokearth/galar/route6.shtml">Route 6</option>
+<option value="/pokearth/galar/route7.shtml">Route 7</option>
+<option value="/pokearth/galar/route8.shtml">Route 8</option>
+<option value="/pokearth/galar/route9.shtml">Route 9</option>
+<option value="/pokearth/galar/route10.shtml">Route 10</option>
+<option value="/pokearth/galar/axew'seye.shtml">Axew's Eye</option>
+<option value="/pokearth/galar/ballonlea.shtml">Ballonlea</option>
+<option value="/pokearth/galar/battletower.shtml">Battle Tower</option>
+<option value="/pokearth/galar/bridgefield.shtml">Bridge Field</option>
+<option value="/pokearth/galar/circhester.shtml">Circhester</option>
+<option value="/pokearth/galar/dappledgrove.shtml">Dappled Grove</option>
+<option value="/pokearth/galar/dustybowl.shtml">Dusty Bowl</option>
+<option value="/pokearth/galar/eastlakeaxewell.shtml">East Lake Axewell</option>
+<option value="/pokearth/galar/energyplant.shtml">Energy Plant</option>
+<option value="/pokearth/galar/galarmine.shtml">Galar Mine</option>
+<option value="/pokearth/galar/galarmineno.2.shtml">Galar Mine No. 2</option>
+<option value="/pokearth/galar/giant'scap.shtml">Giant's Cap</option>
+<option value="/pokearth/galar/giant'smirror.shtml">Giant's Mirror</option>
+<option value="/pokearth/galar/giant'sseat.shtml">Giant's Seat</option>
+<option value="/pokearth/galar/glimwoodtangle.shtml">Glimwood Tangle</option>
+<option value="/pokearth/galar/hammerlocke.shtml">Hammerlocke</option>
+<option value="/pokearth/galar/hammerlockehills.shtml">Hammerlocke Hills</option>
+<option value="/pokearth/galar/hulbury.shtml">Hulbury</option>
+<option value="/pokearth/galar/lakeofoutrage.shtml">Lake of Outrage</option>
+<option value="/pokearth/galar/meetupspot.shtml">Meetup Spot</option>
+<option value="/pokearth/galar/motostoke.shtml">Motostoke</option>
+<option value="/pokearth/galar/motostokeoutskirts.shtml">Motostoke Outskirts</option>
+<option value="/pokearth/galar/motostokeriverbank.shtml">Motostoke Riverbank</option>
+<option value="/pokearth/galar/northlakemiloch.shtml">North Lake Miloch</option>
+<option value="/pokearth/galar/postwick.shtml">Postwick</option>
+<option value="/pokearth/galar/rollingfields.shtml">Rolling Fields</option>
+<option value="/pokearth/galar/rosetower.shtml">Rose Tower</option>
+<option value="/pokearth/galar/route9tunnel.shtml">Route 9 Tunnel</option>
+<option value="/pokearth/galar/slumberingweald.shtml">Slumbering Weald</option>
+<option value="/pokearth/galar/southlakemiloch.shtml">South Lake Miloch</option>
+<option value="/pokearth/galar/spikemuth.shtml">Spikemuth</option>
+<option value="/pokearth/galar/stonywilderness.shtml">Stony Wilderness</option>
+<option value="/pokearth/galar/stow-on-side.shtml">Stow-on-Side</option>
+<option value="/pokearth/galar/turffield.shtml">Turffield</option>
+<option value="/pokearth/galar/watchtowerruins.shtml">Watchtower Ruins</option>
+<option value="/pokearth/galar/wedgehurst.shtml">Wedgehurst</option>
+<option value="/pokearth/galar/westlakeaxewell.shtml">West Lake Axewell</option>
+<option value="/pokearth/galar/wyndon.shtml">Wyndon</option>
+<option value="/pokearth/galar/wyndonstadium.shtml">Wyndon Stadium</option>
+<option value="/pokearth/galar/">===</option>
+<option value="/pokearth/galar/">Isle of Armor</option>
+<option value="/pokearth/galar/">===</option>
+<option value="/pokearth/galar/brawlers'cave.shtml">Brawlers' Cave</option>
+<option value="/pokearth/galar/challengebeach.shtml">Challenge Beach</option>
+<option value="/pokearth/galar/challengeroad.shtml">Challenge Road</option>
+<option value="/pokearth/galar/courageouscavern.shtml">Courageous Cavern</option>
+<option value="/pokearth/galar/fieldsofhonor.shtml">Fields of Honor</option>
+<option value="/pokearth/galar/forestoffocus.shtml">Forest of Focus</option>
+<option value="/pokearth/galar/honeycalmisland.shtml">Honeycalm Island</option>
+<option value="/pokearth/galar/honeycalmsea.shtml">Honeycalm Sea</option>
+<option value="/pokearth/galar/insularsea.shtml">Insular Sea</option>
+<option value="/pokearth/galar/looplagoon.shtml">Loop Lagoon</option>
+<option value="/pokearth/galar/masterdojo.shtml">Master Dojo</option>
+<option value="/pokearth/galar/potbottomdesert.shtml">Potbottom Desert</option>
+<option value="/pokearth/galar/soothingwetlands.shtml">Soothing Wetlands</option>
+<option value="/pokearth/galar/stepping-stonesea.shtml">Stepping-Stone Sea</option>
+<option value="/pokearth/galar/towerofdarkness.shtml">Tower of Darkness</option>
+<option value="/pokearth/galar/towerofwaters.shtml">Tower of Waters</option>
+<option value="/pokearth/galar/traininglowlands.shtml">Training Lowlands</option>
+<option value="/pokearth/galar/warm-uptunnel.shtml">Warm-Up Tunnel</option>
+<option value="/pokearth/galar/workoutsea.shtml">Workout Sea</option>
+
+<option value="/pokearth/galar/">===</option>
+<option value="/pokearth/galar/">The Crown Tundra</option>
+<option value="/pokearth/galar/">===</option>
+<option value="/pokearth/galar/slipperyslope.shtml">Slippery Slope</option><option value="/pokearth/galar/freezington.shtml">Freezington</option><option value="/pokearth/galar/frostpointfield.shtml">Frostpoint Field</option><option value="/pokearth/galar/giant'sbed.shtml">Giant's Bed</option><option value="/pokearth/galar/oldcemetery.shtml">Old Cemetery</option><option value="/pokearth/galar/snowslideslope.shtml">Snowslide Slope</option><option value="/pokearth/galar/tunneltothetop.shtml">Tunnel to the Top</option><option value="/pokearth/galar/pathtothepeak.shtml">Path to the Peak</option><option value="/pokearth/galar/crownshrine.shtml">Crown Shrine</option><option value="/pokearth/galar/giant'sfoot.shtml">Giant's Foot</option><option value="/pokearth/galar/roaring-seacaves.shtml">Roaring-Sea Caves</option><option value="/pokearth/galar/frigidsea.shtml">Frigid Sea</option><option value="/pokearth/galar/three-pointpass.shtml">Three-Point Pass</option><option value="/pokearth/galar/ballimerelake.shtml">Ballimere Lake</option><option value="/pokearth/galar/lakesidecave.shtml">Lakeside Cave</option><option value="/pokearth/galar/dynatreehill.shtml">Dyna Tree Hill</option><option value="/pokearth/galar/rockpeakruins.shtml">Rock Peak Ruins</option><option value="/pokearth/galar/icebergruins.shtml">Iceberg Ruins</option><option value="/pokearth/galar/ironruins.shtml">Iron Ruins</option><option value="/pokearth/galar/split-decisionruins.shtml">Split-Decision Ruins</option><option value="/pokearth/galar/maxlair.shtml">Max Lair</option>
+</select> </div></form></td></tr><tr><td align="center"><form name="Hisui"><div>
+ <select name="SelectURL" onchange="document.location.href=document.Hisui.SelectURL.options[document.Hisui.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/hisui/index.shtml">Pokéarth: Hisui</option>
+<option value="/pokearth/hisui/jubilifevillage.shtml">Jubilife Village</option>
+<option value="/pokearth/hisui/obsidianfieldlands.shtml">Obsidian Fieldlands</option>
+<option value="/pokearth/hisui/crimsonmirelands.shtml">Crimson Mirelands</option>
+<option value="/pokearth/hisui/cobaltcoastlands.shtml">Cobalt Coastlands</option>
+<option value="/pokearth/hisui/coronethighlands.shtml">Coronet Highlands</option>
+<option value="/pokearth/hisui/alabastericelands.shtml">Alabaster Icelands</option>
+<option value="/pokearth/hisui/ancientretreat.shtml">Ancient Retreat</option>
+
+<option value="/pokearth/hisui/">===</option>
+<option value="/pokearth/hisui/obsidianfieldlands.shtml">Obsidian Fieldlands</option>
+<option value="/pokearth/hisui/">===</option>
+<option value="/pokearth/hisui/aspirationhill.shtml">Aspiration Hill</option>	
+<option value="/pokearth/hisui/deertrackheights.shtml">Deertrack Heights</option>	
+<option value="/pokearth/hisui/deertrackpath.shtml">Deertrack Path</option>	
+<option value="/pokearth/hisui/fieldlandscamp.shtml">Fieldlands Camp</option>	
+<option value="/pokearth/hisui/floarogardens.shtml">Floaro Gardens</option>	
+<option value="/pokearth/hisui/grandtreearena.shtml">Grandtree Arena</option>	
+<option value="/pokearth/hisui/gruelinggrove.shtml">Grueling Grove</option>	
+<option value="/pokearth/hisui/heartwood.shtml">Heartwood</option>	
+<option value="/pokearth/hisui/heightscamp.shtml">Heights Camp</option>	
+<option value="/pokearth/hisui/horseshoeplains.shtml">Horseshoe Plains</option>	
+<option value="/pokearth/hisui/lakeverity.shtml">Lake Verity</option>	
+<option value="/pokearth/hisui/mossrock.shtml">Moss Rock</option>	
+<option value="/pokearth/hisui/nature'spantry.shtml">Nature's Pantry</option>	
+<option value="/pokearth/hisui/obsidianfalls.shtml">Obsidian Falls</option>	
+<option value="/pokearth/hisui/oreburrowtunnel.shtml">Oreburrow Tunnel</option>	
+<option value="/pokearth/hisui/ramanasisland.shtml">Ramanas Island</option>	
+<option value="/pokearth/hisui/sandgemflats.shtml">Sandgem Flats</option>	
+<option value="/pokearth/hisui/tidewaterdam.shtml">Tidewater Dam</option>	
+<option value="/pokearth/hisui/windsweptrun.shtml">Windswept Run</option>	
+<option value="/pokearth/hisui/wornbridge.shtml">Worn Bridge</option>
+	<option value="/pokearth/hisui/">===</option>
+<option value="/pokearth/hisui/crimsonmirelands.shtml">Crimson Mirelands</option>
+<option value="/pokearth/hisui/">===</option>
+<option value="/pokearth/hisui/bogboundcamp.shtml">Bogbound Camp</option>	
+<option value="/pokearth/hisui/bolderollslope.shtml">Bolderoll Slope</option>	
+<option value="/pokearth/hisui/bravaarena.shtml">Brava Arena</option>	
+<option value="/pokearth/hisui/cloudpoolridge.shtml">Cloudpool Ridge</option>	
+<option value="/pokearth/hisui/cottonsedgeprairie.shtml">Cottonsedge Prairie</option>	
+<option value="/pokearth/hisui/diamondheath.shtml">Diamond Heath</option>
+	<option value="/pokearth/hisui/diamondsettlement.shtml">Diamond Settlement</option>	
+<option value="/pokearth/hisui/droningmeadow.shtml">Droning Meadow</option>	
+<option value="/pokearth/hisui/gapejawbog.shtml">Gapejaw Bog</option>	
+<option value="/pokearth/hisui/goldenlowlands.shtml">Golden Lowlands</option>	
+<option value="/pokearth/hisui/holmoftrials.shtml">Holm of Trials</option>	
+<option value="/pokearth/hisui/lakevalor.shtml">Lake Valor</option>	
+<option value="/pokearth/hisui/mirelandscamp.shtml">Mirelands Camp</option>	
+<option value="/pokearth/hisui/scarletbog.shtml">Scarlet Bog</option>	
+<option value="/pokearth/hisui/shroudedruins.shtml">Shrouded Ruins</option>	
+<option value="/pokearth/hisui/sludgemound.shtml">Sludge Mound</option>	
+<option value="/pokearth/hisui/solaceonruins.shtml">Solaceon Ruins</option>
+<option value="/pokearth/hisui/ursa'sring.shtml">Ursa's Ring</option>
+
+<option value="/pokearth/hisui/">===</option>
+<option value="/pokearth/hisui/cobaltcoastlands.shtml">Cobalt Coastlands</option>
+<option value="/pokearth/hisui/">===</option>
+<option value="/pokearth/hisui/aipomhill.shtml">Aipom Hills</option>	
+<option value="/pokearth/hisui/bathers'lagoon.shtml">Bathers' Lagoon</option>	
+<option value="/pokearth/hisui/beachsidecamp.shtml">Beachside Camp</option>	
+<option value="/pokearth/hisui/castawayshore.shtml">Castaway Shore</option>	
+<option value="/pokearth/hisui/coastlandscamp.shtml">Coastlands Camp</option>	
+<option value="/pokearth/hisui/crossingslope.shtml">Crossing Slope</option>	
+<option value="/pokearth/hisui/deadwoodhaunt.shtml">Deadwood Haunt</option>	
+<option value="/pokearth/hisui/firespitisland.shtml">Firespit Island</option>	
+<option value="/pokearth/hisui/ginkgolanding.shtml">Ginkgo Landing</option>	
+<option value="/pokearth/hisui/hideawaybay.shtml">Hideaway Bay</option>	
+<option value="/pokearth/hisui/islespyshore.shtml">Islespy Shore</option>	
+<option value="/pokearth/hisui/lavadomesanctum.shtml">Lava Dome Sanctum</option>	
+<option value="/pokearth/hisui/lunker'slair.shtml">Lunker's Lair</option>	
+<option value="/pokearth/hisui/moltenarena.shtml">Molten Arena</option>	
+<option value="/pokearth/hisui/sand'sreach.shtml">Sand's Reach</option>	
+<option value="/pokearth/hisui/seagrasshaven.shtml">Seagrass Haven</option>	
+<option value="/pokearth/hisui/seasidehollow.shtml">Seaside Hollow</option>	
+<option value="/pokearth/hisui/springpath.shtml">Spring Path</option>	
+<option value="/pokearth/hisui/tidalpassage.shtml">Tidal Passage</option>	
+<option value="/pokearth/hisui/tombolowalk.shtml">Tombolo Walk</option>	
+<option value="/pokearth/hisui/tranquilitycove.shtml">Tranquility Cove</option>	
+<option value="/pokearth/hisui/turnbackcave.shtml">Turnback Cave</option>	
+<option value="/pokearth/hisui/veilstonecape.shtml">Veilstone Cape</option>	
+<option value="/pokearth/hisui/windbreakstand.shtml">Windbreak Stand</option>
+
+<option value="/pokearth/hisui/">===</option>
+<option value="/pokearth/hisui/coronethighlands.shtml">Coronet Highlands</option>
+<option value="/pokearth/hisui/">===</option>
+
+<option value="/pokearth/hisui/ancientquarry.shtml">Ancient Quarry</option>	
+<option value="/pokearth/hisui/bolderollravine.shtml">Bolderoll Ravine</option>	
+<option value="/pokearth/hisui/celesticaruins.shtml">Celestica Ruins</option>	
+<option value="/pokearth/hisui/celesticatrail.shtml">Celestica Trail</option>	
+<option value="/pokearth/hisui/clamberclawcliffs.shtml">Clamberclaw Cliffs</option>	
+<option value="/pokearth/hisui/cloudcappass.shtml">Cloudcap Pass</option>	
+<option value="/pokearth/hisui/fabledspring.shtml">Fabled Spring</option>	
+<option value="/pokearth/hisui/heavenwardlookout.shtml">Heavenward Lookout</option>	
+<option value="/pokearth/hisui/highlandscamp.shtml">Highlands Camp</option>	
+<option value="/pokearth/hisui/lonelyspring.shtml">Lonely Spring</option>	
+<option value="/pokearth/hisui/moonviewarena.shtml">Moonview Arena</option>	
+<option value="/pokearth/hisui/mountaincamp.shtml">Mountain Camp</option>	
+<option value="/pokearth/hisui/primevalgrotto.shtml">Primeval Grotto</option>	
+<option value="/pokearth/hisui/sacredplaza.shtml">Sacred Plaza</option>	
+<option value="/pokearth/hisui/sonorouspath.shtml">Sonorous Path</option>	
+<option value="/pokearth/hisui/spearpillar.shtml">Spear Pillar</option>	
+<option value="/pokearth/hisui/stoneportal.shtml">Stone Portal</option>	
+<option value="/pokearth/hisui/stonetoothrows.shtml">Stonetooth Rows</option>	
+<option value="/pokearth/hisui/summitcamp.shtml">Summit Camp</option>	
+<option value="/pokearth/hisui/templeofsinnoh.shtml">Temple of Sinnoh</option>	
+<option value="/pokearth/hisui/waywardcave.shtml">Wayward Cave</option>	
+<option value="/pokearth/hisui/waywardwood.shtml">Wayward Wood</option>	
+
+<option value="/pokearth/hisui/">===</option>
+<option value="/pokearth/hisui/alabastericelands.shtml">Alabaster Icelands</option>
+<option value="/pokearth/hisui/">===</option>
+<option value="/pokearth/hisui/arena'sapproach.shtml">Arena's Approach</option>	
+<option value="/pokearth/hisui/avalancheslopes.shtml">Avalanche Slopes</option>	
+<option value="/pokearth/hisui/avalugg'slegacy.shtml">Avalugg's Legacy</option>	
+<option value="/pokearth/hisui/bonechillwastes.shtml">Bonechill Wastes</option>	
+<option value="/pokearth/hisui/crevassepassage.shtml">Crevasse Passage</option>	
+<option value="/pokearth/hisui/glacierterrace.shtml">Glacier Terrace</option>	
+<option value="/pokearth/hisui/heart'scrag.shtml">Heart's Crag</option>	
+<option value="/pokearth/hisui/hibernalcave.shtml">Hibernal Cave</option>	
+<option value="/pokearth/hisui/icecolumnchamber.shtml">Ice Column Chamber</option>	
+<option value="/pokearth/hisui/icerock.shtml">Ice Rock</option>	
+<option value="/pokearth/hisui/iceboundfalls.shtml">Icebound Falls</option>	
+<option value="/pokearth/hisui/icepeakarena.shtml">Icepeak Arena</option>	
+<option value="/pokearth/hisui/icepeakcamp.shtml">Icepeak Camp</option>	
+<option value="/pokearth/hisui/icepeakcavern.shtml">Icepeak Cavern</option>	
+<option value="/pokearth/hisui/lakeacuity.shtml">Lake Acuity</option>	
+<option value="/pokearth/hisui/pearlsettlement.shtml">Pearl Settlement</option>	
+<option value="/pokearth/hisui/secrethollow.shtml">Secret Hollow</option>	
+<option value="/pokearth/hisui/snowfallhotspring.shtml">Snowfall Hot Spring</option>	
+<option value="/pokearth/hisui/snowfieldscamp.shtml">Snowfields Camp</option>	
+<option value="/pokearth/hisui/snowpointtemple.shtml">Snowpoint Temple</option>	
+<option value="/pokearth/hisui/whiteoutvalley.shtml">Whiteout Valley</option>	
+	
+
+</select> </div></form></td>
+<td align="center"><form name="paldea"><div>
+ <select name="SelectURL" onchange="document.location.href=document.paldea.SelectURL.options[document.paldea.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/paldea/index.shtml">Pokéarth: Paldea</option>
+
+<option value="/pokearth/paldea/alfornada.shtml">Alfornada</option>
+<option value="/pokearth/paldea/alfornadacavern.shtml">Alfornada Cavern</option>
+<option value="/pokearth/paldea/areazero.shtml">Area Zero</option>
+<option value="/pokearth/paldea/artazon.shtml">Artazon</option>
+<option value="/pokearth/paldea/asadodesert.shtml">Asado Desert</option>
+<option value="/pokearth/paldea/cabopoco.shtml">Cabo Poco</option>
+<option value="/pokearth/paldea/caphsquad'sbase.shtml">Caph Squad's Base</option>
+<option value="/pokearth/paldea/cascarrafa.shtml">Cascarrafa</option>
+<option value="/pokearth/paldea/casseroyalake.shtml">Casseroya Lake</option>
+<option value="/pokearth/paldea/cortondo.shtml">Cortondo</option>
+<option value="/pokearth/paldea/dalizapapassage.shtml">Dalizapa Passage</option>
+<option value="/pokearth/paldea/eastpaldeansea.shtml">East Paldean Sea</option>
+<option value="/pokearth/paldea/eastprovinceareaone.shtml">East Province Area One</option>
+<option value="/pokearth/paldea/eastprovinceareatwo.shtml">East Province Area Two</option>
+<option value="/pokearth/paldea/eastprovinceareathree.shtml">East Province Area Three</option>
+<option value="/pokearth/paldea/glaseadomountain.shtml">Glaseado Mountain</option>
+<option value="/pokearth/paldea/greatcraterofpaldea.shtml">Great Crater of Paldea</option>
+<option value="/pokearth/paldea/inletgrotto.shtml">Inlet Grotto</option>
+<option value="/pokearth/paldea/levincia.shtml">Levincia</option>
+<option value="/pokearth/paldea/losplatos.shtml">Los Platos</option>
+<option value="/pokearth/paldea/medali.shtml">Medali</option>
+<option value="/pokearth/paldea/mesagoza.shtml">Mesagoza</option>
+<option value="/pokearth/paldea/montenevera.shtml">Montenevera</option>
+<option value="/pokearth/paldea/naranjaacademy.shtml">Naranja Academy</option>
+<option value="/pokearth/paldea/navisquad'sbase.shtml">Navi Squad's Base</option>
+<option value="/pokearth/paldea/northpaldeansea.shtml">North Paldean Sea</option>
+<option value="/pokearth/paldea/northprovinceareaone.shtml">North Province Area One</option>
+<option value="/pokearth/paldea/northprovinceareatwo.shtml">North Province Area Two</option>
+<option value="/pokearth/paldea/northprovinceareathree.shtml">North Province Area Three</option>
+<option value="/pokearth/paldea/pocopath.shtml">Poco Path</option>
+<option value="/pokearth/paldea/pokemonleague.shtml">Pokemon League</option>
+<option value="/pokearth/paldea/portomarinada.shtml">Porto Marinada</option>
+<option value="/pokearth/paldea/researchstationno.1.shtml">Research Station No. 1</option>
+<option value="/pokearth/paldea/researchstationno.2.shtml">Research Station No. 2</option>
+<option value="/pokearth/paldea/researchstationno.3.shtml">Research Station No. 3</option>
+<option value="/pokearth/paldea/researchstationno.4.shtml">Research Station No. 4</option>
+<option value="/pokearth/paldea/ruchbahsquad'sbase.shtml">Ruchbah Squad's Base</option>
+<option value="/pokearth/paldea/schedarsquad'sbase.shtml">Schedar Squad's Base</option>
+<option value="/pokearth/paldea/seginsquad'sbase.shtml">Segin Squad's Base</option>
+<option value="/pokearth/paldea/socarrattrail.shtml">Socarrat Trail</option>
+<option value="/pokearth/paldea/southpaldeansea.shtml">South Paldean Sea</option>
+<option value="/pokearth/paldea/southprovinceareaone.shtml">South Province Area One</option>
+<option value="/pokearth/paldea/southprovinceareatwo.shtml">South Province Area Two</option>
+<option value="/pokearth/paldea/southprovinceareathree.shtml">South Province Area Three</option>
+<option value="/pokearth/paldea/southprovinceareafour.shtml">South Province Area Four</option>
+<option value="/pokearth/paldea/southprovinceareafive.shtml">South Province Area Five</option>
+<option value="/pokearth/paldea/southprovinceareasix.shtml">South Province Area Six</option>
+<option value="/pokearth/paldea/tagtreethicket.shtml">Tagtree Thicket</option>
+<option value="/pokearth/paldea/uvaacademy.shtml">Uva Academy</option>
+<option value="/pokearth/paldea/westpaldeansea.shtml">West Paldean Sea</option>
+<option value="/pokearth/paldea/westprovinceareaone.shtml">West Province Area One</option>
+<option value="/pokearth/paldea/westprovinceareatwo.shtml">West Province Area Two</option>
+<option value="/pokearth/paldea/westprovinceareathree.shtml">West Province Area Three</option>
+<option value="/pokearth/paldea/zapapico.shtml">Zapapico</option>
+<option value="/pokearth/paldea/zerogate.shtml">Zero Gate</option>
+<option value="/pokearth/paldea/zerolab.shtml">Zero Lab</option>	
+
+</select> </div></form></td>
+<td align="center"><form name="kitakami"><div>
+ <select name="SelectURL" onchange="document.location.href=document.kitakami.SelectURL.options[document.kitakami.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/kitakami/index.shtml">Pokéarth: Kitakami</option>
+
+<option value="/pokearth/kitakami/applehills.shtml">Apple Hills</option>
+<option value="/pokearth/kitakami/chillingwaterhead.shtml">Chilling Waterhead</option><option value="/pokearth/kitakami/crystalpool.shtml">Crystal Pool</option><option value="/pokearth/kitakami/dreadedden.shtml">Dreaded Den</option><option value="/pokearth/kitakami/fellhorngorge.shtml">Fellhorn Gorge</option><option value="/pokearth/kitakami/infernalpass.shtml">Infernal Pass</option><option value="/pokearth/kitakami/kitakamihall.shtml">Kitakami Hall</option><option value="/pokearth/kitakami/kitakamiroad.shtml">Kitakami Road</option><option value="/pokearth/kitakami/kitakamiwilds.shtml">Kitakami Wilds</option><option value="/pokearth/kitakami/loyaltyplaza.shtml">Loyalty Plaza</option><option value="/pokearth/kitakami/mossfellconfluence.shtml">Mossfell Confluence</option><option value="/pokearth/kitakami/mossuitown.shtml">Mossui Town</option><option value="/pokearth/kitakami/onimountain.shtml">Oni Mountain</option><option value="/pokearth/kitakami/onimountainsummit.shtml">Oni Mountain Summit</option><option value="/pokearth/kitakami/oni'smaw.shtml">Oni's Maw</option><option value="/pokearth/kitakami/paradisebarrens.shtml">Paradise Barrens</option><option value="/pokearth/kitakami/reveler'sroad.shtml">Reveler's Road</option><option value="/pokearth/kitakami/timelesswoods.shtml">Timeless Woods</option><option value="/pokearth/kitakami/wistfulfields.shtml">Wistful Fields</option>
+
+</select> </div></form></td>
+<td align="center"><form name="terarium"><div>
+ <select name="SelectURL" onchange="document.location.href=document.terarium.SelectURL.options[document.terarium.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/terarium/index.shtml">Pokéarth: Terarium (Blueberry Academy)</option>
+
+
+<option value="/pokearth/terarium/blueberryacademy.shtml">Blueberry Academy</option><option value="/pokearth/terarium/canyonbiome.shtml">Canyon Biome</option><option value="/pokearth/terarium/coastalbiome.shtml">Coastal Biome</option><option value="/pokearth/terarium/polarbiome.shtml">Polar Biome</option><option value="/pokearth/terarium/savannabiome.shtml">Savanna Biome</option><option value="/pokearth/terarium/chargestonecavern.shtml">Chargestone Cavern</option><option value="/pokearth/terarium/centralplaza.shtml">Central Plaza</option><option value="/pokearth/terarium/torchlitlabyrinth.shtml">Torchlit Labyrinth</option>
+
+</select> </div></form></td>
+
+</tr><tr><td align="center" width="25%"><form name="orre"><div>
+ <select name="SelectURL" onchange="document.location.href=document.orre.SelectURL.options[document.orre.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/orre/index.shtml">Pokéarth: Orre</option>
+
+<option value="/pokearth/orre/agatevillage.shtml">Agate Village</option>
+<option value="/pokearth/orre/cavepokespot.shtml">Cave Poké Spot</option>
+<option value="/pokearth/orre/cipherkeylair.shtml">Cipher Key Lair</option>
+<option value="/pokearth/orre/cipherlab.shtml">Cipher Lab</option>
+<option value="/pokearth/orre/citadarkisle.shtml">Citadark Isle</option>
+<option value="/pokearth/orre/deepcolosseum.shtml">Deep Colosseum</option>
+<option value="/pokearth/orre/gateonport.shtml">Gateon Port</option>
+<option value="/pokearth/orre/kaminkoshouse.shtml">Kaminko's House</option>
+<option value="/pokearth/orre/mt.battle.shtml">Mt. Battle</option>
+<option value="/pokearth/orre/oasispokespot.shtml">Oasis Poké Spot</option>
+<option value="/pokearth/orre/onbs.shtml">ONBS</option>
+<option value="/pokearth/orre/orrecolosseum.shtml">Orre Colosseum</option>
+<option value="/pokearth/orre/outskirtstand.shtml">Outskirt Stand</option>
+<option value="/pokearth/orre/phenaccity.shtml">Phenac City</option>
+<option value="/pokearth/orre/phenacstadium.shtml">Phenac Stadium</option>
+<option value="/pokearth/orre/pokemonhqlab.shtml">Pokémon HQ Lab</option>
+<option value="/pokearth/orre/pregym.shtml">Pre Gym</option>
+<option value="/pokearth/orre/pyritecave.shtml">Pyrite Cave</option>
+<option value="/pokearth/orre/pyritebuilding.shtml">Pyrite Building</option>
+<option value="/pokearth/orre/pyritecolosseum.shtml">Pyrite Colosseum</option>
+<option value="/pokearth/orre/pyritetown.shtml">Pyrite Town</option>
+<option value="/pokearth/orre/realgamtower.shtml">Realgam Tower</option>
+<option value="/pokearth/orre/reliccave.shtml">Relic Cave</option>
+<option value="/pokearth/orre/relicstone.shtml">Relic Stone</option>
+<option value="/pokearth/orre/rockpokespot.shtml">Rock Poké Spot</option>
+<option value="/pokearth/orre/s.s.libra.shtml">S.S. Libra</option>
+<option value="/pokearth/orre/snagemhideout.shtml">Snagem Hideout</option>
+<option value="/pokearth/orre/theunder.shtml">The Under</option>
+<option value="/pokearth/orre/theundersubway.shtml">The Under Subway</option>
+<option value="/pokearth/orre/towercolosseum.shtml">Tower Colosseum</option>
+<option value="/pokearth/orre/undercolosseum.shtml">Under Colosseum</option>
+
+
+</select> </div></form></td>
+<td align="center" width="25%"><form name="fiore"><div>
+ <select name="SelectURL" onchange="document.location.href=document.fiore.SelectURL.options[document.fiore.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/fiore/index.shtml">Pokéarth: Fiore</option>
+
+<option value="/pokearth/fiore/duskfactory.shtml">Dusk Factory</option>
+<option value="/pokearth/fiore/eastroad.shtml">East Road</option>
+<option value="/pokearth/fiore/fallcity.shtml">Fall City</option>
+<option value="/pokearth/fiore/go-rocksquadbase.shtml">Go-Rock Squad Base</option>
+<option value="/pokearth/fiore/junglerelic.shtml">Jungle Relic</option>
+<option value="/pokearth/fiore/kisaraplains.shtml">Kisara Plains</option>
+<option value="/pokearth/fiore/krokkatunnel.shtml">Krokka Tunnel</option>
+<option value="/pokearth/fiore/lyraforest.shtml">Lyra Forest</option>
+<option value="/pokearth/fiore/northroad.shtml">North Road</option>
+<option value="/pokearth/fiore/olivejungle.shtml">Olive Jungle</option>
+<option value="/pokearth/fiore/panulacave.shtml">Panula Cave</option>
+<option value="/pokearth/fiore/ringtown.shtml">Ring Town</option>
+<option value="/pokearth/fiore/safrasea.shtml">Safra Sea</option>
+<option value="/pokearth/fiore/sekrarange.shtml">Sekra Range</option>
+<option value="/pokearth/fiore/summerland.shtml">Summerland</option>
+<option value="/pokearth/fiore/undergroundwaterways.shtml">Underground Waterways</option>
+<option value="/pokearth/fiore/wintown.shtml">Wintown</option>
+
+
+</select> </div></form></td>
+<td align="center" width="25%"><form name="almia"><div>
+ <select name="SelectURL" onchange="document.location.href=document.almia.SelectURL.options[document.almia.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/almia/index.shtml">Pokéarth: Almia</option>
+
+<option value="/pokearth/almia/almiacastle.shtml">Almia Castle</option>
+<option value="/pokearth/almia/altrubuilding.shtml">Altru Building</option>
+<option value="/pokearth/almia/altrupark.shtml">Altru Park</option>
+<option value="/pokearth/almia/altrutower.shtml">Altru Tower</option>
+<option value="/pokearth/almia/boyleland.shtml">Boyleland</option>
+<option value="/pokearth/almia/breezehill.shtml">Breeze Hill</option>
+<option value="/pokearth/almia/capturearena.shtml">Capture Arena</option>
+<option value="/pokearth/almia/cargoship.shtml">Cargo Ship</option>
+<option value="/pokearth/almia/chicolepath.shtml">Chicole Path</option>
+<option value="/pokearth/almia/chicolevillage.shtml">Chicole Village</option>
+<option value="/pokearth/almia/chromahighlands.shtml">Chroma Highlands</option>
+<option value="/pokearth/almia/chromaroad.shtml">Chroma Road</option>
+<option value="/pokearth/almia/chromaruins.shtml">Chroma Ruins</option>
+<option value="/pokearth/almia/crystacave.shtml">Crysta Cave</option>
+<option value="/pokearth/almia/harubadesert.shtml">Haruba Desert</option>
+<option value="/pokearth/almia/harubavillage.shtml">Haruba Village</option>
+<option value="/pokearth/almia/hiavalley.shtml">Hia Valley</option>
+<option value="/pokearth/almia/hippowdontemple.shtml">Hippowdon Temple</option>
+<option value="/pokearth/almia/icelake.shtml">The Ice Lake</option>
+<option value="/pokearth/almia/marinecave.shtml">Marine Cave</option>
+<option value="/pokearth/almia/nabikibeach.shtml">Nabiki Beach</option>
+<option value="/pokearth/almia/oilfieldhideout.shtml">Oil Field Hideout</option>
+<option value="/pokearth/almia/partnerfarm.shtml">Partner Farm</option>
+<option value="/pokearth/almia/perilcliffs.shtml">Peril Cliffs</option>
+<option value="/pokearth/almia/puelsea.shtml">Puel Sea</option>
+<option value="/pokearth/almia/pueltown.shtml">Puel Town</option>
+<option value="/pokearth/almia/rangerschool.shtml">Ranger School</option>
+<option value="/pokearth/almia/rangerunion.shtml">Ranger Union</option>
+<option value="/pokearth/almia/schoolroad.shtml">School Road</option>
+<option value="/pokearth/almia/seaofwailord.shtml">Sea of Wailord</option>
+<option value="/pokearth/almia/shivercamp.shtml">Shiver Camp</option>
+<option value="/pokearth/almia/unionroad.shtml">Union Road</option>
+<option value="/pokearth/almia/veinforest.shtml">Vein Forest</option>
+<option value="/pokearth/almia/veintown.shtml">Veintown</option>
+<option value="/pokearth/almia/volcanocave.shtml">Volcano Cave</option>
+
+
+</select> </div></form></td><td width="25%" align="center"><form name="oblivia"><div>
+ <select name="SelectURL" onchange="document.location.href=document.oblivia.SelectURL.options[document.oblivia.SelectURL.selectedIndex].value" style="color:#383838; font-size: 8pt; background:#CEBC77" size="1">
+<option value="/pokearth/oblivia/index.shtml">Pokéarth: Oblivia</option>
+
+<option value="/pokearth/oblivia/southernbeach.shtml">Dolce Island - Southern Beach</option>
+<option value="/pokearth/oblivia/hill.shtml">Dolce Island - Hill</option>
+<option value="/pokearth/oblivia/easternbeach.shtml">Dolce Island - Eastern Beach</option>
+<option value="/pokearth/oblivia/coconavillage.shtml">Renbow Island - Cocona Village</option>
+<option value="/pokearth/oblivia/teakwoodforest.shtml">Renbow Island - Teakwood Forest</option>
+<option value="/pokearth/oblivia/raspcavern.shtml">Renbow Island - Rasp Cavern</option>
+<option value="/pokearth/oblivia/laprasbeach.shtml">Renbow Island - Lapras Beach</option>
+<option value="/pokearth/oblivia/curlbay.shtml">Renbow Island - Curl Bay</option>
+<option value="/pokearth/oblivia/rand'shouse.shtml">Renbow Island - Rand's House</option>
+<option value="/pokearth/oblivia/latolatotrail.shtml">Renbow Island - Latolato Trail</option>
+<option value="/pokearth/oblivia/mt.latolato.shtml">Renbow Island - Mt. Latolato</option>
+<option value="/pokearth/oblivia/wirelesstower.shtml">Renbow Island - Wireless Tower</option>
+<option value="/pokearth/oblivia/hindercape.shtml">Renbow Island - Hinder Cape</option>
+<option value="/pokearth/oblivia/bigbookerbridge.shtml">Renbow Island - Big Booker Bridge</option>
+<option value="/pokearth/oblivia/coralsea.shtml">Offshore Renbow Island - Coral Sea</option>
+<option value="/pokearth/oblivia/tiltvillage.shtml">Mitonga Island - Tilt Village</option>
+<option value="/pokearth/oblivia/mitongaroad.shtml">Mitonga Island - Mitonga Road</option>
+<option value="/pokearth/oblivia/noiaforest.shtml">Mitonga Island - Noir Forest</option>
+<option value="/pokearth/oblivia/oldmansion.shtml">Mitonga Island - Old Mansion</option>
+<option value="/pokearth/oblivia/daybreakruins.shtml">Mitonga Island - Daybreak Ruins</option>
+<option value="/pokearth/oblivia/dangerouscliff.shtml">Mitonga Island - Dangerous Cliff</option>
+<option value="/pokearth/oblivia/submarine.shtml">Offshore Mitonga Island - Submarine</option>
+<option value="/pokearth/oblivia/falderavolcano.shtml">Faldera Island - Faldera Volcano</option>
+<option value="/pokearth/oblivia/aquaresort.shtml">Sophian Island - Aqua Resort</option>
+<option value="/pokearth/oblivia/sophianroad.shtml">Sophian Island - Sophian Road</option>
+<option value="/pokearth/oblivia/canalruins.shtml">Sophian Island - Canal Ruins</option>
+<option value="/pokearth/oblivia/mtsorbet.shtml">Sophian Island - Mt. Sorbelas</option>
+<option value="/pokearth/oblivia/silverfalls.shtml">Sophian Island - Silver Falls</option>
+<option value="/pokearth/oblivia/obliviaruins.shtml">Sophian Island - Oblivia Ruins</option>
+<option value="/pokearth/oblivia/tilikulemonument.shtml">Tilikule Island - Tilikule Monument</option>
+<option value="/pokearth/oblivia/mt.layuda.shtml">Layuda Island - Mt. Layuda</option>
+<option value="/pokearth/oblivia/theunion.shtml">Eastern Sea - The Union</option>
+<option value="/pokearth/oblivia/underseacavern.shtml">Eastern Sea - Undersea Cavern</option>
+<option value="/pokearth/oblivia/rainbowdais.shtml">Western Sea - Rainbow Dais</option>
+<option value="/pokearth/oblivia/skyfortress.shtml">Oblivia Region - Sky Fortress</option>
+<option value="/pokearth/oblivia/inthesky.shtml">Oblivia Region - Sky</option>
+
+
+
+
+
+
+
+
+
+
+
+</select> 
+</div></form></td>
+
+</tr>
+
+</tbody></table><p></p>
+
+<p>We have full interactive maps for four different regions in the game from Pokémon Legends: Arceus and Pokémon Scarlet &amp; Violet</p>
+
+<table class="dextab">
+      <tbody><tr>
+<td width="20%" class="pkmn" style="font-size:14pt"><a href="/pokearth/hisui/">Hisui</a></td>
+<td width="20%" class="pkmn" style="font-size:14pt"><a href="/pokearth/paldea/">Paldea</a></td>
+<td width="20%" class="pkmn" style="font-size:14pt"><a href="/pokearth/kitakami/">Kitakami</a></td>
+<td width="20%" class="pkmn" style="font-size:14pt"><a href="/pokearth/terarium/">Terarium</a></td>
+<td width="20%" class="pkmn" style="font-size:14pt"><a href="/pokearth/lumiosecity/">Lumiose City</a></td>
+ </tr></tbody></table>
+
+
+
+<p>Below is the map for access to the areas of the Unova &amp; Kalos regions.</p>
+
+<p align="center"><img border="0" src="/pokearth/unova.png" usemap="#Unova" width="256" height="168"> <img border="0" src="/pokearth/kalos.png" usemap="#Kalos"><map name="Kalos">
+<area href="/pokearth/kalos/route1.shtml" shape="rect" coords="210, 163, 213, 173" title="Route 1">
+<area href="/pokearth/kalos/route2.shtml" shape="rect" coords="209, 140, 214, 150" title="Route 2">
+<area href="/pokearth/kalos/route3.shtml" shape="poly" coords="203,124, 200,124, 206,132, 209,131" title="Route 3">
+<area href="/pokearth/kalos/route4.shtml" shape="poly" coords="176,90, 173,90, 190,114, 193,114" title="Route 4">
+<area href="/pokearth/kalos/route5.shtml" shape="poly" coords="137,115, 133,115, 154,89, 157,92" title="Route 5">
+<area href="/pokearth/kalos/route6.shtml" shape="poly" coords="100,95, 97,98, 123,117, 127,115" title="Route 6">
+<area href="/pokearth/kalos/route7.shtml" shape="rect" coords="76, 118, 124, 123" title="Route 7">
+<area href="/pokearth/kalos/route8.shtml" shape="poly" coords="60,126, 55,127, 66,155, 70,153" title="Route 8">
+<area href="/pokearth/kalos/route9.shtml" shape="rect" coords="78, 156, 109, 162" title="Route 9">
+<area href="/pokearth/kalos/route10.shtml" shape="poly" coords="36,103, 32,106, 49,118, 51,115" title="Route 10">
+<area href="/pokearth/kalos/route11.shtml" shape="poly" coords="37,88, 33,87, 30,93, 34,95" title="Route 11">
+<area href="/pokearth/kalos/route12.shtml" shape="poly" coords="103,67, 99,61, 53,72, 57,76" title="Route 12">
+<area href="/pokearth/kalos/route13.shtml" shape="poly" coords="117,62, 115,67, 149,76, 152,72" title="Route 13">
+<area href="/pokearth/kalos/route14.shtml" shape="rect" coords="162, 30, 168, 63" title="Route 14">
+<area href="/pokearth/kalos/route15.shtml" shape="poly" coords="171,25, 169,30, 212,60, 215,58" title="Route 15">
+<area href="/pokearth/kalos/route16.shtml" shape="poly" coords="213,68, 209,63, 179,72, 181,77" title="Route 16">
+<area href="/pokearth/kalos/route17.shtml" shape="poly" coords="226,62, 224,68, 273,81, 275,76" title="Route 17">
+<area href="/pokearth/kalos/route18.shtml" shape="poly" coords="287,83, 285,86, 292,92, 294,90" title="Route 18">
+<area href="/pokearth/kalos/route19.shtml" shape="poly" coords="294,103, 290,98, 275,112, 278,115" title="Route 19">
+<area href="/pokearth/kalos/route20.shtml" shape="poly" coords="270,124, 266,123, 258,153, 262,154" title="Route 20">
+<area href="/pokearth/kalos/route21.shtml" shape="rect" coords="241, 114, 264, 119" title="Route 21">
+<area href="/pokearth/kalos/route22.shtml" shape="poly" coords="229,119, 229,113, 202,116, 204,121" title="Route 22">
+
+<area href="/pokearth/kalos/ambrettetown.shtml" shape="rect" coords="65, 152, 79, 166" title="Ambrette Town">
+<area href="/pokearth/kalos/anistarcity.shtml" shape="rect" coords="274, 73, 288, 87" title="Anistar City">
+<area href="/pokearth/kalos/aquacordetown.shtml" shape="rect" coords="205, 150, 219, 164" title="Aquacorde Town">
+<area href="/pokearth/kalos/azurebay.shtml" shape="poly" coords="88,41, 84,45, 102,58, 105,54" title="Azure Bay">
+<area href="/pokearth/kalos/camphriertown.shtml" shape="rect" coords="124, 114, 138, 128" title="Camphrier Town">
+<area href="/pokearth/kalos/chamberofemptiness.shtml" shape="rect" coords="216, 120, 227, 131" title="Chamber of Empitness">
+<area href="/pokearth/kalos/connectingcave.shtml" shape="rect" coords="65, 115, 76, 126" title="Connecting Cave">
+<area href="/pokearth/kalos/couriwaytown.shtml" shape="rect" coords="291, 89, 305, 103" title="Couriway Town">
+<area href="/pokearth/kalos/coumarinecity.shtml" shape="rect" coords="103, 56, 117, 70" title="Coumarine City">
+<area href="/pokearth/kalos/cyllagecity.shtml" shape="rect" coords="49, 113, 63, 127" title="Cyllage City">
+<area href="/pokearth/kalos/dendemilletown.shtml" shape="rect" coords="212, 56, 226, 70" title="Dendemille Town">
+<area href="/pokearth/kalos/frostcavern.shtml" shape="rect" coords="226, 62, 238, 74" title="Frost Cavern">
+<area href="/pokearth/kalos/geosengetown.shtml" shape="rect" coords="22, 93, 36, 107" title="Geosenge Town">
+<area href="/pokearth/kalos/glitteringcave.shtml" shape="rect" coords="111, 153, 122, 164" title="Glittering Cave">
+<area href="/pokearth/kalos/kalospowerplant.shtml" shape="rect" coords="116, 79, 128, 91" title="Kalos Power Plant">
+<area href="/pokearth/kalos/kiloudecity.shtml" shape="rect" coords="233, 187, 247, 201" title="Kiloude City">
+<area href="/pokearth/kalos/laverrecity.shtml" shape="rect" coords="158, 17, 172, 31" title="Laverre City">
+<area href="/pokearth/kalos/losthotel.shtml" shape="rect" coords="185, 49, 197, 61" title="Lost Hotel">
+<area href="/pokearth/kalos/lumiosecity.shtml" shape="rect" coords="150, 63, 182, 93" title="Lumiose City">
+<area href="/pokearth/kalos/parfumpalace.shtml" shape="rect" coords="89, 88, 101, 100" title="Parfum Palace">
+<area href="/pokearth/kalos/pokeballfactory.shtml" shape="rect" coords="159, 6, 170, 17" title="Poke Ball Factory">
+<area href="/pokearth/kalos/pokemonleague.shtml" shape="rect" coords="228, 84, 240, 96" title="Pokemon League">
+<area href="/pokearth/kalos/pokemonvillage.shtml" shape="rect" coords="253, 153, 264, 164" title="Pokemon Village">
+<area href="/pokearth/kalos/reflectioncave.shtml" shape="rect" coords="35, 78, 47, 90" title="Reflection Cave">
+<area href="/pokearth/kalos/santalunecity.shtml" shape="rect" coords="192, 112, 204, 124" title="Santalune City">
+<area href="/pokearth/kalos/santaluneforest.shtml" shape="rect" coords="206, 130, 217, 141" title="Santalune Forest">
+<area href="/pokearth/kalos/seaspirit'sden.shtml" shape="rect" coords="75, 33, 86, 44" title="Sea Spirit's Den">
+<area href="/pokearth/kalos/shalourcity.shtml" shape="rect" coords="41, 69, 54, 83" title="Shalour City">
+<area href="/pokearth/kalos/snowbellecity.shtml" shape="rect" coords="264, 110, 278, 124" title="Snowbelle City">
+<area href="/pokearth/kalos/terminuscave.shtml" shape="rect" coords="302, 73, 313, 84" title="Terminus Cave">
+<area href="/pokearth/kalos/vanivilletown.shtml" shape="rect" coords="205, 174, 219, 188" title="Vaniville Town">
+<area href="/pokearth/kalos/victoryroad.shtml" shape="rect" coords="229, 98, 241, 121" title="Victory Road">
+
+</map><map name="Unova">
+
+<area href="/pokearth/unova/route1.shtml" shape="rect" coords="231, 144, 233, 152" title="Route 1">
+<area href="/pokearth/unova/route2.shtml" shape="rect" coords="229, 124, 232, 132" title="Route 2">
+<area href="/pokearth/unova/route3.shtml" shape="rect" coords="209, 117, 222, 121" title="Route 3">
+<area href="/pokearth/unova/route4.shtml" shape="rect" coords="130, 96, 134, 124" title="Route 4">
+<area href="/pokearth/unova/route5.shtml" shape="rect" coords="115, 89, 126, 94" title="Route 5">
+<area href="/pokearth/unova/route6.shtml" shape="poly" coords="44,68, 44,73, 68,89, 69,84" title="Route 6">
+<area href="/pokearth/unova/route7.shtml" shape="poly" coords="45,64, 44,60, 68,45, 70,48" title="Route 7">
+<area href="/pokearth/unova/route8.shtml" shape="rect" coords="80, 41, 94, 47" title="Route 8">
+<area href="/pokearth/unova/route9.shtml" shape="rect" coords="113, 41, 127, 47" title="Route 9">
+<area href="/pokearth/unova/route10.shtml" shape="rect" coords="134, 29, 158, 34" title="Route 10">
+<area href="/pokearth/unova/route11.shtml" shape="rect" coords="138, 41, 151, 47" title="Route 11">
+<area href="/pokearth/unova/route12.shtml" shape="rect" coords="170, 41, 184, 47" title="Route 12">
+<area href="/pokearth/unova/route13.shtml" shape="poly" coords="195,46, 196,51, 220,67, 219,62" title="Route 13">
+<area href="/pokearth/unova/route14.shtml" shape="poly" coords="194,85, 194,90, 220,73, 220,69" title="Route 14">
+<area href="/pokearth/unova/route15.shtml" shape="rect" coords="169, 89, 184, 94" title="Route 15">
+<area href="/pokearth/unova/route16.shtml" shape="rect" coords="138, 89, 150, 94" title="Route 16">
+<area href="/pokearth/unova/route17.shtml" shape="rect" coords="213, 156, 226, 161" title="Route 17">
+<area href="/pokearth/unova/route18.shtml" shape="rect" coords="202, 156, 213, 161" title="Route 18">
+<area href="/pokearth/unova/route19.shtml" shape="rect" coords="13, 131, 15, 147" title="Route 19">
+<area href="/pokearth/unova/route19.shtml" shape="poly" coords="12,132, 12,130, 26,126, 27,130" title="Route 19">
+
+<area href="/pokearth/unova/route20.shtml" shape="rect" coords="39, 126, 63, 130" title="Route 20">
+<area href="/pokearth/unova/route21.shtml" shape="rect" coords="233, 41, 237, 50" title="Route 21">
+<area href="/pokearth/unova/route22.shtml" shape="rect" coords="211, 35, 229, 39" title="Route 22">
+<area href="/pokearth/unova/route23.shtml" shape="rect" coords="195, 35, 205, 39" title="Route 23">
+<area href="/pokearth/unova/route23.shtml" shape="rect" coords="195, 15, 197, 39" title="Route 23">
+<area href="/pokearth/unova/route23.shtml" shape="rect" coords="188, 15, 197, 19" title="Route 23">
+<area href="/pokearth/unova/marinetube.shtml" shape="rect" coords="229, 66, 253, 71" title="Marine Tube">
+<area href="/pokearth/unova/marinetube.shtml" shape="rect" coords="251, 31, 253, 71" title="Marine Tube">
+<area href="/pokearth/unova/marinetube.shtml" shape="rect" coords="241, 35, 253, 40" title="Marine Tube">
+
+
+
+<area href="/pokearth/unova/skyarrowbridge.shtml" shape="poly" coords="138,130, 187,117, 138,126," title="Sky Arrow Bridge">
+<area href="/pokearth/unova/desertresort.shtml" shape="rect" coords="118, 102, 131, 107" title="Desert Resort">
+<area href="/pokearth/unova/tubelinebridge.shtml" shape="rect" coords="93, 40, 114, 46" title="Tubeline Bridge">
+<area href="/pokearth/unova/villagebridge.shtml" shape="rect" coords="150, 40, 171, 46" title="Village Bridge">
+<area href="/pokearth/unova/marvelousbridge.shtml" shape="rect" coords="149, 88, 170, 94" title="Marvelous Bridge">
+<area href="/pokearth/unova/driftveildrawbridge.shtml" shape="rect" coords="80, 88, 114, 94" title="Driftveil Drawbridge">
+
+
+
+<area href="/pokearth/unova/nuvematown.shtml" shape="rect" coords="226, 152, 238, 164" title="Nuvema Town">
+<area href="/pokearth/unova/plasmafrigate.shtml" shape="rect" coords="219, 148, 225, 154" title="Plasma Frigate">
+<area href="/pokearth/unova/accumulatown.shtml" shape="rect" coords="226, 132, 238, 144" title="Accumula Town">
+<area href="/pokearth/unova/striatoncity.shtml" shape="rect" coords="222, 112, 234, 124" title="Striaton City">
+<area href="/pokearth/unova/nacrenecity.shtml" shape="rect" coords="197, 112, 209, 124" title="Nacrene City">
+<area href="/pokearth/unova/casteliacity.shtml" shape="rect" coords="126, 124, 138, 136" title="Castelia City">
+<area href="/pokearth/unova/nimbasacity.shtml" shape="rect" coords="126, 85, 138, 97" title="Nimbasa City">
+<area href="/pokearth/unova/driftveilcity.shtml" shape="rect" coords="68, 85, 80, 97" title="Driftveil City">
+<area href="/pokearth/unova/mistraltoncity.shtml" shape="rect" coords="34, 61, 46, 73" title="Mistralton City">
+<area href="/pokearth/unova/icirruscity.shtml" shape="rect" coords="68, 37, 80, 49" title="Icirrus City">
+<area href="/pokearth/unova/opelucidcity.shtml" shape="rect" coords="126, 37, 138, 49" title="Opelucid City">
+<area href="/pokearth/unova/pokemonleague.shtml" shape="rect" coords="164, 9, 176, 21" title="Pokémon League">
+<area href="/pokearth/unova/lacunosatown.shtml" shape="rect" coords="184, 37, 196, 49" title="Lacunosa Town">
+<area href="/pokearth/unova/undellatown.shtml" shape="rect" coords="218, 61, 230, 73" title="Undella Town">
+<area href="/pokearth/unova/blackcity.shtml" shape="rect" coords="184, 85, 190, 97" title="Black City">
+<area href="/pokearth/unova/whiteforest.shtml" shape="rect" coords="190, 85, 196, 97" title="White Forest">
+<area href="/pokearth/unova/aspertiacity.shtml" shape="rect" coords="8, 147, 20, 161" title="Aspertia City">
+<area href="/pokearth/unova/floccesytown.shtml" shape="rect" coords="26, 121, 39, 135" title="Floccesy Town">
+<area href="/pokearth/unova/virbankcity.shtml" shape="rect" coords="63, 121, 76, 135" title="Virbank City">
+
+
+
+<area href="/pokearth/unova/pokestarstudios.shtml" shape="rect" coords="60, 111, 68, 121" title="Pokéwood">
+<area href="/pokearth/unova/floccesyranch.shtml" shape="rect" coords="38, 115, 44, 121" title="Floccesy Ranch">
+<area href="/pokearth/unova/caveofbeing.shtml" shape="rect" coords="38, 135, 44, 143" title="Cave of Being">
+<area href="/pokearth/unova/virbankcomplex.shtml" shape="rect" coords="61, 135, 67, 143" title="Virbank Complex">
+<area href="/pokearth/unova/casteliasewers.shtml" shape="rect" coords="153, 140, 159, 148" title="Castelia Sewers">
+<area href="/pokearth/unova/p2laboratory.shtml" shape="rect" coords="211, 148, 217, 156" title="P2 Laboratory">
+<area href="/pokearth/unova/relicpassage.shtml" shape="rect" coords="102, 115, 108, 123" title="Relic Passage">
+<area href="/pokearth/unova/pwt.shtml" shape="rect" coords="73, 99, 81, 109" title="PWT">
+<area href="/pokearth/unova/claytunnel.shtml" shape="rect" coords="69, 74, 81, 109" title="Clay Tunnel">
+<area href="/pokearth/unova/lentimastown.shtml" shape="rect" coords="181, 61, 193, 75" title="Lentimas Town">
+<area href="/pokearth/unova/strangehouse.shtml" shape="rect" coords="195, 56, 201, 64" title="Strange House">
+<area href="/pokearth/unova/reversalmountain.shtml" shape="rect" coords="203, 64, 209, 72" title="Reversal Mountain">
+<area href="/pokearth/unova/seasidecave.shtml" shape="rect" coords="232, 50, 238, 56" title="Seaside Cave">
+<area href="/pokearth/unova/humilaucity.shtml" shape="rect" coords="229, 30, 241, 41" title="Humilau City">
+<area href="/pokearth/unova/n'scastle.shtml" shape="rect" coords="179, 3, 185, 11" title="N's Castle">
+<area href="/pokearth/unova/victoryroadb2w2.shtml" shape="rect" coords="180, 12, 188, 21" title="Victory Road">
+
+<area href="/pokearth/unova/dreamyard.shtml" shape="rect" coords="236, 115, 242, 121" title="Dreamyard">
+<area href="/pokearth/unova/wellspringcave.shtml" shape="rect" coords="212, 107, 218, 113" title="Wellspring Cave">
+<area href="/pokearth/unova/pinwheelforest.shtml" shape="rect" coords="191, 122, 197, 128" title="Pinwheel Forest">
+<area href="/pokearth/unova/reliccastle.shtml" shape="rect" coords="112, 101, 118, 107" title="Relic Castle">
+<area href="/pokearth/unova/mistraltoncave.shtml" shape="rect" coords="66, 71, 72, 77" title="Mistralton Cave">
+<area href="/pokearth/unova/chargestonecave.shtml" shape="rect" coords="39, 77, 45, 83" title="Chargestone Cave">
+<area href="/pokearth/unova/celestialtower.shtml" shape="rect" coords="51, 47, 57, 53" title="Celestial Tower">
+<area href="/pokearth/unova/twistmountain.shtml" shape="rect" coords="69, 52, 75, 58" title="Twist Mountain">
+<area href="/pokearth/unova/dragonspiraltower.shtml" shape="rect" coords="63, 28, 69, 34" title="Dragonspiral Tower">
+<area href="/pokearth/unova/mooroficirrus.shtml" shape="rect" coords="85, 33, 91, 39" title="Moor of Icirrus">
+<area href="/pokearth/unova/anvilletown.shtml" shape="rect" coords="4, 27, 10, 33" title="Anville Town">
+<area href="/pokearth/unova/challenger'scave.shtml" shape="rect" coords="114, 46, 120, 52" title="Challenger's Cave">
+<area href="/pokearth/unova/victoryroad.shtml" shape="rect" coords="159, 20, 167, 28" title="Victory Road">
+<area href="/pokearth/unova/giantchasm.shtml" shape="rect" coords="205, 33, 211, 41" title="Giant Chasm">
+<area href="/pokearth/unova/undellabay.shtml" shape="rect" coords="239, 60, 245, 68" title="Undella Bay">
+<area href="/pokearth/unova/abundantshrine.shtml" shape="rect" coords="194, 74, 200, 80" title="Abundant Shrine">
+<area href="/pokearth/unova/lostlornforest.shtml" shape="rect" coords="143, 81, 149, 87" title="Lostlorn Forest">
+<area href="/pokearth/unova/entralink.shtml" shape="rect" coords="129, 64, 135, 70" title="EntraLink">
+<area href="/pokearth/unova/libertygarden.shtml" shape="rect" coords="71, 142, 77, 148" title="Liberty Island">
+<area href="/pokearth/unova/unitytower.shtml" shape="rect" coords="95, 153, 103, 161" title="Unity Tower">
+
+
+</map></p>
+
+<p>If you are using smaller resolutions, this map will require scrolling to get to the various areas.</p>
+<div align="center"><iframe src="map.shtml" width="99%" height="900" border="0"></iframe></div>
+
+
+</main></div><!-- END #content -->
+
+<aside id="rbar">
+	<a href="/potw-sv/" class="navheader">Pokémon of the Week</a>
+	<div align="center">
+		<a href="/potw-sv/1018.shtml"><img src="/potw-sv/1018.jpg" alt="Pokémon of the Week" class="tbarpic"></a>
+	</div>
+	<div class="navheader">Next In Japan</div>
+	<div>
+		<div align="center"><img src="/anime/NextOn/1355.jpg" class="tbarpic"></div>
+		Episode 119<br>
+		<b>Hang In There, Crocalor, For the Sake of Tomorrow</b><br>
+		<div align="center"><img src="/anime/NextOn/1355-i.jpg" class="tbarpic"></div>
+			Airdate: 28/11/2025
+	</div>
+	<div class="navheader">Recently In USA</div>
+	<div>
+		<div align="center"><a href="/anime/epiguide/pokemon2023/089.shtml"><img src="/1325.jpg" class="tbarpic"></a></div><a href="/anime/epiguide/pokemon2023/089.shtml">
+		Episode 89<br>
+		<b>Where the Adventure Leads </b><br>
+		<img src="/anime/synopsis.gif">Synopsis</a><br>
+		<a href="/anime/pictures/pokemon2023/089.shtml"><img src="/anime/pictures.gif">Pictures</a><br>
+	</div>
+	<div class="navheader">Next In USA</div>
+	<div>
+		<div align="center"><a href="/anime/epiguide/pokemon2023/090.shtml"><img src="/1326.jpg" class="tbarpic"></a></div><a href="/anime/epiguide/pokemon2023/090.shtml">
+		Episode 90<br>
+		<b>Eyes to the Skies Once Again, Part 1</b><br>
+		Airdate: 06/01/2026</a><br>
+		<a href="/anime/epiguide/pokemon2023/090.shtml"><img src="/anime/synopsis.gif">Synopsis</a><br>
+		<a href="/anime/pictures/pokemon2023/090.shtml"><img src="/anime/pictures.gif">Pictures</a><br>
+	</div>
+	<div class="navheader">Social Media</div>
+	<div class="center">
+		<a href="https://www.facebook.com/SerebiiNetPage" target="blank"><img src="/Toolbar/headers/Facebook.png" width="30" alt="Facebook"></a>
+		<a href="https://www.twitter.com/SerebiiNet" target="blank"><img src="/Toolbar/headers/Twitter.png" width="30" alt="Twitter"></a>
+		<a href="https://bsky.app/profile/serebii.bsky.social" target="blank" rel="me"><img src="/Toolbar/headers/bluesky.png" width="30" alt="BlueSky"></a>
+		<a href="https://www.youtube.com/serebiispp" target="blank"><img src="/Toolbar/headers/youtube.png" width="30" alt="YouTube"></a>
+		<a href="https://www.instagram.com/serebii" target="blank" rel="nofollow"><img src="/Toolbar/headers/instagram.png" width="30" alt="Instagram"></a>
+		<a href="https://www.threads.net/@serebii" target="blank" rel="nofollow"><img src="/Toolbar/headers/threads.png" width="30" alt="Threads"></a>
+	</div>
+	<div class="navheader">Support Us</div>
+	<div class="center">
+		<a href="https://www.patreon.com/serebiinet" target="blank" rel="nofollow"><img src="/Toolbar/headers/patreon.png" width="50" alt="Patreon"></a>
+</div>
+	<div class="navheader">In Association With</div>
+	<div class="center">
+		<a href="http://www.pocketmonsters.net/" target="blank" rel="nofollow"><img src="/Toolbar/pm.png" alt="#PM"></a><br>
+		<a href="http://www.legendarypokemon.net/" target="blank" rel="nofollow"><img src="/Toolbar/lpoke.png" alt="Legendary Pokémon"></a>
+	</div>
+</aside>
+</div><!-- END #wrapper -->
+
+<footer id="footer">
+	<div class="copyright">
+		<a href="#top" alt="Top of Page" title="Top of Page" class="totop"></a>
+
+		All Content is © Copyright of Serebii.net 1999-2025. |
+		<a href="/privacy.shtml">Privacy Policy</a> |
+		<a class="nn-cmp-show" href="#">Manage Cookie Settings</a><br>
+		Pokémon and All Respective Names are Trademark &amp; © of Nintendo 1996-2025
+	</div>
+
+	<div style="height:102px">
+		<div id="nn_lb2"></div><div id="nn_mobile_lb2"></div>
+<div id="celtra-reveal-wrapper" style="position:fixed; height: auto; width: 100%">
+<div id="nn_1by1"></div>
+</div>
+	</div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+<iframe name="__tcfapiLocator" style="display: none;"></iframe><iframe name="__gppLocator" style="display: none;"></iframe></body></html>

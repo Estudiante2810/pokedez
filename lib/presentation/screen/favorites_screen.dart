@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../data/models/pokemon_detail.dart';
 import 'pokemon_detail_screen.dart';
 import 'pokemon_list_screen.dart';
+import 'pokearth_map_screen.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({Key? key}) : super(key: key);
@@ -24,6 +25,21 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Future<void> _loadFavorites() async {
     _favoritesBox = await Hive.openBox<PokemonDetail>('favorites');
     setState(() {});
+  }
+
+  List<Map<String, dynamic>> getAllFavorites() {
+    final data = _favoritesBox.keys.map((key) {
+      final value = _favoritesBox.get(key);
+      return {
+        "key": key,
+        "id": value?.id,
+        "name": value?.name,
+        "spriteUrl": value?.spriteUrl,
+        "isFavorite": value?.isFavorite,
+      };
+    }).toList();
+
+    return data.reversed.toList();
   }
 
   @override
@@ -81,13 +97,19 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1, // Índice para la pantalla actual
+        currentIndex: 1, // Selecciona el índice de favoritos
         onTap: (index) {
           if (index == 0) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const PokemonListScreen(),
-              ),
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const PokemonListScreen()),
+            );
+          } else if (index == 1) {
+            // Ya estamos en favoritos, no hacer nada
+          } else if (index == 2) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const PokearthMapScreen()),
             );
           }
         },
@@ -99,6 +121,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             label: 'Favoritos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map),
+            label: 'Mapa',
           ),
         ],
       ),
