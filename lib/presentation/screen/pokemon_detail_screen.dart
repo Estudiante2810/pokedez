@@ -5,6 +5,7 @@ import '../../data/models/pokemon_detail.dart';
 import '../../data/models/pokemon_list_item.dart';
 import '../../data/datasources/poke_api.dart';
 import '../widgets/page_transitions.dart';
+import '../widgets/radar_chart.dart';
 
 class PokemonDetailScreen extends StatefulWidget {
   final int id;
@@ -332,7 +333,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                                 color: Theme.of(context)
                                     .colorScheme
                                     .primary
-                                    .withOpacity(0.3),
+                                    .withValues(alpha: 0.3),
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(12),
@@ -348,7 +349,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                                     width: 70,
                                     height: 70,
                                     fit: BoxFit.contain,
-                                    errorBuilder: (_, __, ___) =>
+                                    errorBuilder: (_, _, _) =>
                                         const Icon(Icons.image_not_supported, size: 50),
                                   ),
                                 ),
@@ -385,18 +386,62 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
   }
 
   Widget _buildStatsTab() {
+    // Calculate total stats
+    final totalStats = _detail!.stats.values.reduce((a, b) => a + b);
+    
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // stats
+          // Radar Chart
           _AnimatedDetailSection(
             delay: const Duration(milliseconds: 400),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Stats',
+                Text('Stats Overview',
+                    style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(height: 16),
+                Center(
+                  child: SizedBox(
+                    height: 250,
+                    child: StatsRadarChart(
+                      data: _detail!.stats,
+                      maxValue: 255,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                // Total stats display
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      'Total Stats: $totalStats',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // Detailed stats with bars
+          _AnimatedDetailSection(
+            delay: const Duration(milliseconds: 600),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Detailed Stats',
                     style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
                 ..._detail!.stats.entries.map((e) {
@@ -412,7 +457,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                               MainAxisAlignment.spaceBetween,
                           children: [
                             Text(_capitalize(e.key)),
-                            Text(value.toString())
+                            Text('$value (${(pct * 100).toInt()}%)')
                           ],
                         ),
                         const SizedBox(height: 6),
@@ -434,11 +479,11 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
 
-          // moves
+          // Moves
           _AnimatedDetailSection(
-            delay: const Duration(milliseconds: 600),
+            delay: const Duration(milliseconds: 800),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -589,7 +634,7 @@ class _FloatingPokemonImageState extends State<_FloatingPokemonImage>
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                    Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                     Colors.transparent,
                   ],
                 ),

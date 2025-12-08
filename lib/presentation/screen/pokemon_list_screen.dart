@@ -12,7 +12,6 @@ import '../widgets/animated_list_item.dart';
 import '../widgets/page_transitions.dart';
 import '../widgets/shimmer_loading.dart';
 import 'pokemon_detail_screen.dart';
-import '../../data/providers/pokemon_providers.dart';
 import 'favorites_screen.dart';
 import 'pokearth_map_screen.dart';
 
@@ -180,7 +179,7 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
             decoration: InputDecoration(
               hintText: 'Buscar por nombre o ID (1-1025)',
               filled: true,
-              fillColor: Colors.white.withOpacity(0.9),
+              fillColor: Colors.white.withValues(alpha: 0.9),
               prefixIcon: const Icon(Icons.search, color: Color(0xFF00D9FF)),
               contentPadding: const EdgeInsets.symmetric(vertical: 0),
               border: OutlineInputBorder(
@@ -517,12 +516,6 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
       setState(() { _error = e.toString(); _loading = false; });
     }
   }
-
-  Future<void> _saveToLocalStorage() async {
-    final box = await Hive.openBox<PokemonListItem>('pokemonBox');
-    await box.clear(); // Limpiar datos antiguos
-    await box.addAll(_all); // Guardar la lista actual
-  }
 }
 
 /// Widget for Pokemon card in grid layout
@@ -598,7 +591,7 @@ class _PokemonCardState extends State<_PokemonCard>
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
@@ -679,7 +672,7 @@ class _PokemonCardState extends State<_PokemonCard>
           .map((t) => Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
+                  color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
@@ -853,4 +846,3 @@ class _PokemonListTileState extends State<_PokemonListTile>
     );
   }
 }
-

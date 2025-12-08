@@ -308,4 +308,53 @@ class PokeApi {
       throw Exception('Error fetching pokemon types: $e');
     }
   }
+
+  /// Fetch detailed stats for a Pokémon
+  static Future<Map<String, dynamic>> fetchPokemonStats(int id) async {
+    const query = '''
+      query GetPokemonStats(
+        \$id: Int!
+      ) {
+        pokemon_v2_pokemon(where: {id: {_eq: \$id}}) {
+          pokemon_v2_pokemonstats {
+            base_stat
+            pokemon_v2_stat {
+              name
+            }
+          }
+        }
+      }
+    ''';
+
+    try {
+      final result = await _client.query(
+        QueryOptions(
+          document: gql(query),
+          variables: {'id': id},
+        ),
+      );
+
+      if (result.hasException) {
+        throw Exception('Error fetching pokemon stats: ${result.exception}');
+      }
+
+      final pokemons = result.data?['pokemon_v2_pokemon'] as List<dynamic>?;
+      if (pokemons == null || pokemons.isEmpty) {
+        throw Exception('Pokemon not found');
+      }
+
+      final stats = pokemons[0]['pokemon_v2_pokemonstats'] as List<dynamic>;
+      final Map<String, dynamic> statsMap = {};
+
+      for (final stat in stats) {
+        final statName = stat['pokemon_v2_stat']['name'] as String;
+        final baseStat = stat['base_stat'] as int;
+        statsMap[statName] = baseStat;
+      }
+
+      return statsMap;
+    } catch (e) {
+      throw Exception('Error fetching pokemon stats: $e');
+    }
+  }
 }

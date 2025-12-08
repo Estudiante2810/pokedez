@@ -11,6 +11,18 @@ class PokearthMapScreen extends StatefulWidget {
 }
 
 class _PokearthMapScreenState extends State<PokearthMapScreen> {
+  final TransformationController _transformationController = TransformationController();
+
+  void _zoomIn() {
+    final scale = _transformationController.value;
+    _transformationController.value = scale.scaled(1.2);
+  }
+
+  void _zoomOut() {
+    final scale = _transformationController.value;
+    _transformationController.value = scale.scaled(0.8);
+  }
+
   late Future<List<PokearthArea>> _areasFuture;
   Size? _imageSize;
 
@@ -33,76 +45,95 @@ class _PokearthMapScreenState extends State<PokearthMapScreen> {
 
           final areas = snapshot.data!;
 
-          return InteractiveViewer(
-            minScale: 0.5,
-            maxScale: 4.0,
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return Stack(
-                  children: [
-                    // La imagen del mapa
-                    Image.asset(
-                      'assets/images/pokearth.png', // ← tu imagen
-                      fit: BoxFit.contain,
-                      alignment: Alignment.topLeft,
-                      // Capturamos el tamaño real renderizado
-                      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                        if (frame == null) return const SizedBox();
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          if (mounted) {
-                            setState(() => _imageSize = Size(
-                                  constraints.maxWidth,
-                                  constraints.maxHeight,
-                                ));
-                          }
-                        });
-                        return child;
-                      },
-                    ),
+          return Stack(
+            children: [
+              InteractiveViewer(
+                transformationController: _transformationController,
+                minScale: 0.5,
+                maxScale: 4.0,
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Stack(
+                      children: [
+                        Image.asset(
+                          'assets/images/pokearth.png',
+                          fit: BoxFit.contain,
+                          alignment: Alignment.topLeft,
+                          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                            if (frame == null) return const SizedBox();
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              if (mounted) {
+                                setState(() => _imageSize = Size(
+                                      constraints.maxWidth,
+                                      constraints.maxHeight,
+                                    ));
+                              }
+                            });
+                            return child;
+                          },
+                        ),
 
-                    // Zonas clicables
-                    if (_imageSize != null)
-                      ...areas.map((area) {
-                        final rect = area.coordinates;
-                        final scaleX = _imageSize!.width / 1200;  // 1200px es el ancho original del mapa
-                        final scaleY = _imageSize!.height / 900;  // 900px alto original (ajústalo si es diferente)
+                        if (_imageSize != null)
+                          ...areas.map((area) {
+                            final rect = area.coordinates;
+                            final scaleX = _imageSize!.width / 1100; // Ajusta según el ancho original del mapa
+                            final scaleY = _imageSize!.height / 850; // Ajusta según el alto original del mapa
 
-                        return Positioned(
-                          left: rect.left * scaleX,
-                          top: rect.top * scaleY,
-                          width: rect.width * scaleX,
-                          height: rect.height * scaleY,
-                          child: GestureDetector(
-                            onTap: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Vas a: ${area.title}')),
-                              );
-                              // Aquí puedes navegar a una pantalla de región, abrir URL, etc.
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.red.withOpacity(0.4), width: 2),
-                                color: Colors.transparent,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  area.title,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    backgroundColor: Colors.black54,
-                                    fontSize: 10,
+                            return Positioned(
+                              left: rect.left * scaleX,
+                              top: rect.top * scaleY,
+                              width: rect.width * scaleX,
+                              height: rect.height * scaleY,
+                              child: GestureDetector(
+                                onTap: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Vas a: ${area.title}')),
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.red.withOpacity(0.4), width: 2),
+                                    color: Colors.transparent,
                                   ),
-                                  textAlign: TextAlign.center,
+                                  child: Center(
+                                    child: Text(
+                                      area.title,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        backgroundColor: Colors.black54,
+                                        fontSize: 10,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        );
-                      }),
+                            );
+                          }),
+                      ],
+                    );
+                  },
+                ),
+              ),
+              Positioned(
+                bottom: 16,
+                right: 16,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    FloatingActionButton(
+                      onPressed: _zoomIn,
+                      child: const Icon(Icons.zoom_in),
+                    ),
+                    const SizedBox(height: 8),
+                    FloatingActionButton(
+                      onPressed: _zoomOut,
+                      child: const Icon(Icons.zoom_out),
+                    ),
                   ],
-                );
-              },
-            ),
+                ),
+              ),
+            ],
           );
         },
       ),

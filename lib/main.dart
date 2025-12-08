@@ -4,7 +4,6 @@ import 'presentation/screen/pokemon_list_screen.dart';
 import 'presentation/screen/splash_screen.dart';
 import 'data/datasources/poke_api.dart';
 import 'presentation/theme/app_theme.dart';
-import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pokedez/data/models/pokemon_detail.dart'; // Importa la clase y el adaptador
 
