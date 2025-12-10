@@ -83,6 +83,12 @@ class PokeApi {
           pokemon_v2_pokemontypes {
             pokemon_v2_type {
               name
+              pokemon_v2_typeefficacies {
+                damage_factor
+                pokemonV2TypeByTargetTypeId {
+                  name
+                }
+              }
             }
           }
           pokemon_v2_pokemonstats {
@@ -104,6 +110,11 @@ class PokeApi {
           }
           pokemon_v2_pokemonspecy {
             name
+            pokemon_v2_pokemonegggroups {
+              pokemon_v2_egggroup {
+                name
+              }
+            }
           }
         }
       }
@@ -163,11 +174,14 @@ class PokeApi {
       final species = result.data?['pokemon_v2_pokemonspecies'] as List<dynamic>? ?? [];
       if (species.isEmpty) return [];
 
-      final evolutionChain = (species[0] as Map<String, dynamic>)['pokemon_v2_evolutionchain'] 
-          as Map<String, dynamic>?;
+      final evolutionChainData = (species[0] as Map<String, dynamic>)['pokemon_v2_evolutionchain'];
       
-      if (evolutionChain == null) return [];
+      if (evolutionChainData == null || evolutionChainData is! Map<String, dynamic>) {
+        return [];
+      }
 
+      final evolutionChain = evolutionChainData;
+      
       final allSpecies = evolutionChain['pokemon_v2_pokemonspecies'] as List<dynamic>? ?? [];
       
       return allSpecies.map((s) {

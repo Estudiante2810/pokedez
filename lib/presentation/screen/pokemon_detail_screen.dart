@@ -54,7 +54,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
       CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
     );
 
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
 
     _load();
   }
@@ -73,22 +73,19 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
       _error = null;
     });
     try {
-      // fetch detail and evolutions in parallel
-      final detailFuture = PokeApi.fetchPokemonDetail(widget.id);
-      final evoFuture = PokeApi.fetchEvolutionChain(widget.id);
-      final results = await Future.wait([detailFuture, evoFuture]);
-      final d = results[0] as PokemonDetail;
-      final ev = results[1] as List<PokemonListItem>;
+      // fetch detail and evolutions individually to prevent type errors
+      final detail = await PokeApi.fetchPokemonDetail(widget.id);
+      final evolutions = await PokeApi.fetchEvolutionChain(widget.id);
 
       // Verificar si el Pokémon es favorito
       final box = await Hive.openBox<PokemonDetail>('favorites');
-      if (box.containsKey(d.id)) {
-        d.isFavorite = true;
+      if (box.containsKey(detail.id)) {
+        detail.isFavorite = true;
       }
 
       setState(() {
-        _detail = d;
-        _evolutions = ev;
+        _detail = detail;
+        _evolutions = evolutions;
         _loading = false;
       });
 
@@ -123,6 +120,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                 tabs: const [
                   Tab(text: 'Info Básica', icon: Icon(Icons.info_outline)),
                   Tab(text: 'Estadísticas', icon: Icon(Icons.bar_chart)),
+                  Tab(text: 'Combate', icon: Icon(Icons.shield_outlined)),
                 ],
               ),
       ),
@@ -150,6 +148,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                           children: [
                             _buildBasicInfoTab(),
                             _buildStatsTab(),
+                            _buildCombatTab(),
                           ],
                         ),
                       ),
@@ -230,18 +229,29 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
               children: [
                 Column(
                   children: [
-                    const Text('Height'),
-                    const SizedBox(height: 4),
-                    Text('${_detail!.height / 10} m')
+                    Text('Height',
+                        style: Theme.of(context).textTheme.labelLarge),
+                    Text('${_detail!.height / 10} m',
+                        style: Theme.of(context).textTheme.bodyLarge),
                   ],
                 ),
                 Column(
                   children: [
-                    const Text('Weight'),
-                    const SizedBox(height: 4),
-                    Text('${_detail!.weight / 10} kg')
+                    Text('Weight',
+                        style: Theme.of(context).textTheme.labelLarge),
+                    Text('${_detail!.weight / 10} kg',
+                        style: Theme.of(context).textTheme.bodyLarge),
                   ],
                 ),
+                 if (_detail!.eggGroups.isNotEmpty)
+                  Column(
+                    children: [
+                      Text('Egg Groups',
+                          style: Theme.of(context).textTheme.labelLarge),
+                      Text(_detail!.eggGroups.map(_capitalize).join(', '),
+                          style: Theme.of(context).textTheme.bodyLarge),
+                    ],
+                  ),
               ],
             ),
           ),
@@ -503,6 +513,91 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                   ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCombatTab() {
+    final weaknesses = <String, double>{};
+    final resistances = <String, double>{};
+    final immunities = <String>[];
+
+    _detail!.typeMatchups.forEach((type, factor) {
+      if (factor > 1) {
+        weaknesses[type] = factor;
+      } else if (factor < 1 && factor > 0) {
+        resistances[type] = factor;
+      } else if (factor == 0) {
+        immunities.add(type);
+      }
+    });
+
+    // Sort by effectiveness
+    final sortedWeaknesses = weaknesses.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    final sortedResistances = resistances.entries.toList()
+      ..sort((a, b) => a.value.compareTo(b.value));
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildMatchupSection('Debilidades', sortedWeaknesses),
+          const SizedBox(height: 24),
+          _buildMatchupSection('Resistencias', sortedResistances),
+          const SizedBox(height: 24),
+          if (immunities.isNotEmpty)
+            _buildImmunitySection('Inmunidades', immunities),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMatchupSection(String title, List<MapEntry<String, double>> matchups) {
+    if (matchups.isEmpty) return const SizedBox.shrink();
+
+    return _AnimatedDetailSection(
+      delay: const Duration(milliseconds: 400),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: matchups.map((e) {
+              return Chip(
+                label: Text('${_capitalize(e.key)} (x${e.value})'),
+                backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImmunitySection(String title, List<String> immunities) {
+    return _AnimatedDetailSection(
+      delay: const Duration(milliseconds: 600),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: immunities.map((type) {
+              return Chip(
+                label: Text(_capitalize(type)),
+                backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              );
+            }).toList(),
           ),
         ],
       ),

@@ -32,6 +32,12 @@ class PokemonDetail {
   final List<String> moves;
 
   @HiveField(9)
+  final List<String> eggGroups;
+
+  @HiveField(10)
+  final Map<String, double> typeMatchups;
+
+  @HiveField(11)
   bool isFavorite = false; // Campo para marcar si el Pokémon es favorito
 
   PokemonDetail({
@@ -44,6 +50,8 @@ class PokemonDetail {
     required this.stats,
     required this.spriteUrl,
     required this.moves,
+    required this.eggGroups,
+    required this.typeMatchups,
     this.isFavorite = false, // Inicializar como no favorito por defecto
   });
 
@@ -104,6 +112,36 @@ class PokemonDetail {
       movesList.add(moveName);
     }
 
+    // Parse egg groups from GraphQL format
+    final eggGroupsList = <String>[];
+    final specy = json['pokemon_v2_pokemonspecy'] as Map<String, dynamic>?;
+    if (specy != null) {
+      final eggGroups = specy['pokemon_v2_pokemonegggroups'] as List<dynamic>? ?? [];
+      for (final eg in eggGroups) {
+        final groupName = (eg as Map<String, dynamic>)['pokemon_v2_egggroup']['name'] as String;
+        eggGroupsList.add(groupName);
+      }
+    }
+
+    // Parse type matchups from GraphQL format
+    final typeMatchupsMap = <String, double>{};
+    final pokemonTypes = json['pokemon_v2_pokemontypes'] as List<dynamic>? ?? [];
+    for (final pt in pokemonTypes) {
+      final typeData = (pt as Map<String, dynamic>)['pokemon_v2_type'] as Map<String, dynamic>?;
+      if (typeData != null) {
+        final efficacies = typeData['pokemon_v2_typeefficacies'] as List<dynamic>? ?? [];
+        for (final e in efficacies) {
+          final efficacy = e as Map<String, dynamic>;
+          final targetType = (efficacy['pokemonV2TypeByTargetTypeId']
+              as Map<String, dynamic>)['name'] as String;
+          final damageFactor = (efficacy['damage_factor'] as int) / 100.0;
+
+          // Aggregate damage factors for dual-type Pokémon
+          typeMatchupsMap[targetType] = (typeMatchupsMap[targetType] ?? 1.0) * damageFactor;
+        }
+      }
+    }
+
     return PokemonDetail(
       id: id,
       name: name,
@@ -114,6 +152,8 @@ class PokemonDetail {
       stats: statsMap,
       spriteUrl: sprite,
       moves: movesList,
+      eggGroups: eggGroupsList,
+      typeMatchups: typeMatchupsMap,
       isFavorite: (json['is_favorite'] as bool?) ?? false, // Manejo de nulos
     );
   }

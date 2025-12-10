@@ -1,5 +1,10 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 part of 'pokemon_list_item.dart';
 
+// **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
 
 class PokemonListItemAdapter extends TypeAdapter<PokemonListItem> {
   @override

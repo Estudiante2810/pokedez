@@ -26,14 +26,16 @@ class PokemonDetailAdapter extends TypeAdapter<PokemonDetail> {
       stats: (fields[6] as Map).cast<String, int>(),
       spriteUrl: fields[7] as String,
       moves: (fields[8] as List).cast<String>(),
-      isFavorite: fields[9] as bool,
+      eggGroups: (fields[9] as List).cast<String>(),
+      typeMatchups: (fields[10] as Map).cast<String, double>(),
+      isFavorite: fields[11] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, PokemonDetail obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -53,6 +55,10 @@ class PokemonDetailAdapter extends TypeAdapter<PokemonDetail> {
       ..writeByte(8)
       ..write(obj.moves)
       ..writeByte(9)
+      ..write(obj.eggGroups)
+      ..writeByte(10)
+      ..write(obj.typeMatchups)
+      ..writeByte(11)
       ..write(obj.isFavorite);
   }
 
