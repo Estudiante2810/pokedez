@@ -1,5 +1,19 @@
 import 'package:flutter/material.dart';
 
+class PageTransitions {
+  static Route fade(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+    );
+  }
+}
+
 /// Custom page route with slide and fade transition
 class SlidePageRoute extends PageRouteBuilder {
   final Widget page;

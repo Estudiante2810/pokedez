@@ -8,12 +8,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../data/models/pokemon_list_item.dart';
 import '../../data/datasources/poke_api.dart';
+import '../../data/providers/pokemon_providers.dart'; // Importa el provider
 import '../widgets/animated_list_item.dart';
 import '../widgets/page_transitions.dart';
 import '../widgets/shimmer_loading.dart';
 import 'pokemon_detail_screen.dart';
 import 'favorites_screen.dart';
 import 'pokearth_map_screen.dart';
+import '../widgets/page_transitions.dart';
 
 class PokemonListScreen extends ConsumerStatefulWidget {
   const PokemonListScreen({super.key});
@@ -23,17 +25,11 @@ class PokemonListScreen extends ConsumerStatefulWidget {
 }
 
 class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
-  List<PokemonListItem> _all = [];
+  // Se eliminan: _all, _loading, _error, _offset, _hasMore. Riverpod se encarga de esto.
   List<PokemonListItem> _filtered = [];
-  bool _loading = true;
-  String? _error;
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   final Map<int, List<String>> _typesCache = {};
-
-  int _offset = 0;
-  static const int _pageSize = 50;
-  bool _hasMore = true;
 
   static const _prefsKeyGen = 'pokedez_filter_generation';
   static const _prefsKeyTypes = 'pokedez_filter_types';
@@ -41,25 +37,9 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeHive();
-    _load();
+    // Ya no se llama a _load() aquí. El provider se carga automáticamente.
     _searchController.addListener(_onSearchChanged);
     _scrollController.addListener(_onScroll);
-  }
-
-  Future<void> _initializeHive() async {
-    await Hive.initFlutter();
-    Hive.registerAdapter(PokemonListItemAdapter());
-    final box = await Hive.openBox<PokemonListItem>('pokemonBox');
-
-    // Cargar datos locales si existen
-    final savedPokemons = box.values.toList();
-    if (savedPokemons.isNotEmpty) {
-      setState(() {
-        _all = savedPokemons;
-        _filtered = List.of(_all);
-      });
-    }
   }
 
   @override
@@ -72,15 +52,16 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   }
 
   void _onSearchChanged() {
+    // La lógica de búsqueda ahora filtra sobre la lista que provee Riverpod.
+    final allPokemons = ref.read(pokemonListProvider).asData?.value ?? [];
     final q = _searchController.text.trim().toLowerCase();
     if (q.isEmpty) {
-      setState(() => _filtered = List.of(_all)); // Reset to full list when search is cleared
+      setState(() => _filtered = List.of(allPokemons));
     } else {
-      // Buscar por nombre O por ID numérico
       final numericId = int.tryParse(q);
       setState(() {
-        _filtered = _all.where((p) {
-          final matchName = p.name.contains(q);
+        _filtered = allPokemons.where((p) {
+          final matchName = p.name.toLowerCase().contains(q);
           final matchId = numericId != null && p.id == numericId;
           return matchName || matchId;
         }).toList();
@@ -89,84 +70,39 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   }
 
   void _onScroll() {
-    // Imprimir el valor de la posición actual del scroll en píxeles
-    debugPrint('Scroll position: \\${_scrollController.position.pixels}');
-
-    // Detectar si el usuario está cerca del final de la lista
-    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200 && !_loading && _hasMore) {
-      _loadMore();
+    // Obtenemos el notifier para llamar a fetchPokemons (load more)
+    final notifier = ref.read(pokemonListProvider.notifier);
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200 && !notifier.isLoadingMore) {
+      notifier.fetchPokemons(); // Llama al método del notifier para cargar más.
     }
   }
 
-  Future<void> _load() async {
-    setState(() {
-      _loading = true;
-      _error = null;
-    });
-    try {
-      final list = await PokeApi.fetchAllPokemons(limit: _pageSize, offset: _offset);
-      setState(() {
-        _all.addAll(list);
-        _filtered = List.of(_all);
-        _offset += list.length;
-        _hasMore = list.length == _pageSize;
-        _loading = false;
-      });
-
-      // Check saved filters and apply if present
-      final prefs = await SharedPreferences.getInstance();
-      final savedGen = prefs.getString(_prefsKeyGen);
-      final savedTypes = prefs.getStringList(_prefsKeyTypes) ?? [];
-      if ((savedGen == null || savedGen.isEmpty) && savedTypes.isEmpty) {
-        setState(() { _filtered = List.of(list); _loading = false; });
-      } else {
-        // apply saved filters (this will update _filtered and loading state)
-        await _applyFilters(savedGen, savedTypes);
-      }
-    } catch (e) {
-      setState(() { _error = e.toString(); _loading = false; });
-    }
-  }
-
-  Future<void> _loadMore() async {
-    if (!_hasMore) return;
-    setState(() {
-      _loading = true;
-    });
-    try {
-      final list = await PokeApi.fetchAllPokemons(limit: _pageSize, offset: _offset);
-      setState(() {
-        // Agregar los nuevos Pokémon a la lista existente sin restricciones
-        _all.addAll(list);
-        _filtered = List.of(_all);
-        _offset += list.length;
-        _hasMore = list.length == _pageSize;
-        _loading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _error = e.toString();
-        _loading = false;
-      });
-    }
-  }
-
-  Future<void> _refresh() => _load();
+  // Se eliminan _load(), _loadMore() y _refresh(). Ahora se usa el notifier.
+  // Ejemplo: para refrescar, se llamaría a ref.read(pokemonListProvider.notifier).refreshPokemons()
 
   @override
   Widget build(BuildContext context) {
-    
+    // Escuchamos los cambios en el provider
+    final pokemonListAsync = ref.watch(pokemonListProvider);
+
+    // Sincronizamos la lista filtrada cuando los datos del provider cambian
+    ref.listen<AsyncValue<List<PokemonListItem>>>(pokemonListProvider, (_, next) {
+      next.whenData((pokemons) {
+        // Si no hay búsqueda activa, actualizamos la lista filtrada.
+        if (_searchController.text.isEmpty) {
+          setState(() {
+            _filtered = pokemons;
+          });
+        }
+      });
+    });
 
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Theme.of(context).colorScheme.primary,
-                Theme.of(context).colorScheme.secondary,
-                Theme.of(context).colorScheme.tertiary,
-              ],
+              colors: [Color(0xFFE53935), Color(0xFFD32F2F)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -177,112 +113,88 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
           child: TextField(
             controller: _searchController,
             decoration: InputDecoration(
-              hintText: 'Buscar por nombre o ID (1-1025)',
+              hintText: 'Buscar Pokémon por nombre o ID...',
+              hintStyle: GoogleFonts.poppins(color: Colors.white70, fontSize: 14),
+              prefixIcon: const Icon(Icons.search, color: Colors.white, size: 20),
               filled: true,
-              fillColor: Colors.white.withValues(alpha: 0.9),
-              prefixIcon: const Icon(Icons.search, color: Color(0xFF00D9FF)),
-              contentPadding: const EdgeInsets.symmetric(vertical: 0),
+              fillColor: Colors.white.withOpacity(0.2),
+              contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide.none,
               ),
             ),
+            style: GoogleFonts.poppins(color: Colors.white),
           ),
         ),
         actions: [
           IconButton(
-            onPressed: _openFilters,
             icon: const Icon(Icons.filter_list, color: Colors.white),
-            tooltip: 'Filtros',
+            onPressed: _openFilters,
           ),
         ],
       ),
-      body: _loading && _all.isEmpty
-          ? const ShimmerLoading(itemCount: 15)
-          : _error != null
-              ? Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('Error: $_error'),
-                      const SizedBox(height: 12),
-                      ElevatedButton(onPressed: _load, child: const Text('Reintentar'))
-                    ],
-                  ),
-                )
-              : RefreshIndicator(
-                  onRefresh: _refresh,
-                  child: _filtered.isEmpty
-                      ? ListView(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          children: const [
-                            SizedBox(height: 120),
-                            Center(child: Text('No se encontraron Pokémon')),
-                          ],
-                        )
-                      : LayoutBuilder(
-                          builder: (context, constraints) {
-                            // Responsive: 4 columnas en web/desktop, 2 en móvil
-                            int crossAxisCount = 2;
-                            double childAspectRatio = 0.80; // Más cuadradas para móvil
-                            
-                            if (constraints.maxWidth > 900) {
-                              crossAxisCount = 4;
-                              childAspectRatio = 0.75;
-                            } else if (constraints.maxWidth > 600) {
-                              crossAxisCount = 3;
-                              childAspectRatio = 0.78;
-                            }
-                            
-                            return GridView.builder(
-                              padding: const EdgeInsets.all(12),
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: crossAxisCount,
-                                childAspectRatio: childAspectRatio,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 12,
-                              ),
-                              itemCount: _filtered.length + (_hasMore ? 1 : 0),
-                              itemBuilder: (context, index) {
-                                if (index == _filtered.length) {
-                                  return const Center(child: CircularProgressIndicator());
-                                }
-                                final p = _filtered[index];
-                                return AnimatedListItem(
-                                  index: index,
-                                  delay: const Duration(milliseconds: 30),
-                                  child: _PokemonCard(
-                                    pokemon: p,
-                                    typesCache: _typesCache,
-                                    onUpdateCache: (id, types) {
-                                      if (mounted) {
-                                        setState(() {
-                                          _typesCache[id] = types;
-                                        });
-                                      }
-                                    },
-                                  ),
-                                );
-                              },
-                            );
+      body: pokemonListAsync.when(
+        loading: () => const ShimmerLoading(itemCount: 15),
+        error: (err, stack) => Center(child: Text('Error: $err')),
+        data: (allPokemons) {
+          // La UI ahora se construye a partir de `_filtered`
+          // que se actualiza con la búsqueda y los datos del provider.
+          if (_filtered.isEmpty && _searchController.text.isNotEmpty) {
+            return const Center(child: Text('No se encontraron Pokémon.'));
+          }
+          
+          final notifier = ref.watch(pokemonListProvider.notifier);
+
+          return RefreshIndicator(
+            onRefresh: () => ref.read(pokemonListProvider.notifier).refreshPokemons(),
+            child: Column(
+              children: [
+                Expanded(
+                  child: GridView.builder(
+                    controller: _scrollController,
+                    padding: const EdgeInsets.all(8),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.85,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                    ),
+                    itemCount: _filtered.length,
+                    itemBuilder: (context, index) {
+                      final pokemon = _filtered[index];
+                      return AnimatedListItem(
+                        index: index,
+                        child: _PokemonCard(
+                          pokemon: pokemon,
+                          typesCache: _typesCache,
+                          onUpdateCache: (id, types) {
+                            setState(() => _typesCache[id] = types);
                           },
                         ),
+                      );
+                    },
+                  ),
                 ),
+                // Muestra un indicador de carga al final de la lista si se están cargando más.
+                if (notifier.isLoadingMore)
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+              ],
+            ),
+          );
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0, // Selecciona el índice de la lista
         onTap: (index) {
-          if (index == 0) {
-            // Ya estamos en la lista, no hacer nada
-          } else if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const FavoritesScreen()),
-            );
-          } else if (index == 2) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const PokearthMapScreen()),
-            );
+          if (index == 1) {
+            Navigator.pushReplacement(context, PageTransitions.fade(const FavoritesScreen()));
+          }
+          if (index == 2) {
+            Navigator.pushReplacement(context, PageTransitions.fade(const PokearthMapScreen()));
           }
         },
         items: const [
@@ -296,7 +208,7 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
-            label: 'Mapa',
+            label: 'Pokéarth',
           ),
         ],
       ),
@@ -330,118 +242,79 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
       ),
       builder: (context) {
-        return StatefulBuilder(builder: (context, setModalState) {
-          void toggleType(String t) {
-            setModalState(() {
-              if (selectedTypes.contains(t)) {
-                selectedTypes.remove(t);
-              } else {
-                selectedTypes.add(t);
-              }
-            });
-          }
-
-          // abilities removed from filters (feature removed)
-
-          return Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Filtros', style: Theme.of(context).textTheme.titleLarge),
-                        IconButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          icon: const Icon(Icons.close),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-
-                    // Generación
-                    Text('Generación', style: Theme.of(context).textTheme.titleMedium),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 6,
-                      children: generations.map((g) {
-                        final selected = selectedGeneration == g;
-                        return FilterChip(
-                          label: Text('Gen $g'),
-                          selected: selected,
-                          onSelected: (_) => setModalState(() => selectedGeneration = selected ? null : g),
-                        );
-                      }).toList(),
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    // Tipo
-                    Text('Tipo', style: Theme.of(context).textTheme.titleMedium),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 6,
-                      children: allTypes.map((t) {
-                        final selected = selectedTypes.contains(t);
-                        return FilterChip(
-                          label: Text(t),
-                          selected: selected,
-                          onSelected: (_) => toggleType(t),
-                        );
-                      }).toList(),
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: OutlinedButton.icon(
-                            onPressed: () {
-                              // Clear all filters and close
-                              Navigator.of(context).pop({'generation': null, 'types': []});
-                            },
-                            icon: const Icon(Icons.clear_all),
-                            label: const Text('Sin filtro'),
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: Color(0xFFFF0080), width: 2),
-                              foregroundColor: const Color(0xFFFF0080),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: OutlinedButton.icon(
-                            onPressed: () {
-                              // Return the selected filters to the caller
-                              Navigator.of(context).pop({'generation': selectedGeneration, 'types': selectedTypes});
-                            },
-                            icon: const Icon(Icons.check),
-                            label: const Text('Aplicar'),
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: Color(0xFF00D9FF), width: 2),
-                              foregroundColor: const Color(0xFF00D9FF),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                  ],
-                ),
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setModalState) {
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Filtros', style: Theme.of(context).textTheme.titleLarge),
+                  const SizedBox(height: 16),
+                  Text('Generación', style: Theme.of(context).textTheme.titleMedium),
+                  DropdownButton<String>(
+                    value: selectedGeneration,
+                    isExpanded: true,
+                    hint: const Text('Seleccionar generación'),
+                    items: generations.map((g) => DropdownMenuItem(value: g, child: Text('Generación $g'))).toList(),
+                    onChanged: (val) {
+                      setModalState(() {
+                        selectedGeneration = val;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  Text('Tipos', style: Theme.of(context).textTheme.titleMedium),
+                  Wrap(
+                    spacing: 8,
+                    children: allTypes.map((type) {
+                      final isSelected = selectedTypes.contains(type);
+                      return FilterChip(
+                        label: Text(type[0].toUpperCase() + type.substring(1)),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          setModalState(() {
+                            if (selected) {
+                              selectedTypes.add(type);
+                            } else {
+                              selectedTypes.remove(type);
+                            }
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          setModalState(() {
+                            selectedGeneration = null;
+                            selectedTypes.clear();
+                          });
+                        },
+                        child: const Text('Limpiar'),
+                      ),
+                      const SizedBox(width: 8),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context, {
+                            'generation': selectedGeneration,
+                            'types': selectedTypes,
+                          });
+                        },
+                        child: const Text('Aplicar'),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ),
-          );
-        });
+            );
+          },
+        );
       },
     );
 
@@ -449,7 +322,8 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
     if (result != null) {
       // Show loading animation before applying filters
       setState(() {
-        _loading = true;
+        // No es necesario un loading a pantalla completa, el filtrado es rápido.
+        // Si fuera lento, se podría mostrar un indicador.
       });
 
       // Animate transition
@@ -472,48 +346,47 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   }
 
   Future<void> _applyFilters(String? selectedGeneration, List<String> selectedTypes) async {
+    final allPokemons = ref.read(pokemonListProvider).asData?.value ?? [];
     // If no filters, reset
     if ((selectedGeneration == null || selectedGeneration.isEmpty) && selectedTypes.isEmpty) {
       setState(() {
-        _filtered = List.of(_all);
-        _loading = false;
+        _filtered = List.of(allPokemons);
       });
       return;
     }
 
-    setState(() { _loading = true; _error = null; });
+    // El loading se maneja en la UI si es necesario, aquí solo filtramos.
     try {
       Set<String>? genNames;
       if (selectedGeneration != null && selectedGeneration.isNotEmpty) {
-        // Map roman like 'I'->1
-        final roman = selectedGeneration.toUpperCase();
-        final romanToInt = <String,int>{'I':1,'II':2,'III':3,'IV':4,'V':5,'VI':6,'VII':7,'VIII':8,'IX':9};
-        final gid = romanToInt[roman] ?? int.tryParse(roman);
-        if (gid != null) {
-          genNames = await PokeApi.fetchPokemonNamesByGeneration(gid);
+        final genMap = {'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5, 'VI': 6, 'VII': 7, 'VIII': 8, 'IX': 9};
+        final genId = genMap[selectedGeneration];
+        if (genId != null) {
+          genNames = await PokeApi.fetchPokemonNamesByGeneration(genId);
         }
       }
 
       List<Set<String>> sets = [];
       if (genNames != null) sets.add(genNames);
       for (final t in selectedTypes) {
-        final s = await PokeApi.fetchPokemonNamesByType(t);
-        sets.add(s);
+        sets.add(await PokeApi.fetchPokemonNamesByType(t));
       }
 
       Set<String> finalNames;
       if (sets.isEmpty) {
-        finalNames = _all.map((e) => e.name).toSet();
+        finalNames = allPokemons.map((e) => e.name).toSet();
       } else {
-        finalNames = sets.reduce((value, element) => value.intersection(element));
+        finalNames = sets.reduce((a, b) => a.intersection(b));
       }
 
       setState(() {
-        _filtered = _all.where((p) => finalNames.contains(p.name)).toList();
-        _loading = false;
+        _filtered = allPokemons.where((p) => finalNames.contains(p.name)).toList();
       });
     } catch (e) {
-      setState(() { _error = e.toString(); _loading = false; });
+       // Manejar el error, por ejemplo, mostrando un SnackBar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al aplicar filtros: $e')),
+      );
     }
   }
 }
@@ -561,102 +434,86 @@ class _PokemonCardState extends State<_PokemonCard>
     return ScaleTransition(
       scale: _scaleAnimation,
       child: Card(
-        elevation: 4,
+        clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 4,
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
           onTapDown: (_) => _scaleController.forward(),
-          onTapUp: (_) {
-            _scaleController.reverse();
-            Future.delayed(const Duration(milliseconds: 100), () {
-              Navigator.of(context).push(
-                SlidePageRoute(
-                  page: PokemonDetailScreen(
-                    id: widget.pokemon.id,
-                    name: widget.pokemon.name,
-                  ),
-                ),
-              );
-            });
-          },
+          onTapUp: (_) => _scaleController.reverse(),
           onTapCancel: () => _scaleController.reverse(),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // ID Badge - más pequeño y blanco
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          onTap: () {
+            Navigator.push(
+              context,
+              PageTransitions.fade(PokemonDetailScreen(
+                id: widget.pokemon.id,
+                name: widget.pokemon.name,
+              )),
+            );
+          },
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    '#${widget.pokemon.id.toString().padLeft(3, '0')}',
-                    style: const TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                    gradient: LinearGradient(
+                      colors: [Colors.grey[200]!, Colors.white],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
                   ),
                 ),
-                const SizedBox(height: 4),
-                // Imagen del Pokémon MÁS GRANDE
-                Expanded(
-                  child: Hero(
-                    tag: 'pokemon_${widget.pokemon.id}',
-                    child: Image.network(
-                      widget.pokemon.imageUrl,
-                      fit: BoxFit.contain,
-                      errorBuilder: (c, e, s) => const Icon(
-                        Icons.catching_pokemon,
-                        size: 50,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
+              ),
+              Positioned(
+                top: -40,
+                right: -40,
+                child: Image.asset(
+                  'assets/images/pokeball_icon.png',
+                  width: 120,
+                  height: 120,
+                  color: Colors.grey.withOpacity(0.1),
                 ),
-                const SizedBox(height: 4),
-                // Nombre - más pequeño
-                Text(
-                  _capitalize(widget.pokemon.name),
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.nunito(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
-                // Tipos - MÁS COMPACTOS Y BLANCOS
-                widget.typesCache.containsKey(widget.pokemon.id)
-                    ? _buildTypeChips(widget.typesCache[widget.pokemon.id]!)
-                    : FutureBuilder<List<String>>(
-                        future: PokeApi.fetchPokemonTypes(widget.pokemon.id),
-                        builder: (ctx, snap) {
-                          if (snap.connectionState == ConnectionState.waiting) {
-                            return const SizedBox(
-                              width: 10,
-                              height: 10,
-                              child: CircularProgressIndicator(strokeWidth: 1.5),
-                            );
-                          }
-                          if (snap.hasError || snap.data == null) {
-                            return const SizedBox(height: 18);
-                          }
-                          final types = snap.data!;
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            widget.onUpdateCache(widget.pokemon.id, types);
-                          });
-                          return _buildTypeChips(types);
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Hero(
+                      tag: 'pokemon-${widget.pokemon.id}',
+                      child: Image.network(
+                        widget.pokemon.imageUrl,
+                        fit: BoxFit.contain,
+                        height: 100,
+                        loadingBuilder: (context, child, progress) {
+                          return progress == null ? child : const Center(child: CircularProgressIndicator());
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.error_outline, color: Colors.red, size: 40);
                         },
                       ),
-              ],
-            ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Column(
+                      children: [
+                        Text(
+                          _capitalize(widget.pokemon.name),
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14),
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          '#${widget.pokemon.id.toString().padLeft(3, '0')}',
+                          style: GoogleFonts.poppins(color: Colors.grey[600], fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -669,20 +526,15 @@ class _PokemonCardState extends State<_PokemonCard>
       spacing: 3,
       runSpacing: 2,
       children: types
-          .map((t) => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.7),
-                  borderRadius: BorderRadius.circular(8),
+          .map((type) => Chip(
+                label: Text(
+                  _capitalize(type),
+                  style: GoogleFonts.poppins(fontSize: 9, color: Colors.white, fontWeight: FontWeight.bold),
                 ),
-                child: Text(
-                  _capitalize(t),
-                  style: const TextStyle(
-                    fontSize: 8,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
+                backgroundColor: Colors.black.withOpacity(0.3),
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                visualDensity: VisualDensity.compact,
               ))
           .toList(),
     );
@@ -739,106 +591,70 @@ class _PokemonListTileState extends State<_PokemonListTile>
     return ScaleTransition(
       scale: _scaleAnimation,
       child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTapDown: (_) {
-            _scaleController.forward();
-          },
-          onTapUp: (_) {
-            _scaleController.reverse();
-            Future.delayed(const Duration(milliseconds: 100), () {
-              Navigator.of(context).push(
-                SlidePageRoute(
-                  page: PokemonDetailScreen(
-                    id: widget.pokemon.id,
-                    name: widget.pokemon.name,
-                  ),
-                ),
-              );
-            });
-          },
+          onTapDown: (_) => _scaleController.forward(),
+          onTapUp: (_) => _scaleController.reverse(),
           onTapCancel: () => _scaleController.reverse(),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                Hero(
-                  tag: 'pokemon_${widget.pokemon.id}',
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      widget.pokemon.imageUrl,
-                      width: 64,
-                      height: 64,
-                      fit: BoxFit.cover,
-                      errorBuilder: (c, e, s) => Container(
-                        width: 64,
-                        height: 64,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(8),
+          onTap: () {
+            Navigator.push(
+              context,
+              PageTransitions.fade(PokemonDetailScreen(
+                id: widget.pokemon.id,
+                name: widget.pokemon.name,
+              )),
+            );
+          },
+          child: ListTile(
+            leading: Hero(
+              tag: 'pokemon-${widget.pokemon.id}',
+              child: Image.network(
+                widget.pokemon.imageUrl,
+                width: 50,
+                height: 50,
+                fit: BoxFit.contain,
+                loadingBuilder: (context, child, progress) {
+                  return progress == null ? child : const Center(child: CircularProgressIndicator());
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.error_outline, color: Colors.red);
+                },
+              ),
+            ),
+            title: Text(
+              _capitalize(widget.pokemon.name),
+              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text(
+              '#${widget.pokemon.id.toString().padLeft(3, '0')}',
+              style: GoogleFonts.poppins(color: Colors.grey[600]),
+            ),
+            trailing: FutureBuilder<List<String>>(
+              future: Future.value(widget.typesCache[widget.pokemon.id] ?? PokeApi.fetchPokemonTypes(widget.pokemon.id)),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting && !widget.typesCache.containsKey(widget.pokemon.id)) {
+                  return const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2));
+                }
+                if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const SizedBox.shrink();
+                }
+                final types = snapshot.data!;
+                if (!widget.typesCache.containsKey(widget.pokemon.id)) {
+                  widget.onUpdateCache(widget.pokemon.id, types);
+                }
+                return Wrap(
+                  spacing: 4,
+                  children: types.map((type) => Chip(
+                        label: Text(
+                          _capitalize(type),
+                          style: GoogleFonts.poppins(fontSize: 10, color: Colors.white),
                         ),
-                        child: const Icon(Icons.image_not_supported),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _capitalize(widget.pokemon.name),
-                        style: GoogleFonts.nunito(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      widget.typesCache.containsKey(widget.pokemon.id)
-                          ? Text(
-                              '#${widget.pokemon.id}  •  ${widget.typesCache[widget.pokemon.id]!.map(_capitalize).join(', ')}',
-                              style: TextStyle(color: Colors.grey[600]),
-                            )
-                          : FutureBuilder<List<String>>(
-                              future: PokeApi.fetchPokemonTypes(widget.pokemon.id),
-                              builder: (ctx, snap) {
-                                if (snap.connectionState == ConnectionState.waiting) {
-                                  return Row(
-                                    children: const [
-                                      SizedBox(
-                                        width: 12,
-                                        height: 12,
-                                        child: CircularProgressIndicator(strokeWidth: 2),
-                                      ),
-                                    ],
-                                  );
-                                }
-                                if (snap.hasError || snap.data == null) {
-                                  return Text(
-                                    '#${widget.pokemon.id}',
-                                    style: TextStyle(color: Colors.grey[600]),
-                                  );
-                                }
-                                final types = snap.data!;
-                                WidgetsBinding.instance.addPostFrameCallback((_) {
-                                  widget.onUpdateCache(widget.pokemon.id, types);
-                                });
-                                return Text(
-                                  '#${widget.pokemon.id}  •  ${types.map(_capitalize).join(', ')}',
-                                  style: TextStyle(color: Colors.grey[600]),
-                                );
-                              },
-                            ),
-                    ],
-                  ),
-                ),
-                Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey[400]),
-              ],
+                        backgroundColor: Colors.black.withOpacity(0.3),
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      )).toList(),
+                );
+              },
             ),
           ),
         ),

@@ -186,8 +186,12 @@ class PokeApi {
       
       return allSpecies.map((s) {
         final speciesData = s as Map<String, dynamic>;
-        return PokemonListItem.fromGraphQL(speciesData);
-      }).toList();
+        // Asegurarse de que los datos necesarios están presentes
+        if (speciesData.containsKey('name') && speciesData.containsKey('id')) {
+          return PokemonListItem.fromGraphQL(speciesData);
+        }
+        return null; // O manejar el caso de error como prefieras
+      }).whereType<PokemonListItem>().toList();
     } catch (e) {
       // Error fetching evolution chain - returning empty list
       return [];

@@ -13,7 +13,6 @@ class PokemonListNotifier extends StateNotifier<AsyncValue<List<PokemonListItem>
 
   int _offset = 0;
   final int _pageSize = 50; // Load 50 Pokémon at a time
-  final int _maxPokemons = 200; // Maximum of 200 Pokémon in the list
   bool _hasMore = true;
   bool _isFetching = false; // Prevent multiple simultaneous fetches
 
@@ -22,48 +21,43 @@ class PokemonListNotifier extends StateNotifier<AsyncValue<List<PokemonListItem>
   bool get isLoadingMore => _isFetching; // Expose loading state for UI
 
   Future<void> fetchPokemons({bool isRefresh = false}) async {
-    if (!_hasMore || _isFetching) return; // Avoid fetching if already fetching or no more data
+    if (_isFetching || (!isRefresh && !_hasMore)) return;
 
-    _isFetching = true; // Set fetching flag
+    _isFetching = true;
 
+    // Notificar a la UI que se está cargando, pero sin cambiar los datos actuales si es "load more"
     if (isRefresh) {
-      state = const AsyncValue.loading(); // Show full loading indicator on refresh
+      _offset = 0;
+      _allPokemons.clear();
+      state = const AsyncValue.loading();
     } else {
-      state = AsyncValue.data(_allPokemons); // Keep current data while loading more
+      // For loading more, we just update the fetching flag and the UI will use isLoadingMore
+      // to show a spinner. We don't change the state data here.
+      state = state; // This will trigger a rebuild for listeners of the notifier
     }
 
     try {
       final newPokemons = await PokeApi.fetchAllPokemons(limit: _pageSize, offset: _offset);
 
-      if (newPokemons.isEmpty || newPokemons.length < _pageSize) {
-        _hasMore = false; // No more Pokémon to load
+      if (newPokemons.length < _pageSize) {
+        _hasMore = false;
       }
 
-      if (isRefresh) {
-        _allPokemons = newPokemons;
-        _offset = newPokemons.length;
-      } else {
-        _allPokemons.addAll(newPokemons);
-        _offset += newPokemons.length;
+      _offset += newPokemons.length;
+      _allPokemons.addAll(newPokemons);
 
-        // Ensure the list does not exceed the maximum size
-        if (_allPokemons.length > _maxPokemons) {
-          _allPokemons.removeRange(0, _allPokemons.length - _maxPokemons);
-        }
-      }
-
-      state = AsyncValue.data(_allPokemons);
+      state = AsyncValue.data(List.from(_allPokemons));
     } catch (e, st) {
       state = AsyncValue.error(e, st);
     } finally {
-      _isFetching = false; // Reset fetching flag
+      _isFetching = false;
+      // Trigger a final rebuild to hide the loading indicator
+      state = state.whenData((value) => List.from(_allPokemons));
     }
   }
 
   Future<void> refreshPokemons() async {
-    _offset = 0;
     _hasMore = true;
-    _allPokemons.clear();
     await fetchPokemons(isRefresh: true);
   }
 }

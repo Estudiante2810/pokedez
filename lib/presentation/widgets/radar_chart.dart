@@ -76,6 +76,7 @@ class RadarChartWidget extends StatelessWidget {
                 RadarDataSet(
                   dataEntries: values
                       .map((value) => RadarEntry(value: value))
+
                       .toList(),
                   borderColor: Theme.of(context).colorScheme.primary,
                   fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
