@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'presentation/screen/pokemon_list_screen.dart';
 import 'presentation/screen/splash_screen.dart';
 import 'data/datasources/poke_api.dart';
 import 'presentation/theme/app_theme.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pokedez/data/models/pokemon_detail.dart'; // Importa la clase y el adaptador
-
+import 'package:pokedez/data/models/pokemon_detail.dart'; 
+import 'presentation/screen/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Inicializa Hive
   await Hive.initFlutter();
-
+  await Hive.openBox('favorites');
   // Registra el adaptador para PokemonDetail
   Hive.registerAdapter(PokemonDetailAdapter());
 
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       home: const SplashScreen(
-        child: PokemonListScreen(),
+        child: HomeScreen(),
       ),
     );
   }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../data/models/pokemon_list_item.dart';
 import '../../data/datasources/poke_api.dart';
@@ -15,17 +14,24 @@ import '../widgets/shimmer_loading.dart';
 import 'pokemon_detail_screen.dart';
 import 'favorites_screen.dart';
 import 'pokearth_map_screen.dart';
-import '../widgets/page_transitions.dart';
+
 
 class PokemonListScreen extends ConsumerStatefulWidget {
-  const PokemonListScreen({super.key});
+  final bool openFiltersAutomatically;
+  final String? preSelectedFilter; // 'generation' o 'type'
+  
+  const PokemonListScreen({
+    super.key,
+    this.openFiltersAutomatically = false,
+    this.preSelectedFilter,
+  });
 
   @override
   ConsumerState<PokemonListScreen> createState() => _PokemonListScreenState();
 }
 
 class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
-  // Se eliminan: _all, _loading, _error, _offset, _hasMore. Riverpod se encarga de esto.
+ 
   List<PokemonListItem> _filtered = [];
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -40,6 +46,13 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
     // Ya no se llama a _load() aquí. El provider se carga automáticamente.
     _searchController.addListener(_onSearchChanged);
     _scrollController.addListener(_onScroll);
+    
+    // Si se solicitó abrir filtros automáticamente, hacerlo después del primer frame
+    if (widget.openFiltersAutomatically) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _openFilters();
+      });
+    }
   }
 
   @override
@@ -90,9 +103,11 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
       next.whenData((pokemons) {
         // Si no hay búsqueda activa, actualizamos la lista filtrada.
         if (_searchController.text.isEmpty) {
-          setState(() {
-            _filtered = pokemons;
-          });
+          if (mounted) {
+            setState(() {
+              _filtered = pokemons;
+            });
+          }
         }
       });
     });
@@ -113,18 +128,18 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
           child: TextField(
             controller: _searchController,
             decoration: InputDecoration(
-              hintText: 'Buscar Pokémon por nombre o ID...',
-              hintStyle: GoogleFonts.poppins(color: Colors.white70, fontSize: 14),
-              prefixIcon: const Icon(Icons.search, color: Colors.white, size: 20),
+              hintText: 'Buscar Pokémon...',
+              hintStyle: GoogleFonts.nunito(color: Colors.grey, fontSize: 16),
+              prefixIcon: const Icon(Icons.search, color: Colors.grey, size: 24),
               filled: true,
-              fillColor: Colors.white.withOpacity(0.2),
-              contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+              fillColor: Colors.white,
+              contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: BorderSide.none,
               ),
             ),
-            style: GoogleFonts.poppins(color: Colors.white),
+            style: GoogleFonts.nunito(color: Colors.black87, fontSize: 16),
           ),
         ),
         actions: [
@@ -463,16 +478,16 @@ class _PokemonCardState extends State<_PokemonCard>
                   ),
                 ),
               ),
-              Positioned(
+             /* Positioned(
                 top: -40,
                 right: -40,
                 child: Image.asset(
-                  'assets/images/pokeball_icon.png',
+                  'assets/images/pokeball_A.png',
                   width: 120,
                   height: 120,
                   color: Colors.grey.withOpacity(0.1),
                 ),
-              ),
+              ),*/
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -517,26 +532,6 @@ class _PokemonCardState extends State<_PokemonCard>
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildTypeChips(List<String> types) {
-    return Wrap(
-      alignment: WrapAlignment.center,
-      spacing: 3,
-      runSpacing: 2,
-      children: types
-          .map((type) => Chip(
-                label: Text(
-                  _capitalize(type),
-                  style: GoogleFonts.poppins(fontSize: 9, color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                backgroundColor: Colors.black.withOpacity(0.3),
-                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                visualDensity: VisualDensity.compact,
-              ))
-          .toList(),
     );
   }
 
