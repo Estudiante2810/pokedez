@@ -18,20 +18,6 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: AppTheme.surfaceColor, //
       body: Stack(
         children: [
-          // 1. Fondo Decorativo (Pokeball grande o Gradiente)
-          Positioned(
-            top: -50,
-            right: -50,
-            child: Opacity(
-              opacity: 0.1,
-              child: Image.asset(
-                'assets/images/pokeball_A.png', 
-                width: 200,
-                height: 200,
-              ),
-            ),
-          ),
-          
           SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 20),

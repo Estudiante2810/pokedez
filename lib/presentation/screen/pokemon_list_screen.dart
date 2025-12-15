@@ -43,16 +43,20 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   @override
   void initState() {
     super.initState();
-    // Ya no se llama a _load() aquí. El provider se carga automáticamente.
     _searchController.addListener(_onSearchChanged);
     _scrollController.addListener(_onScroll);
-    
-    // Si se solicitó abrir filtros automáticamente, hacerlo después del primer frame
-    if (widget.openFiltersAutomatically) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Siempre recarga los pokemones al entrar a la pantalla
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(pokemonListProvider.notifier).refreshPokemons();
+      if (widget.openFiltersAutomatically) {
         _openFilters();
-      });
-    }
+      }
+    });
   }
 
   @override

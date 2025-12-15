@@ -14,22 +14,18 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
-  late Box<PokemonDetail> _favoritesBox;
+
+  late Future<Box<PokemonDetail>> _favoritesBoxFuture;
 
   @override
   void initState() {
     super.initState();
-    _loadFavorites();
+    _favoritesBoxFuture = Hive.openBox<PokemonDetail>('favorites');
   }
 
-  Future<void> _loadFavorites() async {
-    _favoritesBox = await Hive.openBox<PokemonDetail>('favorites');
-    setState(() {});
-  }
-
-  List<Map<String, dynamic>> getAllFavorites() {
-    final data = _favoritesBox.keys.map((key) {
-      final value = _favoritesBox.get(key);
+  List<Map<String, dynamic>> getAllFavorites(Box<PokemonDetail> box) {
+    final data = box.keys.map((key) {
+      final value = box.get(key);
       return {
         "key": key,
         "id": value?.id,
@@ -50,45 +46,57 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
       ),
-      body: ValueListenableBuilder(
-        valueListenable: _favoritesBox.listenable(),
-        builder: (context, Box<PokemonDetail> box, _) {
-          if (box.isEmpty) {
-            return const Center(
-              child: Text('No tienes Pokémon favoritos.'),
-            );
+      body: FutureBuilder<Box<PokemonDetail>>(
+        future: _favoritesBoxFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(child: CircularProgressIndicator());
           }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error al cargar favoritos'));
+          }
+          final box = snapshot.data!;
+          return ValueListenableBuilder(
+            valueListenable: box.listenable(),
+            builder: (context, Box<PokemonDetail> box, _) {
+              if (box.isEmpty) {
+                return const Center(
+                  child: Text('No tienes Pokémon favoritos.'),
+                );
+              }
 
-          final favorites = box.values.toList();
+              final favorites = box.values.toList();
 
-          return ListView.builder(
-            itemCount: favorites.length,
-            itemBuilder: (context, index) {
-              final pokemon = favorites[index];
-              return ListTile(
-                leading: Image.network(
-                  pokemon.spriteUrl,
-                  width: 50,
-                  height: 50,
-                  errorBuilder: (context, error, stackTrace) => const Icon(Icons.catching_pokemon),
-                ),
-                title: Text(pokemon.name),
-                subtitle: Text('#${pokemon.id}'),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () {
-                    box.delete(pokemon.id);
-                  },
-                ),
-                onTap: () {
-                  // Navegar a la pantalla de detalles del Pokémon
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => PokemonDetailScreen(
-                        id: pokemon.id,
-                        name: pokemon.name,
-                      ),
+              return ListView.builder(
+                itemCount: favorites.length,
+                itemBuilder: (context, index) {
+                  final pokemon = favorites[index];
+                  return ListTile(
+                    leading: Image.network(
+                      pokemon.spriteUrl,
+                      width: 50,
+                      height: 50,
+                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.catching_pokemon),
                     ),
+                    title: Text(pokemon.name),
+                    subtitle: Text('#${pokemon.id}'),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        box.delete(pokemon.id);
+                      },
+                    ),
+                    onTap: () {
+                      // Navegar a la pantalla de detalles del Pokémon
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => PokemonDetailScreen(
+                            id: pokemon.id,
+                            name: pokemon.name,
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
               );

@@ -12,9 +12,9 @@ void main() async {
 
   // Inicializa Hive
   await Hive.initFlutter();
-  await Hive.openBox('favorites');
   // Registra el adaptador para PokemonDetail
   Hive.registerAdapter(PokemonDetailAdapter());
+  await Hive.openBox<PokemonDetail>('favorites');
 
   // Inicializa GraphQL
   PokeApi.initGraphQL();
