@@ -69,20 +69,28 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   }
 
   void _onSearchChanged() {
-    // La lógica de búsqueda ahora filtra sobre la lista que provee Riverpod.
-    final allPokemons = ref.read(pokemonListProvider).asData?.value ?? [];
-    final q = _searchController.text.trim().toLowerCase();
-    if (q.isEmpty) {
+    final query = _searchController.text.trim();
+    
+    if (query.isEmpty) {
+      // Si está vacío, muestra la lista normal cargada
+      final allPokemons = ref.read(pokemonListProvider).asData?.value ?? [];
       setState(() => _filtered = List.of(allPokemons));
     } else {
-      final numericId = int.tryParse(q);
-      setState(() {
-        _filtered = allPokemons.where((p) {
-          final matchName = p.name.toLowerCase().contains(q);
-          final matchId = numericId != null && p.id == numericId;
-          return matchName || matchId;
-        }).toList();
-      });
+      // Realiza búsqueda global en toda la base de datos
+      ref.read(pokemonListProvider.notifier).globalSearch(query);
+      // El listener actualizará _filtered cuando globalSearch() finalice
+    }
+  }
+
+  void _onEnterPressed() {
+    final query = _searchController.text.trim();
+    
+    if (query.isEmpty) {
+      // Si está vacío, recarga la lista normal
+      ref.read(pokemonListProvider.notifier).refreshPokemons();
+    } else {
+      // Si hay búsqueda, recarga los resultados de búsqueda
+      ref.read(pokemonListProvider.notifier).globalSearch(query);
     }
   }
 
@@ -105,13 +113,10 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
     // Sincronizamos la lista filtrada cuando los datos del provider cambian
     ref.listen<AsyncValue<List<PokemonListItem>>>(pokemonListProvider, (_, next) {
       next.whenData((pokemons) {
-        // Si no hay búsqueda activa, actualizamos la lista filtrada.
-        if (_searchController.text.isEmpty) {
-          if (mounted) {
-            setState(() {
-              _filtered = pokemons;
-            });
-          }
+        if (mounted) {
+          setState(() {
+            _filtered = pokemons;
+          });
         }
       });
     });
@@ -131,6 +136,8 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
           height: 40,
           child: TextField(
             controller: _searchController,
+            textInputAction: TextInputAction.search,
+            onSubmitted: (_) => _onEnterPressed(),
             decoration: InputDecoration(
               hintText: 'Buscar Pokémon...',
               hintStyle: GoogleFonts.nunito(color: Colors.grey, fontSize: 16),
@@ -254,7 +261,7 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   String? selectedGeneration = savedGen != null && savedGen.isNotEmpty ? savedGen : null;
   selectedTypes.addAll(savedTypes);
 
-    final result = await showModalBottomSheet<Map<String, dynamic>?> (
+    final result = await showModalBottomSheet<Map<String, dynamic>?>(
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -309,11 +316,27 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        onPressed: () {
+                        onPressed: () async {
                           setModalState(() {
                             selectedGeneration = null;
                             selectedTypes.clear();
                           });
+                          // Limpiar filtros en preferencias
+                          final prefs = await SharedPreferences.getInstance();
+                          await prefs.remove(_prefsKeyGen);
+                          await prefs.remove(_prefsKeyTypes);
+                          // Reiniciar filtros en el provider
+                          ref.read(pokemonListProvider.notifier).resetFilters();
+                          // Cerrar el modal
+                          if (mounted) {
+                            Navigator.pop(context, {'generation': null, 'types': <String>[]});
+                          }
+                          // Recargar pokemones sin filtros después de cerrar el modal
+                          // (para evitar problemas de contexto)
+                          await Future.delayed(const Duration(milliseconds: 100));
+                          if (mounted) {
+                            await ref.read(pokemonListProvider.notifier).refreshPokemons();
+                          }
                         },
                         child: const Text('Limpiar'),
                       ),
@@ -365,48 +388,21 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   }
 
   Future<void> _applyFilters(String? selectedGeneration, List<String> selectedTypes) async {
-    final allPokemons = ref.read(pokemonListProvider).asData?.value ?? [];
-    // If no filters, reset
+    // Si no hay filtros, refresca normalmente
     if ((selectedGeneration == null || selectedGeneration.isEmpty) && selectedTypes.isEmpty) {
-      setState(() {
-        _filtered = List.of(allPokemons);
-      });
+      await ref.read(pokemonListProvider.notifier).refreshPokemons();
       return;
     }
 
-    // El loading se maneja en la UI si es necesario, aquí solo filtramos.
-    try {
-      Set<String>? genNames;
-      if (selectedGeneration != null && selectedGeneration.isNotEmpty) {
-        final genMap = {'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5, 'VI': 6, 'VII': 7, 'VIII': 8, 'IX': 9};
-        final genId = genMap[selectedGeneration];
-        if (genId != null) {
-          genNames = await PokeApi.fetchPokemonNamesByGeneration(genId);
-        }
-      }
-
-      List<Set<String>> sets = [];
-      if (genNames != null) sets.add(genNames);
-      for (final t in selectedTypes) {
-        sets.add(await PokeApi.fetchPokemonNamesByType(t));
-      }
-
-      Set<String> finalNames;
-      if (sets.isEmpty) {
-        finalNames = allPokemons.map((e) => e.name).toSet();
-      } else {
-        finalNames = sets.reduce((a, b) => a.intersection(b));
-      }
-
-      setState(() {
-        _filtered = allPokemons.where((p) => finalNames.contains(p.name)).toList();
-      });
-    } catch (e) {
-       // Manejar el error, por ejemplo, mostrando un SnackBar
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al aplicar filtros: $e')),
-      );
+    int? genId;
+    if (selectedGeneration != null && selectedGeneration.isNotEmpty) {
+      final genMap = {'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5, 'VI': 6, 'VII': 7, 'VIII': 8, 'IX': 9};
+      genId = genMap[selectedGeneration];
     }
+    await ref.read(pokemonListProvider.notifier).applyFilters(
+      generation: genId,
+      types: selectedTypes,
+    );
   }
 }
 

@@ -375,4 +375,101 @@ class PokeApi {
       throw Exception('Error fetching pokemon stats: $e');
     }
   }
+
+  /// Search pokemon by name globally across all pokemons
+  static Future<List<PokemonListItem>> searchPokemonByName(String query) async {
+    const queryTemplate = '''
+      query SearchPokemon(\$query: String!) {
+        pokemon_v2_pokemonspecies(where: {name: {_ilike: \$query}}, limit: 20, order_by: {id: asc}) {
+          id
+          name
+          pokemon_v2_pokemons {
+            id
+            name
+          }
+        }
+      }
+    ''';
+
+    try {
+      final result = await _client.query(
+        QueryOptions(
+          document: gql(queryTemplate),
+          variables: {'query': '%$query%'},
+        ),
+      );
+
+      if (result.hasException) {
+        throw Exception('Error searching pokemon: ${result.exception}');
+      }
+
+      final species = result.data?['pokemon_v2_pokemonspecies'] as List<dynamic>? ?? [];
+      return species.map((s) {
+        final speciesData = s as Map<String, dynamic>;
+        final id = speciesData['id'] as int;
+        final pokemons = speciesData['pokemon_v2_pokemons'] as List<dynamic>? ?? [];
+
+        if (pokemons.isNotEmpty) {
+          final pokemon = pokemons[0] as Map<String, dynamic>;
+          final pokemonName = pokemon['name'] as String;
+          return PokemonListItem(
+            name: pokemonName,
+            id: id,
+            imageUrl:
+                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png',
+          );
+        }
+        return null;
+      }).whereType<PokemonListItem>().toList();
+    } catch (e) {
+      throw Exception('Error searching pokemon: $e');
+    }
+  }
+
+  /// Search pokemon by ID
+  static Future<PokemonListItem?> searchPokemonById(int id) async {
+    const query = '''
+      query GetPokemonById(\$id: Int!) {
+        pokemon_v2_pokemonspecies(where: {id: {_eq: \$id}}) {
+          id
+          name
+          pokemon_v2_pokemons {
+            id
+            name
+          }
+        }
+      }
+    ''';
+
+    try {
+      final result = await _client.query(
+        QueryOptions(
+          document: gql(query),
+          variables: {'id': id},
+        ),
+      );
+
+      if (result.hasException) return null;
+
+      final species = result.data?['pokemon_v2_pokemonspecies'] as List<dynamic>? ?? [];
+      if (species.isEmpty) return null;
+
+      final speciesData = species[0] as Map<String, dynamic>;
+      final pokemons = speciesData['pokemon_v2_pokemons'] as List<dynamic>? ?? [];
+
+      if (pokemons.isNotEmpty) {
+        final pokemon = pokemons[0] as Map<String, dynamic>;
+        final pokemonName = pokemon['name'] as String;
+        return PokemonListItem(
+          name: pokemonName,
+          id: id,
+          imageUrl:
+              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png',
+        );
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
 }
