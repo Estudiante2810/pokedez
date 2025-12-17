@@ -34,20 +34,8 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 30),
-
-                  // 3. Barra de Búsqueda Falsa (Botón de navegación)
-                  _SearchTriggerButton(onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const PokemonListScreen(),
-                      ),
-                    );
-                  }),
                   
-                  const SizedBox(height: 30),
-                  
-                  // 4. Sección de Filtros Rápidos (Grid 2x1)
+                  // 3. Sección de Filtros Rápidos (Grid 2x1)
                   Row(
                     children: [
                       Expanded(
@@ -94,7 +82,7 @@ class HomeScreen extends StatelessWidget {
 
                   const SizedBox(height: 15),
 
-                  // 5. Botones de Funcionalidad (Mapa, Favoritos, Trivia)
+                  // 4. Botones de Funcionalidad (Mapa, Favoritos, Trivia)
                   Text(
                     'Herramientas',
                     style: GoogleFonts.nunito(
@@ -155,7 +143,7 @@ class HomeScreen extends StatelessWidget {
 
                   const SizedBox(height: 20),
                   
-                  // 6. Banner "Who's that Pokemon"
+                  // 5. Banner "Who's that Pokemon"
                   const _TriviaBanner(),
                 ],
               ),
