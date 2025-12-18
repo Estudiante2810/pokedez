@@ -11,11 +11,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Usamos el tamaño de la pantalla para el diseño responsivo
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
-      backgroundColor: AppTheme.surfaceColor, //
+      backgroundColor: AppTheme.surfaceColor,
       body: Stack(
         children: [
           SafeArea(
@@ -24,7 +21,7 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 40),
                   // 2. Header
                   Text(
                     'Pokédex',
@@ -33,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 40),
                   
                   // 3. Sección de Filtros Rápidos (Grid 2x1)
                   Row(
@@ -57,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                      const SizedBox(width: 15),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: _CategoryCard(
                           title: 'Tipos',
@@ -80,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 30),
 
                   // 4. Botones de Funcionalidad (Mapa, Favoritos, Trivia)
                   Text(
@@ -91,16 +88,16 @@ class HomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   
                   // Grid de herramientas
                   GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                    childAspectRatio: 2.5,
+                    crossAxisSpacing: 25,
+                    mainAxisSpacing: 25,
+                    childAspectRatio: 2.2,
                     children: [
                       _ToolButton(
                         label: 'Mapa',
@@ -141,54 +138,16 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 35),
                   
                   // 5. Banner "Who's that Pokemon"
                   const _TriviaBanner(),
+                  const SizedBox(height: 35),
                 ],
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _SearchTriggerButton extends StatelessWidget {
-  final VoidCallback onTap;
-  const _SearchTriggerButton({required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 10,
-              offset: Offset(0, 5),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            const Icon(Icons.search, color: Colors.grey),
-            const SizedBox(width: 10),
-            Text(
-              'Buscar Pokémon...',
-              style: GoogleFonts.nunito(
-                color: Colors.grey,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -207,7 +166,7 @@ class _CategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 100,
+        height: 120,
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(20),
@@ -230,7 +189,7 @@ class _CategoryCard extends StatelessWidget {
                   title,
                   style: GoogleFonts.nunito(
                     color: Colors.white,
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -356,6 +315,7 @@ class _TriviaBanner extends StatelessWidget {
                   )
                 ],
               ),
+              
             ),
             const Icon(Icons.catching_pokemon, size: 80, color: Colors.white24),
           ],
