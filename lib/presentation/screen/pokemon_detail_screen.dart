@@ -6,6 +6,7 @@ import '../../data/models/pokemon_list_item.dart';
 import '../../data/datasources/poke_api.dart';
 import '../widgets/page_transitions.dart';
 import '../widgets/radar_chart.dart';
+import '../widgets/pokemon_share_card.dart';
 
 class PokemonDetailScreen extends StatefulWidget {
   final int id;
@@ -110,6 +111,54 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
         title: Text(_capitalize(widget.name)),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
+        actions: [
+          if (_detail != null)
+            IconButton(
+              icon: const Icon(Icons.share),
+              onPressed: () {
+                final shareCard = PokemonShareCard(pokemon: _detail!);
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    contentPadding: EdgeInsets.zero,
+                    content: shareCard,
+                    actions: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () => Navigator.pop(context),
+                              icon: const Icon(Icons.close),
+                              label: const Text('Cerrar'),
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size.fromHeight(40),
+                                textStyle: const TextStyle(fontSize: 13),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () async {
+                                await shareCard.shareAsImage();
+                                if (context.mounted) Navigator.pop(context);
+                              },
+                              icon: const Icon(Icons.share),
+                              label: const Text('Compartir'),
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size.fromHeight(40),
+                                textStyle: const TextStyle(fontSize: 13),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+        ],
         bottom: _loading || _error != null || _detail == null
             ? null
             : TabBar(
