@@ -39,65 +39,37 @@ class RadarChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Labels around the chart
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 16,
-          runSpacing: 8,
-          children: labels.asMap().entries.map((entry) {
-            final index = entry.key;
-            final label = entry.value;
-            final value = values[index];
-            return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                '${_formatStatName(label)}: ${value.toInt()}',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-        const SizedBox(height: 16),
-        // Simplified radar chart
-        Expanded(
-          child: RadarChart(
-            RadarChartData(
-              dataSets: [
-                RadarDataSet(
-                  dataEntries: values
-                      .map((value) => RadarEntry(value: value))
-
-                      .toList(),
-                  borderColor: Theme.of(context).colorScheme.primary,
-                  fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
-                  borderWidth: 2,
-                ),
-              ],
-              radarBackgroundColor: Colors.transparent,
-              borderData: FlBorderData(show: false),
-              radarBorderData: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 1,
-              ),
-              gridBorderData: BorderSide(
-                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
-                width: 1,
-              ),
-              titlePositionPercentageOffset: 0.2,
-            ),
+    return RadarChart(
+      RadarChartData(
+        dataSets: [
+          RadarDataSet(
+            dataEntries: values
+                .map((value) => RadarEntry(value: value))
+                .toList(),
+            borderColor: Theme.of(context).colorScheme.primary,
+            fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+            borderWidth: 2,
           ),
+        ],
+        radarBackgroundColor: Colors.transparent,
+        borderData: FlBorderData(show: false),
+        radarBorderData: BorderSide(
+          color: Theme.of(context).colorScheme.primary,
+          width: 1,
         ),
-      ],
+        gridBorderData: BorderSide(
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+          width: 1,
+        ),
+        titlePositionPercentageOffset: 0.15,
+        getTitle: (index, angle) {
+          return RadarChartTitle(
+            text: _formatStatName(labels[index]),
+            angle: angle,
+            positionPercentageOffset: 0.15,
+          );
+        },
+      ),
     );
   }
 

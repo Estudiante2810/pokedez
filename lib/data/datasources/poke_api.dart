@@ -1,6 +1,8 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../models/pokemon_list_item.dart';
 import '../models/pokemon_detail.dart';
+import '../models/pokemon_evolution.dart';
+import '../models/pokemon_move.dart';
 
 class PokeApi {
   static const _graphqlEndpoint = 'https://beta.pokeapi.co/graphql/v1beta';
@@ -98,13 +100,20 @@ class PokeApi {
             base_stat
           }
           pokemon_v2_pokemonabilities {
+            is_hidden
             pokemon_v2_ability {
               name
+              pokemon_v2_abilityeffecttexts {
+                effect
+              }
             }
-            is_hidden
           }
           pokemon_v2_pokemonmoves {
+            level
             pokemon_v2_move {
+              name
+            }
+            pokemon_v2_versiongroup {
               name
             }
           }
@@ -144,8 +153,8 @@ class PokeApi {
     }
   }
 
-  /// Fetch the evolution chain using GraphQL
-  static Future<List<PokemonListItem>> fetchEvolutionChain(int pokemonId) async {
+  /// Fetch the evolution chain with detailed trigger information
+  static Future<List<PokemonEvolution>> fetchEvolutionChain(int pokemonId) async {
     const query = '''
       query GetEvolutionChain(\$pokemonId: Int!) {
         pokemon_v2_pokemonspecies(where: {id: {_eq: \$pokemonId}}) {
@@ -153,6 +162,19 @@ class PokeApi {
             pokemon_v2_pokemonspecies(order_by: {id: asc}) {
               id
               name
+              pokemon_v2_pokemonevolutions {
+                min_level
+                time_of_day
+                pokemon_v2_evolutiontrigger {
+                  name
+                }
+                pokemon_v2_item {
+                  name
+                }
+                pokemon_v2_location {
+                  name
+                }
+              }
             }
           }
         }
@@ -181,19 +203,16 @@ class PokeApi {
       }
 
       final evolutionChain = evolutionChainData;
-      
       final allSpecies = evolutionChain['pokemon_v2_pokemonspecies'] as List<dynamic>? ?? [];
       
       return allSpecies.map((s) {
         final speciesData = s as Map<String, dynamic>;
-        // Asegurarse de que los datos necesarios están presentes
         if (speciesData.containsKey('name') && speciesData.containsKey('id')) {
-          return PokemonListItem.fromGraphQL(speciesData);
+          return PokemonEvolution.fromGraphQL(speciesData);
         }
-        return null; // O manejar el caso de error como prefieras
-      }).whereType<PokemonListItem>().toList();
+        return null;
+      }).whereType<PokemonEvolution>().toList();
     } catch (e) {
-      // Error fetching evolution chain - returning empty list
       return [];
     }
   }

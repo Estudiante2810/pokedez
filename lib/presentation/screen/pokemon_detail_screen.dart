@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../data/models/pokemon_detail.dart';
-import '../../data/models/pokemon_list_item.dart';
+import '../../data/models/pokemon_evolution.dart';
+import '../../data/models/pokemon_move.dart';
 import '../../data/datasources/poke_api.dart';
 import '../widgets/page_transitions.dart';
 import '../widgets/radar_chart.dart';
@@ -21,7 +22,7 @@ class PokemonDetailScreen extends StatefulWidget {
 class _PokemonDetailScreenState extends State<PokemonDetailScreen>
     with TickerProviderStateMixin {
   PokemonDetail? _detail;
-  List<PokemonListItem> _evolutions = [];
+  List<PokemonEvolution> _evolutions = [];
   String? _error;
   bool _loading = true;
 
@@ -55,7 +56,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
       CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
     );
 
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
 
     _load();
   }
@@ -168,6 +169,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                 unselectedLabelColor: Colors.white70,
                 tabs: const [
                   Tab(text: 'Info Básica', icon: Icon(Icons.info_outline)),
+                  Tab(text: 'Habilidades', icon: Icon(Icons.auto_awesome)),
                   Tab(text: 'Estadísticas', icon: Icon(Icons.bar_chart)),
                   Tab(text: 'Combate', icon: Icon(Icons.shield_outlined)),
                 ],
@@ -196,6 +198,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                           controller: _tabController,
                           children: [
                             _buildBasicInfoTab(),
+                            _buildAbilitiesTab(),
                             _buildStatsTab(),
                             _buildCombatTab(),
                           ],
@@ -305,41 +308,153 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
             ),
           ),
           const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
 
-          // abilities
+  Widget _buildAbilitiesTab() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Main abilities list
           _AnimatedDetailSection(
-            delay: const Duration(milliseconds: 1000),
+            delay: const Duration(milliseconds: 400),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Abilities',
-                    style: Theme.of(context).textTheme.titleMedium),
-                const SizedBox(height: 8),
-                Wrap(
-                  spacing: 8,
-                  children: _detail!.abilities
-                      .map((a) => Chip(label: Text(_capitalize(a))))
-                      .toList(),
-                ),
+                Text('Habilidades',
+                    style: Theme.of(context).textTheme.headlineSmall),
+                const SizedBox(height: 16),
+                if (_detail!.abilities.isEmpty)
+                  const Text('No hay habilidades disponibles')
+                else
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _detail!.abilities.length,
+                    separatorBuilder: (_, __) => const SizedBox(height: 12),
+                    itemBuilder: (context, index) {
+                      final ability = _detail!.abilities[index];
+                      // Truncate effect to 140-160 chars
+                      final truncatedEffect = ability.effect.length > 160
+                          ? '${ability.effect.substring(0, 157)}...'
+                          : ability.effect;
+                      
+                      return Card(
+                        elevation: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      _capitalize(ability.name),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  if (ability.isHidden)
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 4,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        borderRadius:
+                                            BorderRadius.circular(12),
+                                      ),
+                                      child: Text(
+                                        'Oculta',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondary,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                truncatedEffect,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
               ],
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 24),
 
-          // evolutions
+          // Evolutions section
           _AnimatedDetailSection(
-            delay: const Duration(milliseconds: 1200),
+            delay: const Duration(milliseconds: 600),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Evolutions',
+                Text('Evoluciones',
                     style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
                 if (_evolutions.isEmpty)
-                  const Text('No evolutions found')
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.info_outline,
+                            size: 32,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.6),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'No evoluciona',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withValues(alpha: 0.6),
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                 else
                   SizedBox(
-                    height: 130,
+                    height: 160,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: _evolutions.length,
@@ -354,8 +469,8 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                           const SizedBox(height: 4),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 2,
+                              horizontal: 8,
+                              vertical: 4,
                             ),
                             decoration: BoxDecoration(
                               color: Theme.of(context)
@@ -364,11 +479,13 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
-                              'Lv ${16 + (i * 16)}',
-                              style: const TextStyle(
+                              _evolutions[i].triggerDetails,
+                              style: TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF00D9FF), // Cyan neón
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
                               ),
                             ),
                           ),
@@ -386,7 +503,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                             );
                           },
                           child: Container(
-                            padding: const EdgeInsets.all(6),
+                            padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: Theme.of(context)
@@ -405,14 +522,14 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
                                     ev.imageUrl,
-                                    width: 70,
-                                    height: 70,
+                                    width: 80,
+                                    height: 80,
                                     fit: BoxFit.contain,
                                     errorBuilder: (_, _, _) =>
                                         const Icon(Icons.image_not_supported, size: 50),
                                   ),
                                 ),
-                                const SizedBox(height: 4),
+                                const SizedBox(height: 6),
                                 Text(
                                   _capitalize(ev.name),
                                   style: const TextStyle(
@@ -546,20 +663,13 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Moves',
+                Text('Movimientos',
                     style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
                 if (_detail!.moves.isEmpty)
-                  const Text('No moves available')
+                  const Text('No hay movimientos disponibles')
                 else
-                  Wrap(
-                    spacing: 6,
-                    runSpacing: 6,
-                    children: _detail!.moves
-                        .take(10)
-                        .map((m) => Chip(label: Text(_capitalize(m))))
-                        .toList(),
-                  ),
+                  _buildMovesSection(),
               ],
             ),
           ),
@@ -603,6 +713,10 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
         ],
       ),
     );
+  }
+
+  Widget _buildMovesSection() {
+    return _MovesSection(moves: _detail!.moves);
   }
 
   Widget _buildMatchupSection(String title, List<MapEntry<String, double>> matchups) {
@@ -652,6 +766,212 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
       ),
     );
   }
+}
+
+/// Widget for movimientos con filtros
+class _MovesSection extends StatefulWidget {
+  final List<PokemonMove> moves;
+
+  const _MovesSection({required this.moves});
+
+  @override
+  State<_MovesSection> createState() => _MovesSectionState();
+}
+
+class _MovesSectionState extends State<_MovesSection> {
+  late String selectedMethod;
+  late String selectedSort;
+  late List<PokemonMove> filteredMoves;
+  late Set<String> availableMethods;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeData();
+  }
+
+  void _initializeData() {
+    // Get available methods
+    availableMethods = widget.moves.map((m) => m.method).toSet();
+    
+    // Default to level-up if available, otherwise first method
+    selectedMethod = availableMethods.contains('level-up') ? 'level-up' : availableMethods.first;
+    selectedSort = 'level'; // 'level' o 'name'
+    
+    _applyFilters();
+  }
+
+  void _applyFilters() {
+    filteredMoves = widget.moves
+        .where((move) => move.method == selectedMethod)
+        .toList();
+
+    // Sort
+    if (selectedSort == 'level' && selectedMethod == 'level-up') {
+      filteredMoves.sort((a, b) {
+        final levelA = a.level ?? 999;
+        final levelB = b.level ?? 999;
+        return levelA.compareTo(levelB);
+      });
+    } else {
+      filteredMoves.sort((a, b) => a.name.compareTo(b.name));
+    }
+
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Filtros
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              const Text('Método: ', style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(width: 8),
+              ...availableMethods.map((method) {
+                final isSelected = selectedMethod == method;
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: FilterChip(
+                    label: Text(PokemonMove.getMethodDisplay(method)),
+                    selected: isSelected,
+                    onSelected: (selected) {
+                      if (selected) {
+                        selectedMethod = method;
+                        // Reset sort if method doesn't support level
+                        if (method != 'level-up' && selectedSort == 'level') {
+                          selectedSort = 'name';
+                        }
+                        _applyFilters();
+                      }
+                    },
+                  ),
+                );
+              }).toList(),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        // Ordenamiento
+        if (selectedMethod == 'level-up')
+          Row(
+            children: [
+              const Text('Ordenar: ', style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(width: 8),
+              ChoiceChip(
+                label: const Text('Nivel'),
+                selected: selectedSort == 'level',
+                onSelected: (selected) {
+                  if (selected) {
+                    selectedSort = 'level';
+                    _applyFilters();
+                  }
+                },
+              ),
+              const SizedBox(width: 8),
+              ChoiceChip(
+                label: const Text('Nombre'),
+                selected: selectedSort == 'name',
+                onSelected: (selected) {
+                  if (selected) {
+                    selectedSort = 'name';
+                    _applyFilters();
+                  }
+                },
+              ),
+            ],
+          ),
+        const SizedBox(height: 12),
+
+        // Lista de movimientos con virtual scrolling
+        Text('${filteredMoves.length} movimientos', 
+          style: Theme.of(context).textTheme.bodySmall),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 400,
+          child: filteredMoves.isEmpty
+              ? Center(
+                  child: Text(
+                    'No hay movimientos con este método',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: filteredMoves.length,
+                  itemBuilder: (context, index) {
+                    final move = filteredMoves[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surfaceContainerHighest,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .outline
+                                .withValues(alpha: 0.3),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                _capitalize(move.name),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            if (move.level != null)
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Text(
+                                  'Lv ${move.level}',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+        ),
+      ],
+    );
+  }
+
+  String _capitalize(String s) =>
+      s.isEmpty ? s : (s[0].toUpperCase() + s.substring(1));
 }
 
 /// Widget for animating detail sections with staggered fade and slide

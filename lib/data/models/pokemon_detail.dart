@@ -1,4 +1,6 @@
 import 'package:hive/hive.dart';
+import 'pokemon_ability.dart';
+import 'pokemon_move.dart';
 
 part 'pokemon_detail.g.dart';
 
@@ -20,7 +22,7 @@ class PokemonDetail {
   final List<String> types;
 
   @HiveField(5)
-  final List<String> abilities;
+  final List<PokemonAbility> abilities;
 
   @HiveField(6)
   final Map<String, int> stats;
@@ -29,7 +31,7 @@ class PokemonDetail {
   final String spriteUrl;
 
   @HiveField(8)
-  final List<String> moves;
+  final List<PokemonMove> moves;
 
   @HiveField(9)
   final List<String> eggGroups;
@@ -71,11 +73,11 @@ class PokemonDetail {
     }
 
     // Parse abilities from GraphQL format
-    final abilitiesList = <String>[];
+    final abilitiesList = <PokemonAbility>[];
     final abilities = json['pokemon_v2_pokemonabilities'] as List<dynamic>? ?? [];
     for (final a in abilities) {
-      final abilityName = (a as Map<String, dynamic>)['pokemon_v2_ability']['name'] as String;
-      abilitiesList.add(abilityName);
+      final ability = PokemonAbility.fromGraphQL(a as Map<String, dynamic>);
+      abilitiesList.add(ability);
     }
 
     // Parse stats from GraphQL format
@@ -105,11 +107,11 @@ class PokemonDetail {
     }
 
     // Parse moves from GraphQL format
-    final movesList = <String>[];
+    final movesList = <PokemonMove>[];
     final moves = json['pokemon_v2_pokemonmoves'] as List<dynamic>? ?? [];
     for (final m in moves) {
-      final moveName = (m as Map<String, dynamic>)['pokemon_v2_move']['name'] as String;
-      movesList.add(moveName);
+      final move = PokemonMove.fromGraphQL(m as Map<String, dynamic>);
+      movesList.add(move);
     }
 
     // Parse egg groups from GraphQL format
