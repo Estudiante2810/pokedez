@@ -851,7 +851,7 @@ class _MovesSectionState extends State<_MovesSection> {
                     },
                   ),
                 );
-              }).toList(),
+              }),
             ],
           ),
         ),

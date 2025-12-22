@@ -2,7 +2,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import '../models/pokemon_list_item.dart';
 import '../models/pokemon_detail.dart';
 import '../models/pokemon_evolution.dart';
-import '../models/pokemon_move.dart';
 
 class PokeApi {
   static const _graphqlEndpoint = 'https://beta.pokeapi.co/graphql/v1beta';
