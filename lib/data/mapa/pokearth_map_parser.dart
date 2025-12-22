@@ -1,7 +1,5 @@
 import 'dart:ui';
-import 'package:xml/xml.dart';
 import 'package:flutter/services.dart' show rootBundle;
-
 
 class PokearthArea {
   final String href;
@@ -23,21 +21,39 @@ class PokearthMap {
     // 1. Carga el archivo HTML
     final html = await rootBundle.loadString('assets/ubicaicones.html');
 
-    // 2. Parsea el XML/HTML
-    final document = XmlDocument.parse(html);
-
-    // 3. Busca todos los <area>
+    // 2. Parsea usando expresiones regulares (más tolerante con HTML)
     final areas = <PokearthArea>[];
 
-    for (final areaNode in document.findAllElements('area')) {
-      final href = areaNode.getAttribute('href') ?? '';
-      final title = areaNode.getAttribute('title') ?? '';
-      final coordsStr = areaNode.getAttribute('coords') ?? '';
+    // Patrón para extraer etiquetas <area>
+    final areaPattern = RegExp(
+      r'<area\s+([^>]+)>',
+      multiLine: true,
+    );
 
-      // Solo soportamos rectángulos (todos en tu mapa lo son)
+    for (final match in areaPattern.allMatches(html)) {
+      final attributes = match.group(1) ?? '';
+
+      // Extraer atributos
+      final hrefMatch = RegExp(r'href="([^"]*)"').firstMatch(attributes);
+      final titleMatch = RegExp(r'title="([^"]*)"').firstMatch(attributes);
+      final coordsMatch = RegExp(r'coords="([^"]*)"').firstMatch(attributes);
+
+      if (hrefMatch == null || titleMatch == null || coordsMatch == null) {
+        continue;
+      }
+
+      final href = hrefMatch.group(1) ?? '';
+      final title = titleMatch.group(1) ?? '';
+      final coordsStr = coordsMatch.group(1) ?? '';
+
       if (coordsStr.isEmpty) continue;
 
-      final coords = coordsStr.split(',').map(int.tryParse).toList();
+      // Parsear coordenadas
+      final coords = coordsStr
+          .split(',')
+          .map((e) => int.tryParse(e.trim()))
+          .toList();
+
       if (coords.length != 4 || coords.any((e) => e == null)) continue;
 
       final left = coords[0]!.toDouble();
