@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import '../../l10n/app_localizations.dart';
 
 import '../../data/models/pokemon_detail.dart';
 import 'pokemon_detail_screen.dart';
@@ -40,9 +41,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pokémon Favoritos'),
+        title: Text(l10n.favorites),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
       ),
@@ -50,18 +53,43 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         future: _favoritesBoxFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: Text(l10n.loading));
           }
           if (snapshot.hasError) {
-            return Center(child: Text('Error al cargar favoritos'));
+            return Center(child: Text('${l10n.error}: ${snapshot.error}'));
           }
           final box = snapshot.data!;
           return ValueListenableBuilder(
             valueListenable: box.listenable(),
             builder: (context, Box<PokemonDetail> box, _) {
               if (box.isEmpty) {
-                return const Center(
-                  child: Text('No tienes Pokémon favoritos.'),
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.favorite_border,
+                        size: 80,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        l10n.noFavorites,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 8),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        child: Text(
+                          l10n.addFavorites,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               }
 

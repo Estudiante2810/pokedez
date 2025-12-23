@@ -82,8 +82,8 @@ class _PokearthMapScreenState extends State<PokearthMapScreen> {
     }
 
     if (foundArea != null) {
-      debugMessage += '✓ Área encontrada: ${foundArea!.title}\n'
-          'Coordenadas del área: ${foundArea!.coordinates}';
+      debugMessage += '✓ Área encontrada: ${foundArea.title}\n'
+          'Coordenadas del área: ${foundArea.coordinates}';
       // Mostrar diálogo con la información del área
       showDialog(
         context: context,

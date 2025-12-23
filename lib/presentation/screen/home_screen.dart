@@ -4,7 +4,8 @@ import '../theme/app_theme.dart';
 import 'pokemon_list_screen.dart';
 import 'pokearth_map_screen.dart';
 import 'favorites_screen.dart';
-import 'trivia_screen.dart'; 
+import 'trivia_screen.dart';
+import '../widgets/language_switcher.dart'; 
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,6 +14,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.surfaceColor,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: const [
+          LanguageSwitcher(),
+          SizedBox(width: 8),
+        ],
+      ),
       body: Stack(
         children: [
           SafeArea(

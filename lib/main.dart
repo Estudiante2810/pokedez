@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'presentation/screen/splash_screen.dart';
 import 'data/datasources/poke_api.dart';
 import 'presentation/theme/app_theme.dart';
@@ -9,6 +10,8 @@ import 'package:pokedez/data/models/pokemon_ability.dart';
 import 'package:pokedez/data/models/pokemon_evolution.dart';
 import 'package:pokedez/data/models/pokemon_move.dart';
 import 'presentation/screen/home_screen.dart';
+import 'l10n/app_localizations.dart';
+import 'presentation/providers/locale_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,15 +31,28 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(localeProvider);
+
     return MaterialApp(
       title: 'Pokédex',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
+      locale: locale,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('es'),
+        Locale('en'),
+      ],
       home: const SplashScreen(
         child: HomeScreen(),
       ),
