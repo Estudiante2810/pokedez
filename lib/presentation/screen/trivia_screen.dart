@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../domain/models/trivia_state.dart';
 import '../providers/trivia_provider.dart';
 import '../theme/app_theme.dart';
+import '../../l10n/app_localizations.dart';
 
 class TriviaScreen extends ConsumerWidget {
   const TriviaScreen({super.key});
@@ -11,12 +12,13 @@ class TriviaScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final triviaState = ref.watch(triviaProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: AppTheme.surfaceColor,
       appBar: AppBar(
         title: Text(
-          'Trivia Pokémon',
+          l10n.triviaTitle,
           style: GoogleFonts.limelight(
             fontSize: 20,
             color: AppTheme.primaryColor,
@@ -33,7 +35,7 @@ class TriviaScreen extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'High Score',
+                    l10n.highScore,
                     style: GoogleFonts.nunito(
                       fontSize: 10,
                       color: AppTheme.tertiaryColor,
@@ -64,6 +66,8 @@ class TriviaScreen extends ConsumerWidget {
   }
 
   Widget _buildInitialScreen(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -77,7 +81,7 @@ class TriviaScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              '¿Quién es ese Pokémon?',
+              l10n.whoIsThatPokemon,
               style: GoogleFonts.limelight(
                 fontSize: 22,
                 color: AppTheme.primaryColor,
@@ -86,7 +90,7 @@ class TriviaScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'Adivina el Pokémon por su silueta.\n¡ + rápido = + puntos!\n5 vidas x partida :p',
+              l10n.triviaInstructions,
               style: GoogleFonts.nunito(
                 fontSize: 14,
                 color: Colors.white70,
@@ -104,7 +108,7 @@ class TriviaScreen extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                'JUGAR',
+                l10n.play,
                 style: GoogleFonts.nunito(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -119,6 +123,7 @@ class TriviaScreen extends ConsumerWidget {
   }
 
   Widget _buildGameScreen(BuildContext context, WidgetRef ref, TriviaState state) {
+    final l10n = AppLocalizations.of(context)!;
     final isRevealed = state.status == GameStatus.revealed;
     final pokemon = state.currentPokemon;
 
@@ -138,7 +143,7 @@ class TriviaScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Pregunta ${state.questionNumber}',
+                    '${l10n.question} ${state.questionNumber}',
                     style: GoogleFonts.nunito(
                       fontSize: 14,
                       color: AppTheme.primaryColor,
@@ -162,7 +167,7 @@ class TriviaScreen extends ConsumerWidget {
                 ],
               ),
               Text(
-                'Puntos: ${state.score}',
+                '${l10n.points}: ${state.score}',
                 style: GoogleFonts.nunito(
                   fontSize: 16,
                   color: AppTheme.tertiaryColor,
@@ -177,7 +182,7 @@ class TriviaScreen extends ConsumerWidget {
           Column(
             children: [
               Text(
-                'Tiempo: ${state.timeLeft}s',
+                '${l10n.time}: ${state.timeLeft}s',
                 style: GoogleFonts.nunito(
                   fontSize: 13,
                   color: state.timeLeft <= 5 ? Colors.red : Colors.white,
@@ -247,10 +252,10 @@ class TriviaScreen extends ConsumerWidget {
               padding: const EdgeInsets.only(bottom: 12),
               child: Text(
                 state.isCorrect
-                    ? '¡Correcto! +${100 + (state.timeLeft * 10)} puntos'
+                    ? l10n.correct(100 + (state.timeLeft * 10))
                     : state.timeLeft == 0
-                        ? '¡Tiempo agotado!'
-                        : '¡Incorrecto! Era ${pokemon.name[0].toUpperCase()}${pokemon.name.substring(1)}',
+                        ? l10n.timeOut
+                        : l10n.incorrect(pokemon.name[0].toUpperCase() + pokemon.name.substring(1)),
                 style: GoogleFonts.nunito(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -317,6 +322,7 @@ class TriviaScreen extends ConsumerWidget {
   }
 
   Widget _buildGameOverScreen(BuildContext context, WidgetRef ref, TriviaState state) {
+    final l10n = AppLocalizations.of(context)!;
     final isNewRecord = state.score > 0 && state.score == state.highScore;
 
     return SingleChildScrollView(
@@ -334,7 +340,7 @@ class TriviaScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                '¡NUEVO RÉCORD!',
+                l10n.newRecord,
                 style: GoogleFonts.limelight(
                   fontSize: 24,
                   color: Colors.amber,
@@ -348,7 +354,7 @@ class TriviaScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                'Juego Terminado',
+                l10n.gameOver,
                 style: GoogleFonts.limelight(
                   fontSize: 24,
                   color: AppTheme.primaryColor,
@@ -356,17 +362,17 @@ class TriviaScreen extends ConsumerWidget {
               ),
             ],
             const SizedBox(height: 24),
-            _buildStatCard('Puntuación Final', state.score, AppTheme.secondaryColor),
+            _buildStatCard(l10n.finalScore, state.score, AppTheme.secondaryColor, context),
             const SizedBox(height: 12),
-            _buildStatCard('Preguntas Respondidas', state.questionNumber, AppTheme.primaryColor),
+            _buildStatCard(l10n.questionsAnswered, state.questionNumber, AppTheme.primaryColor, context),
             const SizedBox(height: 12),
-            _buildStatCard('Récord Personal', state.highScore, AppTheme.tertiaryColor),
+            _buildStatCard(l10n.personalRecord, state.highScore, AppTheme.tertiaryColor, context),
             
             // Logros desbloqueados
             if (state.achievements.isNotEmpty) ...[
               const SizedBox(height: 20),
               Text(
-                'Logros Desbloqueados',
+                l10n.achievementsUnlocked,
                 style: GoogleFonts.limelight(
                   fontSize: 18,
                   color: AppTheme.primaryColor,
@@ -378,7 +384,7 @@ class TriviaScreen extends ConsumerWidget {
                 runSpacing: 8,
                 alignment: WrapAlignment.center,
                 children: state.achievements.map((achievement) {
-                  return _buildAchievementBadge(achievement);
+                  return _buildAchievementBadge(achievement, context);
                 }).toList(),
               ),
             ],
@@ -397,7 +403,7 @@ class TriviaScreen extends ConsumerWidget {
                       ),
                     ),
                     child: Text(
-                      'JUGAR DE NUEVO',
+                      l10n.playAgain,
                       style: GoogleFonts.nunito(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -430,8 +436,8 @@ class TriviaScreen extends ConsumerWidget {
     );
   }
   
-  Widget _buildAchievementBadge(String achievement) {
-    final achievementData = _getAchievementData(achievement);
+  Widget _buildAchievementBadge(String achievement, BuildContext context) {
+    final achievementData = _getAchievementData(achievement, context);
     
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -462,35 +468,37 @@ class TriviaScreen extends ConsumerWidget {
     );
   }
   
-  Map<String, dynamic> _getAchievementData(String achievement) {
+  Map<String, dynamic> _getAchievementData(String achievement, BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     switch (achievement) {
       case 'primera_captura':
         return {
-          'name': 'Primera Captura',
+          'name': l10n.firstCapture,
           'icon': Icons.star,
           'color': const Color(0xFF4CAF50),
         };
       case 'racha_fuego':
         return {
-          'name': 'Racha de Fuego',
+          'name': l10n.fireStreak,
           'icon': Icons.local_fire_department,
           'color': const Color(0xFFFF5722),
         };
       case 'maestro_pokemon':
         return {
-          'name': 'Maestro Pokémon',
+          'name': l10n.pokemonMaster,
           'icon': Icons.military_tech,
           'color': const Color(0xFF2196F3),
         };
       case 'experto':
         return {
-          'name': 'Experto',
+          'name': l10n.expert,
           'icon': Icons.workspace_premium,
           'color': const Color(0xFF9C27B0),
         };
       case 'leyenda':
         return {
-          'name': 'Leyenda',
+          'name': l10n.legend,
           'icon': Icons.emoji_events,
           'color': const Color(0xFFFFD700),
         };
@@ -503,7 +511,7 @@ class TriviaScreen extends ConsumerWidget {
     }
   }
 
-  Widget _buildStatCard(String label, int value, Color color) {
+  Widget _buildStatCard(String label, int value, Color color, BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
