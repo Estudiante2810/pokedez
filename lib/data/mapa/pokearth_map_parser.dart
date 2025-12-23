@@ -2,18 +2,16 @@ import 'dart:ui';
 import 'package:flutter/services.dart' show rootBundle;
 
 class PokearthArea {
-  final String href;
   final Rect coordinates; // left, top, right, bottom
   final String title;
 
   PokearthArea({
-    required this.href,
     required this.coordinates,
     required this.title,
   });
 
   @override
-  String toString() => '$title → $href ($coordinates)';
+  String toString() => '$title ($coordinates)';
 }
 
 class PokearthMap {
@@ -34,15 +32,13 @@ class PokearthMap {
       final attributes = match.group(1) ?? '';
 
       // Extraer atributos
-      final hrefMatch = RegExp(r'href="([^"]*)"').firstMatch(attributes);
       final titleMatch = RegExp(r'title="([^"]*)"').firstMatch(attributes);
       final coordsMatch = RegExp(r'coords="([^"]*)"').firstMatch(attributes);
 
-      if (hrefMatch == null || titleMatch == null || coordsMatch == null) {
+      if (titleMatch == null || coordsMatch == null) {
         continue;
       }
 
-      final href = hrefMatch.group(1) ?? '';
       final title = titleMatch.group(1) ?? '';
       final coordsStr = coordsMatch.group(1) ?? '';
 
@@ -62,7 +58,6 @@ class PokearthMap {
       final bottom = coords[3]!.toDouble();
 
       areas.add(PokearthArea(
-        href: href,
         title: title,
         coordinates: Rect.fromLTRB(left, top, right, bottom),
       ));
