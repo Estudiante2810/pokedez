@@ -1,10 +1,14 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../models/pokemon_list_item.dart';
 import '../models/pokemon_detail.dart';
 import '../models/pokemon_evolution.dart';
+import '../models/pokemon_encounter.dart';
 
 class PokeApi {
   static const _graphqlEndpoint = 'https://beta.pokeapi.co/graphql/v1beta';
+  static const _restEndpoint = 'https://pokeapi.co/api/v2';
   static late GraphQLClient _client;
 
   /// Initialize the GraphQL client (call this once on app startup)
@@ -488,6 +492,126 @@ class PokeApi {
       return null;
     } catch (e) {
       return null;
+    }
+  }
+
+  /// Fetch pokemon encounters by location name
+  /// Extrae información detallada: chance, min/max level, method, version
+  static Future<List<PokemonEncounter>> fetchPokemonByLocation(String locationName) async {
+    try {
+      // Extraer solo la región (primera parte antes del /)
+      String region = locationName.contains('/') 
+          ? locationName.split('/').first 
+          : locationName;
+      
+      // Primera petición: obtener las áreas de la location
+      final locationUrl = '$_restEndpoint/location/${region.toLowerCase()}';
+      print('DEBUG POKE_API: locationName original: $locationName');
+      print('DEBUG POKE_API: región extraída: $region');
+      print('DEBUG POKE_API: Primera petición a: $locationUrl');
+      
+      final locationResponse = await http.get(Uri.parse(locationUrl));
+
+      print('DEBUG POKE_API: Status de respuesta: ${locationResponse.statusCode}');
+
+      if (locationResponse.statusCode != 200) {
+        throw Exception('Error fetching location: ${locationResponse.statusCode}');
+      }
+
+      final locationData = jsonDecode(locationResponse.body) as Map<String, dynamic>;
+      final areas = locationData['areas'] as List<dynamic>? ?? [];
+
+      print('DEBUG POKE_API: Áreas encontradas: ${areas.length}');
+
+      if (areas.isEmpty) {
+        return [];
+      }
+
+      final allPokemon = <String, PokemonEncounter>{}; // Map para evitar duplicados
+
+      // Para cada área, obtener los pokemon encounters
+      for (int i = 0; i < areas.length; i++) {
+        final area = areas[i];
+        final areaData = area as Map<String, dynamic>;
+        final areaUrl = areaData['url'] as String?;
+
+        print('DEBUG POKE_API: Área $i URL: $areaUrl');
+
+        if (areaUrl != null) {
+          try {
+            final areaResponse = await http.get(Uri.parse(areaUrl));
+
+            if (areaResponse.statusCode == 200) {
+              final areaDetailData = jsonDecode(areaResponse.body) as Map<String, dynamic>;
+              final pokemonEncounters = areaDetailData['pokemon_encounters'] as List<dynamic>? ?? [];
+
+              print('DEBUG POKE_API: Pokémon encontrados en esta área: ${pokemonEncounters.length}');
+
+              for (final encounter in pokemonEncounters) {
+                final encounterData = encounter as Map<String, dynamic>;
+                final pokemonData = encounterData['pokemon'] as Map<String, dynamic>?;
+                final versionDetails = encounterData['version_details'] as List<dynamic>? ?? [];
+
+                if (pokemonData != null && versionDetails.isNotEmpty) {
+                  final pokemonUrl = pokemonData['url'] as String?;
+                  final pokemonName = pokemonData['name'] as String?;
+
+                  if (pokemonUrl != null && pokemonName != null) {
+                    // Extraer el ID del URL
+                    final idMatch = RegExp(r'/pokemon/(\d+)/?$').firstMatch(pokemonUrl);
+                    if (idMatch != null) {
+                      final id = int.parse(idMatch.group(1)!);
+
+                      // Procesar detalles de versión
+                      for (final versionDetail in versionDetails) {
+                        final versionDetailData = versionDetail as Map<String, dynamic>;
+                        final version = versionDetailData['version'] as Map<String, dynamic>?;
+                        final versionName = version?['name'] as String? ?? 'unknown';
+                        
+                        final chance = versionDetailData['max_chance'] as int? ?? 0;
+                        
+                        final encounterDetails = versionDetailData['encounter_details'] as List<dynamic>? ?? [];
+                        
+                        if (encounterDetails.isNotEmpty) {
+                          final encounterDetail = encounterDetails[0] as Map<String, dynamic>;
+                          final method = (encounterDetail['method'] as Map<String, dynamic>?)?['name'] as String? ?? 'unknown';
+                          final minLevel = encounterDetail['min_level'] as int? ?? 0;
+                          final maxLevel = encounterDetail['max_level'] as int? ?? 0;
+
+                          final key = '$id-$versionName-$method';
+                          
+                          if (!allPokemon.containsKey(key)) {
+                            allPokemon[key] = PokemonEncounter(
+                              id: id,
+                              name: pokemonName,
+                              imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png',
+                              chance: chance,
+                              minLevel: minLevel,
+                              maxLevel: maxLevel,
+                              method: method,
+                              version: versionName,
+                            );
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          } catch (e) {
+            print('DEBUG POKE_API: Error en área: $e');
+            continue;
+          }
+        }
+      }
+
+      print('DEBUG POKE_API: Total de Pokémon encontrados: ${allPokemon.length}');
+      final result = allPokemon.values.toList()..sort((a, b) => a.id.compareTo(b.id));
+      return result;
+    } catch (e) {
+      print('DEBUG POKE_API: Error general: $e');
+      throw Exception('Error fetching pokemon by location: $e');
     }
   }
 }

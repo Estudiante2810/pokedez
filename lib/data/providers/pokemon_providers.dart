@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../datasources/poke_api.dart';
 import '../models/pokemon_list_item.dart';
+import '../models/pokemon_encounter.dart';
 
 final pokemonListProvider = StateNotifierProvider<PokemonListNotifier, AsyncValue<List<PokemonListItem>>>((ref) {
   return PokemonListNotifier();
@@ -174,4 +175,9 @@ class PokemonListNotifier extends StateNotifier<AsyncValue<List<PokemonListItem>
   }
 
   String? get searchQuery => _searchQuery;
+
+  /// Fetch pokemon encounters by location
+  Future<List<PokemonEncounter>> fetchPokemonByLocation(String locationName) async {
+    return await PokeApi.fetchPokemonByLocation(locationName);
+  }
 }

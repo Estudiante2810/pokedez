@@ -1,7 +1,9 @@
 // lib/screens/pokearth_map_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/mapa/pokearth_map_parser.dart';
+import '../../data/providers/pokemon_providers.dart';
 import 'pokemon_list_screen.dart';
 import 'favorites_screen.dart';
 
@@ -59,21 +61,6 @@ class _PokearthMapScreenState extends State<PokearthMapScreen> {
     );
     
     // Buscar si el toque cae dentro de algún área
-    String debugMessage = '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n'
-        'PASO 0 - Posición Global del Toque:\n'
-        '  (${globalPosition.dx.toStringAsFixed(2)}, ${globalPosition.dy.toStringAsFixed(2)})\n\n'
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n'
-        'PASO 1 - Convertir a Local (relativo a imagen):\n'
-        '  (${localPosition.dx.toStringAsFixed(2)}, ${localPosition.dy.toStringAsFixed(2)})\n'
-        '  Tamaño renderizado: ${renderedSize.width.toStringAsFixed(2)} x ${renderedSize.height.toStringAsFixed(2)}\n\n'
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n'
-        'PASO 2 - Escalar a Imagen Original (1100 x 850):\n'
-        '  Factor escala: X=${scaleX.toStringAsFixed(4)}, Y=${scaleY.toStringAsFixed(4)}\n'
-        '  Coordenadas escaladas: (${scaledPosition.dx.toStringAsFixed(2)}, ${scaledPosition.dy.toStringAsFixed(2)})\n'
-        '  Zoom actual: $_currentScale\n\n'
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n'
-        'Total de áreas: ${areas.length}\n\n';
-
     PokearthArea? foundArea;
     for (final area in areas) {
       if (area.coordinates.contains(scaledPosition)) {
@@ -83,47 +70,125 @@ class _PokearthMapScreenState extends State<PokearthMapScreen> {
     }
 
     if (foundArea != null) {
-      debugMessage += '✓ Área encontrada: ${foundArea.title}\n'
-          'Coordenadas del área: ${foundArea.coordinates}';
-      // Mostrar diálogo con la información del área
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(foundArea!.title),
-          content: Text(debugMessage),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cerrar'),
-            ),
-          ],
-        ),
-      );
-    } else {
-      debugMessage += '✗ No se encontró ningún área en este punto\n\n'
-          'Áreas cercanas (primeras 5):';
-      
-      // Mostrar las primeras 5 áreas como referencia
-      for (int i = 0; i < (areas.length > 5 ? 5 : areas.length); i++) {
-        final area = areas[i];
-        debugMessage += '\n- ${area.title}: ${area.coordinates}';
-      }
+      // Obtener los pokémon de esta ubicación
+      _showLocationPokemonDialog(context, foundArea.title);
+    }
+  }
 
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Debug: Sin área detectada'),
-          content: SingleChildScrollView(
-            child: Text(debugMessage),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cerrar'),
-            ),
-          ],
+  void _showLocationPokemonDialog(BuildContext context, String locationName) {
+    print('DEBUG: locationName recibido: $locationName');
+    print('DEBUG: locationName en minúsculas: ${locationName.toLowerCase()}');
+    
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(locationName),
+        content: FutureBuilder(
+          future: _fetchLocationPokemon(locationName),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('Error al cargar: ${snapshot.error}'),
+              );
+            }
+
+            final pokemon = snapshot.data ?? [];
+
+            if (pokemon.isEmpty) {
+              return const Center(child: Text('No se encontraron Pokémon'));
+            }
+
+            return SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: pokemon
+                    .map((p) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Fila con imagen, ID y nombre
+                              Row(
+                                children: [
+                                  Image.network(
+                                    p.imageUrl,
+                                    width: 50,
+                                    height: 50,
+                                    errorBuilder: (context, error, stackTrace) =>
+                                        const Icon(Icons.image_not_supported),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '#${p.id} - ${p.name[0].toUpperCase()}${p.name.substring(1)}',
+                                          style: const TextStyle(fontWeight: FontWeight.bold),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          'Lvl ${p.minLevel}-${p.maxLevel}',
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                              // Información detallada
+                              Padding(
+                                padding: const EdgeInsets.only(left: 62.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Método: ${p.method[0].toUpperCase()}${p.method.substring(1)}',
+                                      style: const TextStyle(fontSize: 11, color: Colors.grey),
+                                    ),
+                                    Text(
+                                      'Probabilidad: ${p.chance}%',
+                                      style: const TextStyle(fontSize: 11, color: Colors.grey),
+                                    ),
+                                    Text(
+                                      'Versión: ${p.version[0].toUpperCase()}${p.version.substring(1)}',
+                                      style: const TextStyle(fontSize: 11, color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Divider(),
+                            ],
+                          ),
+                        ))
+                    .toList(),
+              ),
+            );
+          },
         ),
-      );
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cerrar'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<List<dynamic>> _fetchLocationPokemon(String locationName) async {
+    try {
+      final notifier = PokemonListNotifier();
+      return await notifier.fetchPokemonByLocation(locationName);
+    } catch (e) {
+      throw Exception('Error: $e');
     }
   }
 
