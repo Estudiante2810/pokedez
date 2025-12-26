@@ -1,4 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,13 +6,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/models/pokemon_list_item.dart';
 import '../../data/datasources/poke_api.dart';
-import '../../data/providers/pokemon_providers.dart'; // Importa el provider
+import '../../data/providers/pokemon_providers.dart'; 
 import '../widgets/animated_list_item.dart';
 import '../widgets/page_transitions.dart';
 import '../widgets/shimmer_loading.dart';
 import 'pokemon_detail_screen.dart';
 import 'favorites_screen.dart';
 import 'pokearth_map_screen.dart';
+import '../../l10n/app_localizations.dart';
 
 
 class PokemonListScreen extends ConsumerStatefulWidget {
@@ -107,8 +107,10 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     // Escuchamos los cambios en el provider
     final pokemonListAsync = ref.watch(pokemonListProvider);
+    
 
     // Sincronizamos la lista filtrada cuando los datos del provider cambian
     ref.listen<AsyncValue<List<PokemonListItem>>>(pokemonListProvider, (_, next) {
@@ -139,7 +141,7 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
             textInputAction: TextInputAction.search,
             onSubmitted: (_) => _onEnterPressed(),
             decoration: InputDecoration(
-              hintText: 'Buscar Pokémon...',
+              hintText: '${l10n.search} Pokémon...',
               hintStyle: GoogleFonts.nunito(color: Colors.grey, fontSize: 16),
               prefixIcon: const Icon(Icons.search, color: Colors.grey, size: 24),
               filled: true,
@@ -162,12 +164,12 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
       ),
       body: pokemonListAsync.when(
         loading: () => const ShimmerLoading(itemCount: 15),
-        error: (err, stack) => Center(child: Text('Error: $err')),
+        error: (err, stack) => Center(child: Text('${l10n.error}: $err')),
         data: (allPokemons) {
           // La UI ahora se construye a partir de `_filtered`
           // que se actualiza con la búsqueda y los datos del provider.
           if (_filtered.isEmpty && _searchController.text.isNotEmpty) {
-            return const Center(child: Text('No se encontraron Pokémon.'));
+            return Center(child: Text(l10n.noResults));
           }
           
           final notifier = ref.watch(pokemonListProvider.notifier);
@@ -242,6 +244,7 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
   }
 
   Future<void> _openFilters() async {
+    final l10n = AppLocalizations.of(context)!;
     // Local state for filters inside the modal
     final List<String> selectedTypes = [];
 
@@ -278,12 +281,46 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
                 children: [
                   Text('Filtros', style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: 16),
-                  Text('Generación', style: Theme.of(context).textTheme.titleMedium),
+                  Text(l10n.generation, style: Theme.of(context).textTheme.titleMedium),
                   DropdownButton<String>(
                     value: selectedGeneration,
                     isExpanded: true,
-                    hint: const Text('Seleccionar generación'),
-                    items: generations.map((g) => DropdownMenuItem(value: g, child: Text('Generación $g'))).toList(),
+                    hint: Text(l10n.selectGeneration),
+                    items: generations.map((g) {
+                      String translatedLabel;
+                      switch(g) {
+                        case 'I':
+                          translatedLabel = l10n.generationI;
+                          break;
+                        case 'II':
+                          translatedLabel = l10n.generationII;
+                          break;
+                        case 'III':
+                          translatedLabel = l10n.generationIII;
+                          break;
+                        case 'IV':
+                          translatedLabel = l10n.generationIV;
+                          break;
+                        case 'V':
+                          translatedLabel = l10n.generationV;
+                          break;
+                        case 'VI':
+                          translatedLabel = l10n.generationVI;
+                          break;
+                        case 'VII':
+                          translatedLabel = l10n.generationVII;
+                          break;
+                        case 'VIII':
+                          translatedLabel = l10n.generationVIII;
+                          break;
+                        case 'IX':
+                          translatedLabel = l10n.generationIX;
+                          break;
+                        default:
+                          translatedLabel = 'Generation $g';
+                      }
+                      return DropdownMenuItem(value: g, child: Text(translatedLabel));
+                    }).toList(),
                     onChanged: (val) {
                       setModalState(() {
                         selectedGeneration = val;
@@ -291,13 +328,72 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  Text('Tipos', style: Theme.of(context).textTheme.titleMedium),
+                  Text(l10n.types, style: Theme.of(context).textTheme.titleMedium),
                   Wrap(
                     spacing: 8,
                     children: allTypes.map((type) {
                       final isSelected = selectedTypes.contains(type);
+                      String translatedType;
+                      switch(type) {
+                        case 'normal':
+                          translatedType = l10n.normal;
+                          break;
+                        case 'fire':
+                          translatedType = l10n.fire;
+                          break;
+                        case 'water':
+                          translatedType = l10n.water;
+                          break;
+                        case 'grass':
+                          translatedType = l10n.grass;
+                          break;
+                        case 'electric':
+                          translatedType = l10n.electric;
+                          break;
+                        case 'ice':
+                          translatedType = l10n.ice;
+                          break;
+                        case 'fighting':
+                          translatedType = l10n.fighting;
+                          break;
+                        case 'poison':
+                          translatedType = l10n.poison;
+                          break;
+                        case 'ground':
+                          translatedType = l10n.ground;
+                          break;
+                        case 'flying':
+                          translatedType = l10n.flying;
+                          break;
+                        case 'psychic':
+                          translatedType = l10n.psychic;
+                          break;
+                        case 'bug':
+                          translatedType = l10n.bug;
+                          break;
+                        case 'rock':
+                          translatedType = l10n.rock;
+                          break;
+                        case 'ghost':
+                          translatedType = l10n.ghost;
+                          break;
+                        case 'dragon':
+                          translatedType = l10n.dragon;
+                          break;
+                        case 'dark':
+                          translatedType = l10n.dark;
+                          break;
+                        case 'steel':
+                          translatedType = l10n.steel;
+                          break;
+                        case 'fairy':
+                          translatedType = l10n.fairy;
+                          break;
+                        default:
+                          translatedType = type[0].toUpperCase() + type.substring(1);
+                      }
                       return FilterChip(
-                        label: Text(type[0].toUpperCase() + type.substring(1)),
+                        label: Text(translatedType),
                         selected: isSelected,
                         onSelected: (selected) {
                           setModalState(() {
@@ -338,7 +434,7 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
                             await ref.read(pokemonListProvider.notifier).refreshPokemons();
                           }
                         },
-                        child: const Text('Limpiar'),
+                        child: Text(l10n.clearFilters),
                       ),
                       const SizedBox(width: 8),
                       ElevatedButton(
@@ -348,7 +444,7 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
                             'types': selectedTypes,
                           });
                         },
-                        child: const Text('Aplicar'),
+                        child: Text(l10n.applyFilters),
                       ),
                     ],
                   ),

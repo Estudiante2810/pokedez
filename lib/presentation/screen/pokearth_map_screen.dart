@@ -1,7 +1,6 @@
 // lib/screens/pokearth_map_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/mapa/pokearth_map_parser.dart';
 import '../../data/providers/pokemon_providers.dart';
 import 'pokemon_list_screen.dart';

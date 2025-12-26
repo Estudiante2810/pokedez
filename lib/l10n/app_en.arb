@@ -88,5 +88,71 @@
   "fireStreak": "Fire Streak",
   "pokemonMaster": "Pokémon Master",
   "expert": "Expert",
-  "legend": "Legend"
+  "legend": "Legend",
+  "trivia": "Trivia",
+  "tools": "Tools",
+  "map": "Map",
+  "generations": "Generations",
+  "types": "Types",
+  "filters": "Filters",
+  "applyFilters": "Apply Filters",
+  "clearFilters": "Clear Filters",
+  "selectGeneration": "Select Generation",
+  "selectTypes": "Select Types",
+  "generation": "Generation",
+  "allGenerations": "All Generations",
+  "searching": "Searching...",
+  "noResults": "No results found",
+  "tryDifferentSearch": "Try a different search term or adjust filters",
+  "pokemonList": "Pokémon List",
+  "abilitiesTab": "Abilities",
+  "abilityEffect": "Effect",
+  "hiddenAbility": "Hidden Ability",
+  "abilityDetails": "Ability Details",
+  "checkMyCard": "Check out my {name} card! #Pokedex",
+  "@checkMyCard": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "testYourKnowledge": "Test your knowledge!",
+  "normal": "Normal",
+  "fire": "Fire",
+  "water": "Water",
+  "grass": "Grass",
+  "electric": "Electric",
+  "ice": "Ice",
+  "fighting": "Fighting",
+  "poison": "Poison",
+  "ground": "Ground",
+  "flying": "Flying",
+  "psychic": "Psychic",
+  "bug": "Bug",
+  "rock": "Rock",
+  "ghost": "Ghost",
+  "dragon": "Dragon",
+  "dark": "Dark",
+  "steel": "Steel",
+  "fairy": "Fairy",
+  "generationI": "Generation I",
+  "generationII": "Generation II",
+  "generationIII": "Generation III",
+  "generationIV": "Generation IV",
+  "generationV": "Generation V",
+  "generationVI": "Generation VI",
+  "generationVII": "Generation VII",
+  "generationVIII": "Generation VIII",
+  "generationIX": "Generation IX",
+  "doesNotEvolve": "Does not evolve",
+  "movesCount": "{count} moves",
+  "@movesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noMovesWithMethod": "No moves with this method"
 }

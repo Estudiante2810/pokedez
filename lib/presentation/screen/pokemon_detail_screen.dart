@@ -8,6 +8,7 @@ import '../../data/datasources/poke_api.dart';
 import '../widgets/page_transitions.dart';
 import '../widgets/radar_chart.dart';
 import '../widgets/pokemon_share_card.dart';
+import '../../l10n/app_localizations.dart';
 
 class PokemonDetailScreen extends StatefulWidget {
   final int id;
@@ -104,8 +105,54 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
 
   String _capitalize(String s) => s.isEmpty ? s : (s[0].toUpperCase() + s.substring(1));
 
+  String _translateType(String type) {
+    final l10n = AppLocalizations.of(context)!;
+    switch(type.toLowerCase()) {
+      case 'normal':
+        return l10n.normal;
+      case 'fire':
+        return l10n.fire;
+      case 'water':
+        return l10n.water;
+      case 'grass':
+        return l10n.grass;
+      case 'electric':
+        return l10n.electric;
+      case 'ice':
+        return l10n.ice;
+      case 'fighting':
+        return l10n.fighting;
+      case 'poison':
+        return l10n.poison;
+      case 'ground':
+        return l10n.ground;
+      case 'flying':
+        return l10n.flying;
+      case 'psychic':
+        return l10n.psychic;
+      case 'bug':
+        return l10n.bug;
+      case 'rock':
+        return l10n.rock;
+      case 'ghost':
+        return l10n.ghost;
+      case 'dragon':
+        return l10n.dragon;
+      case 'dark':
+        return l10n.dark;
+      case 'steel':
+        return l10n.steel;
+      case 'fairy':
+        return l10n.fairy;
+      default:
+        return _capitalize(type);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5), // Fondo blanquecino
       appBar: AppBar(
@@ -117,7 +164,10 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
             IconButton(
               icon: const Icon(Icons.share),
               onPressed: () {
-                final shareCard = PokemonShareCard(pokemon: _detail!);
+                final shareCard = PokemonShareCard(
+                  pokemon: _detail!,
+                  parentContext: context,
+                );
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
@@ -130,7 +180,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                             child: ElevatedButton.icon(
                               onPressed: () => Navigator.pop(context),
                               icon: const Icon(Icons.close),
-                              label: const Text('Cerrar'),
+                              label: Text(l10n.close),
                               style: ElevatedButton.styleFrom(
                                 minimumSize: const Size.fromHeight(40),
                                 textStyle: const TextStyle(fontSize: 13),
@@ -145,7 +195,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                                 if (context.mounted) Navigator.pop(context);
                               },
                               icon: const Icon(Icons.share),
-                              label: const Text('Compartir'),
+                              label: Text(l10n.share),
                               style: ElevatedButton.styleFrom(
                                 minimumSize: const Size.fromHeight(40),
                                 textStyle: const TextStyle(fontSize: 13),
@@ -167,11 +217,11 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                 indicatorColor: Colors.white,
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.white70,
-                tabs: const [
-                  Tab(text: 'Info Básica', icon: Icon(Icons.info_outline)),
-                  Tab(text: 'Habilidades', icon: Icon(Icons.auto_awesome)),
-                  Tab(text: 'Estadísticas', icon: Icon(Icons.bar_chart)),
-                  Tab(text: 'Combate', icon: Icon(Icons.shield_outlined)),
+                tabs: [
+                  Tab(text: l10n.basicInfo, icon: const Icon(Icons.info_outline)),
+                  Tab(text: l10n.abilitiesTab, icon: const Icon(Icons.auto_awesome)),
+                  Tab(text: l10n.statistics, icon: const Icon(Icons.bar_chart)),
+                  Tab(text: l10n.combat, icon: const Icon(Icons.shield_outlined)),
                 ],
               ),
       ),
@@ -182,14 +232,14 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('Error: $_error'),
+                      Text('${l10n.error}: $_error'),
                       const SizedBox(height: 12),
-                      ElevatedButton(onPressed: _load, child: const Text('Reintentar'))
+                      ElevatedButton(onPressed: _load, child: Text(l10n.retry))
                     ],
                   ),
                 )
               : _detail == null
-                  ? const Center(child: Text('No data'))
+                  ? Center(child: Text(l10n.noData))
                   : FadeTransition(
                       opacity: _fadeAnimation,
                       child: SlideTransition(
@@ -233,6 +283,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
   }
 
   Widget _buildBasicInfoTab() {
+    final l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -266,7 +317,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
               child: Wrap(
                 spacing: 8,
                 children: _detail!.types
-                    .map((t) => Chip(label: Text(_capitalize(t))))
+                    .map((t) => Chip(label: Text(_translateType(t))))
                     .toList(),
               ),
             ),
@@ -281,7 +332,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
               children: [
                 Column(
                   children: [
-                    Text('Height',
+                    Text(l10n.height,
                         style: Theme.of(context).textTheme.labelLarge),
                     Text('${_detail!.height / 10} m',
                         style: Theme.of(context).textTheme.bodyLarge),
@@ -289,7 +340,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                 ),
                 Column(
                   children: [
-                    Text('Weight',
+                    Text(l10n.weight,
                         style: Theme.of(context).textTheme.labelLarge),
                     Text('${_detail!.weight / 10} kg',
                         style: Theme.of(context).textTheme.bodyLarge),
@@ -298,7 +349,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                  if (_detail!.eggGroups.isNotEmpty)
                   Column(
                     children: [
-                      Text('Egg Groups',
+                      Text(l10n.eggGroups,
                           style: Theme.of(context).textTheme.labelLarge),
                       Text(_detail!.eggGroups.map(_capitalize).join(', '),
                           style: Theme.of(context).textTheme.bodyLarge),
@@ -314,6 +365,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
   }
 
   Widget _buildAbilitiesTab() {
+    final l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -411,7 +463,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Evoluciones',
+                Text(l10n.evolutions,
                     style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
                 if (_evolutions.isEmpty)
@@ -437,7 +489,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'No evoluciona',
+                            l10n.doesNotEvolve,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
@@ -562,6 +614,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
   }
 
   Widget _buildStatsTab() {
+    final l10n = AppLocalizations.of(context)!;
     // Calculate total stats
     final totalStats = _detail!.stats.values.reduce((a, b) => a + b);
     
@@ -663,11 +716,11 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Movimientos',
+                Text(l10n.moves,
                     style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
                 if (_detail!.moves.isEmpty)
-                  const Text('No hay movimientos disponibles')
+                  Text(l10n.noMoves)
                 else
                   _buildMovesSection(),
               ],
@@ -679,6 +732,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
   }
 
   Widget _buildCombatTab() {
+    final l10n = AppLocalizations.of(context)!;
     final weaknesses = <String, double>{};
     final resistances = <String, double>{};
     final immunities = <String>[];
@@ -704,19 +758,20 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildMatchupSection('Debilidades', sortedWeaknesses),
+          _buildMatchupSection(l10n.weaknesses, sortedWeaknesses),
           const SizedBox(height: 24),
-          _buildMatchupSection('Resistencias', sortedResistances),
+          _buildMatchupSection(l10n.resistances, sortedResistances),
           const SizedBox(height: 24),
           if (immunities.isNotEmpty)
-            _buildImmunitySection('Inmunidades', immunities),
+            _buildImmunitySection(l10n.immunities, immunities),
         ],
       ),
     );
   }
 
   Widget _buildMovesSection() {
-    return _MovesSection(moves: _detail!.moves);
+    final l10n = AppLocalizations.of(context)!;
+    return _MovesSection(moves: _detail!.moves, l10n: l10n);
   }
 
   Widget _buildMatchupSection(String title, List<MapEntry<String, double>> matchups) {
@@ -734,7 +789,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
             runSpacing: 8,
             children: matchups.map((e) {
               return Chip(
-                label: Text('${_capitalize(e.key)} (x${e.value})'),
+                label: Text('${_translateType(e.key)} (x${e.value})'),
                 backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
               );
             }).toList(),
@@ -757,7 +812,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
             runSpacing: 8,
             children: immunities.map((type) {
               return Chip(
-                label: Text(_capitalize(type)),
+                label: Text(_translateType(type)),
                 backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
               );
             }).toList(),
@@ -771,8 +826,9 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen>
 /// Widget for movimientos con filtros
 class _MovesSection extends StatefulWidget {
   final List<PokemonMove> moves;
+  final AppLocalizations l10n;
 
-  const _MovesSection({required this.moves});
+  const _MovesSection({required this.moves, required this.l10n});
 
   @override
   State<_MovesSection> createState() => _MovesSectionState();
@@ -889,7 +945,7 @@ class _MovesSectionState extends State<_MovesSection> {
         const SizedBox(height: 12),
 
         // Lista de movimientos con virtual scrolling
-        Text('${filteredMoves.length} movimientos', 
+        Text(widget.l10n.movesCount(filteredMoves.length), 
           style: Theme.of(context).textTheme.bodySmall),
         const SizedBox(height: 8),
         SizedBox(
@@ -897,7 +953,7 @@ class _MovesSectionState extends State<_MovesSection> {
           child: filteredMoves.isEmpty
               ? Center(
                   child: Text(
-                    'No hay movimientos con este método',
+                    widget.l10n.noMovesWithMethod,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 )

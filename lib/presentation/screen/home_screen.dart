@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/app_theme.dart';
 import 'pokemon_list_screen.dart';
 import 'pokearth_map_screen.dart';
 import 'favorites_screen.dart';
 import 'trivia_screen.dart';
-import '../widgets/language_switcher.dart'; 
+import '../widgets/language_switcher.dart';
+import '../../l10n/app_localizations.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       backgroundColor: AppTheme.surfaceColor,
       appBar: AppBar(
@@ -46,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: _CategoryCard(
-                          title: 'Generaciones',
+                          title: l10n.generations,
                           color: AppTheme.secondaryColor,
                           icon: Icons.filter_1,
                           onTap: () {
@@ -66,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(width: 20),
                       Expanded(
                         child: _CategoryCard(
-                          title: 'Tipos',
+                          title: l10n.types,
                           color: AppTheme.tertiaryColor,
                           icon: Icons.filter_2,
                           onTap: () {
@@ -90,7 +94,7 @@ class HomeScreen extends StatelessWidget {
 
                   // 4. Botones de Funcionalidad (Mapa, Favoritos, Trivia)
                   Text(
-                    'Herramientas',
+                    l10n.tools,
                     style: GoogleFonts.nunito(
                       color: Colors.white70,
                       fontSize: 18,
@@ -109,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                     childAspectRatio: 2.2,
                     children: [
                       _ToolButton(
-                        label: 'Mapa',
+                        label: l10n.map,
                         color: Colors.blueAccent,
                         icon: Icons.map,
                         onTap: () => Navigator.push(
@@ -118,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       _ToolButton(
-                        label: 'Favoritos',
+                        label: l10n.favorites,
                         color: Colors.redAccent,
                         icon: Icons.favorite,
                         onTap: () => Navigator.push(
@@ -127,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       _ToolButton(
-                        label: 'Trivia',
+                        label: l10n.trivia,
                         color: Colors.purpleAccent,
                         icon: Icons.quiz,
                         onTap: () => Navigator.push(
@@ -136,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       _ToolButton(
-                        label: 'Lista',
+                        label: l10n.pokemonList,
                         color: Colors.green,
                         icon: Icons.list_alt,
                         onTap: () => Navigator.push(
@@ -261,11 +265,13 @@ class _ToolButton extends StatelessWidget {
   }
 }
 
-class _TriviaBanner extends StatelessWidget {
+class _TriviaBanner extends ConsumerWidget {
   const _TriviaBanner();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -294,7 +300,7 @@ class _TriviaBanner extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "¿Quién es ese Pokémon?",
+                    l10n.whoIsThatPokemon,
                     style: GoogleFonts.nunito(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -303,7 +309,7 @@ class _TriviaBanner extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    "¡Pon a prueba tu conocimiento!",
+                    l10n.testYourKnowledge,
                     style: GoogleFonts.nunito(
                       color: Colors.white70,
                       fontSize: 12,
@@ -320,7 +326,7 @@ class _TriviaBanner extends StatelessWidget {
                       foregroundColor: const Color(0xFF6B35FF),
                       minimumSize: const Size(100, 30),
                     ),
-                    child: const Text("JUGAR"),
+                    child: Text(l10n.play),
                   )
                 ],
               ),

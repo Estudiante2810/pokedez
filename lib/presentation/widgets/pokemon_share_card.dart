@@ -6,14 +6,17 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:ui' as ui;
 import '../../data/models/pokemon_detail.dart';
+import '../../l10n/app_localizations.dart';
 
 class PokemonShareCard extends StatelessWidget {
   final PokemonDetail pokemon;
   final GlobalKey cardKey = GlobalKey(); // Para capturar el widget
+  final BuildContext? parentContext;
 
   PokemonShareCard({
     super.key,
     required this.pokemon,
+    this.parentContext,
   });
 
   Future<void> shareAsImage() async {
@@ -30,10 +33,19 @@ class PokemonShareCard extends StatelessWidget {
       final file = File('${directory.path}/${pokemon.name}_card.png');
       await file.writeAsBytes(pngBytes);
 
+      // Obtener texto de compartir con traducción si está disponible
+      String shareText = '¡Mira mi carta de ${pokemon.name}! #Pokedex';
+      if (parentContext != null) {
+        final l10n = AppLocalizations.of(parentContext!);
+        if (l10n != null) {
+          shareText = l10n.checkMyCard(pokemon.name);
+        }
+      }
+
       // Compartir
       await Share.shareXFiles(
         [XFile(file.path)],
-        text: '¡Mira mi carta de ${pokemon.name}! #Pokedex',
+        text: shareText,
       );
     } catch (e) {
       debugPrint('Error sharing image: $e');
