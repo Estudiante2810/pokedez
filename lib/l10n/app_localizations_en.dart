@@ -238,4 +238,165 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get legend => 'Legend';
+
+  @override
+  String get trivia => 'Trivia';
+
+  @override
+  String get tools => 'Tools';
+
+  @override
+  String get map => 'Map';
+
+  @override
+  String get generations => 'Generations';
+
+  @override
+  String get types => 'Types';
+
+  @override
+  String get filters => 'Filters';
+
+  @override
+  String get applyFilters => 'Apply Filters';
+
+  @override
+  String get clearFilters => 'Clear Filters';
+
+  @override
+  String get selectGeneration => 'Select Generation';
+
+  @override
+  String get selectTypes => 'Select Types';
+
+  @override
+  String get generation => 'Generation';
+
+  @override
+  String get allGenerations => 'All Generations';
+
+  @override
+  String get searching => 'Searching...';
+
+  @override
+  String get noResults => 'No results found';
+
+  @override
+  String get tryDifferentSearch =>
+      'Try a different search term or adjust filters';
+
+  @override
+  String get pokemonList => 'Pokémon List';
+
+  @override
+  String get abilitiesTab => 'Abilities';
+
+  @override
+  String get abilityEffect => 'Effect';
+
+  @override
+  String get hiddenAbility => 'Hidden Ability';
+
+  @override
+  String get abilityDetails => 'Ability Details';
+
+  @override
+  String checkMyCard(String name) {
+    return 'Check out my $name card! #Pokedex';
+  }
+
+  @override
+  String get testYourKnowledge => 'Test your knowledge!';
+
+  @override
+  String get normal => 'Normal';
+
+  @override
+  String get fire => 'Fire';
+
+  @override
+  String get water => 'Water';
+
+  @override
+  String get grass => 'Grass';
+
+  @override
+  String get electric => 'Electric';
+
+  @override
+  String get ice => 'Ice';
+
+  @override
+  String get fighting => 'Fighting';
+
+  @override
+  String get poison => 'Poison';
+
+  @override
+  String get ground => 'Ground';
+
+  @override
+  String get flying => 'Flying';
+
+  @override
+  String get psychic => 'Psychic';
+
+  @override
+  String get bug => 'Bug';
+
+  @override
+  String get rock => 'Rock';
+
+  @override
+  String get ghost => 'Ghost';
+
+  @override
+  String get dragon => 'Dragon';
+
+  @override
+  String get dark => 'Dark';
+
+  @override
+  String get steel => 'Steel';
+
+  @override
+  String get fairy => 'Fairy';
+
+  @override
+  String get generationI => 'Generation I';
+
+  @override
+  String get generationII => 'Generation II';
+
+  @override
+  String get generationIII => 'Generation III';
+
+  @override
+  String get generationIV => 'Generation IV';
+
+  @override
+  String get generationV => 'Generation V';
+
+  @override
+  String get generationVI => 'Generation VI';
+
+  @override
+  String get generationVII => 'Generation VII';
+
+  @override
+  String get generationVIII => 'Generation VIII';
+
+  @override
+  String get generationIX => 'Generation IX';
+
+  @override
+  String get doesNotEvolve => 'Does not evolve';
+
+  @override
+  String movesCount(int count) {
+    return '$count moves';
+  }
+
+  @override
+  String get noMovesWithMethod => 'No moves with this method';
 }

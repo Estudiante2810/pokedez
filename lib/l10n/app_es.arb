@@ -88,5 +88,71 @@
   "fireStreak": "Racha de Fuego",
   "pokemonMaster": "Maestro Pokémon",
   "expert": "Experto",
-  "legend": "Leyenda"
+  "legend": "Leyenda",
+  "trivia": "Trivia",
+  "tools": "Herramientas",
+  "map": "Mapa",
+  "generations": "Generaciones",
+  "types": "Tipos",
+  "filters": "Filtros",
+  "applyFilters": "Aplicar Filtros",
+  "clearFilters": "Limpiar Filtros",
+  "selectGeneration": "Seleccionar Generación",
+  "selectTypes": "Seleccionar Tipos",
+  "generation": "Generación",
+  "allGenerations": "Todas las Generaciones",
+  "searching": "Buscando...",
+  "noResults": "No se encontraron resultados",
+  "tryDifferentSearch": "Intenta con otro término de búsqueda o ajusta los filtros",
+  "pokemonList": "Lista Pokémon",
+  "abilitiesTab": "Habilidades",
+  "abilityEffect": "Efecto",
+  "hiddenAbility": "Habilidad Oculta",
+  "abilityDetails": "Detalles de Habilidad",
+  "checkMyCard": "¡Mira mi carta de {name}! #Pokedex",
+  "@checkMyCard": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "testYourKnowledge": "¡Pon a prueba tus conocimientos!",
+  "normal": "Normal",
+  "fire": "Fuego",
+  "water": "Agua",
+  "grass": "Planta",
+  "electric": "Eléctrico",
+  "ice": "Hielo",
+  "fighting": "Lucha",
+  "poison": "Veneno",
+  "ground": "Tierra",
+  "flying": "Volador",
+  "psychic": "Psíquico",
+  "bug": "Bicho",
+  "rock": "Roca",
+  "ghost": "Fantasma",
+  "dragon": "Dragón",
+  "dark": "Siniestro",
+  "steel": "Acero",
+  "fairy": "Hada",
+  "generationI": "Generación I",
+  "generationII": "Generación II",
+  "generationIII": "Generación III",
+  "generationIV": "Generación IV",
+  "generationV": "Generación V",
+  "generationVI": "Generación VI",
+  "generationVII": "Generación VII",
+  "generationVIII": "Generación VIII",
+  "generationIX": "Generación IX",
+  "doesNotEvolve": "No evoluciona",
+  "movesCount": "{count} movimientos",
+  "@movesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noMovesWithMethod": "No hay movimientos con este método"
 }

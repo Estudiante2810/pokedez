@@ -239,4 +239,165 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get legend => 'Leyenda';
+
+  @override
+  String get trivia => 'Trivia';
+
+  @override
+  String get tools => 'Herramientas';
+
+  @override
+  String get map => 'Mapa';
+
+  @override
+  String get generations => 'Generaciones';
+
+  @override
+  String get types => 'Tipos';
+
+  @override
+  String get filters => 'Filtros';
+
+  @override
+  String get applyFilters => 'Aplicar Filtros';
+
+  @override
+  String get clearFilters => 'Limpiar Filtros';
+
+  @override
+  String get selectGeneration => 'Seleccionar Generación';
+
+  @override
+  String get selectTypes => 'Seleccionar Tipos';
+
+  @override
+  String get generation => 'Generación';
+
+  @override
+  String get allGenerations => 'Todas las Generaciones';
+
+  @override
+  String get searching => 'Buscando...';
+
+  @override
+  String get noResults => 'No se encontraron resultados';
+
+  @override
+  String get tryDifferentSearch =>
+      'Intenta con otro término de búsqueda o ajusta los filtros';
+
+  @override
+  String get pokemonList => 'Lista Pokémon';
+
+  @override
+  String get abilitiesTab => 'Habilidades';
+
+  @override
+  String get abilityEffect => 'Efecto';
+
+  @override
+  String get hiddenAbility => 'Habilidad Oculta';
+
+  @override
+  String get abilityDetails => 'Detalles de Habilidad';
+
+  @override
+  String checkMyCard(String name) {
+    return '¡Mira mi carta de $name! #Pokedex';
+  }
+
+  @override
+  String get testYourKnowledge => '¡Pon a prueba tus conocimientos!';
+
+  @override
+  String get normal => 'Normal';
+
+  @override
+  String get fire => 'Fuego';
+
+  @override
+  String get water => 'Agua';
+
+  @override
+  String get grass => 'Planta';
+
+  @override
+  String get electric => 'Eléctrico';
+
+  @override
+  String get ice => 'Hielo';
+
+  @override
+  String get fighting => 'Lucha';
+
+  @override
+  String get poison => 'Veneno';
+
+  @override
+  String get ground => 'Tierra';
+
+  @override
+  String get flying => 'Volador';
+
+  @override
+  String get psychic => 'Psíquico';
+
+  @override
+  String get bug => 'Bicho';
+
+  @override
+  String get rock => 'Roca';
+
+  @override
+  String get ghost => 'Fantasma';
+
+  @override
+  String get dragon => 'Dragón';
+
+  @override
+  String get dark => 'Siniestro';
+
+  @override
+  String get steel => 'Acero';
+
+  @override
+  String get fairy => 'Hada';
+
+  @override
+  String get generationI => 'Generación I';
+
+  @override
+  String get generationII => 'Generación II';
+
+  @override
+  String get generationIII => 'Generación III';
+
+  @override
+  String get generationIV => 'Generación IV';
+
+  @override
+  String get generationV => 'Generación V';
+
+  @override
+  String get generationVI => 'Generación VI';
+
+  @override
+  String get generationVII => 'Generación VII';
+
+  @override
+  String get generationVIII => 'Generación VIII';
+
+  @override
+  String get generationIX => 'Generación IX';
+
+  @override
+  String get doesNotEvolve => 'No evoluciona';
+
+  @override
+  String movesCount(int count) {
+    return '$count movimientos';
+  }
+
+  @override
+  String get noMovesWithMethod => 'No hay movimientos con este método';
 }

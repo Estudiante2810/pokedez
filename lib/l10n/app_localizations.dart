@@ -547,6 +547,318 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Legend'**
   String get legend;
+
+  /// No description provided for @trivia.
+  ///
+  /// In en, this message translates to:
+  /// **'Trivia'**
+  String get trivia;
+
+  /// No description provided for @tools.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools'**
+  String get tools;
+
+  /// No description provided for @map.
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get map;
+
+  /// No description provided for @generations.
+  ///
+  /// In en, this message translates to:
+  /// **'Generations'**
+  String get generations;
+
+  /// No description provided for @types.
+  ///
+  /// In en, this message translates to:
+  /// **'Types'**
+  String get types;
+
+  /// No description provided for @filters.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get filters;
+
+  /// No description provided for @applyFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Filters'**
+  String get applyFilters;
+
+  /// No description provided for @clearFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Filters'**
+  String get clearFilters;
+
+  /// No description provided for @selectGeneration.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Generation'**
+  String get selectGeneration;
+
+  /// No description provided for @selectTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Types'**
+  String get selectTypes;
+
+  /// No description provided for @generation.
+  ///
+  /// In en, this message translates to:
+  /// **'Generation'**
+  String get generation;
+
+  /// No description provided for @allGenerations.
+  ///
+  /// In en, this message translates to:
+  /// **'All Generations'**
+  String get allGenerations;
+
+  /// No description provided for @searching.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching...'**
+  String get searching;
+
+  /// No description provided for @noResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noResults;
+
+  /// No description provided for @tryDifferentSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different search term or adjust filters'**
+  String get tryDifferentSearch;
+
+  /// No description provided for @pokemonList.
+  ///
+  /// In en, this message translates to:
+  /// **'Pokémon List'**
+  String get pokemonList;
+
+  /// No description provided for @abilitiesTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Abilities'**
+  String get abilitiesTab;
+
+  /// No description provided for @abilityEffect.
+  ///
+  /// In en, this message translates to:
+  /// **'Effect'**
+  String get abilityEffect;
+
+  /// No description provided for @hiddenAbility.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden Ability'**
+  String get hiddenAbility;
+
+  /// No description provided for @abilityDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Ability Details'**
+  String get abilityDetails;
+
+  /// No description provided for @checkMyCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Check out my {name} card! #Pokedex'**
+  String checkMyCard(String name);
+
+  /// No description provided for @testYourKnowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'Test your knowledge!'**
+  String get testYourKnowledge;
+
+  /// No description provided for @normal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get normal;
+
+  /// No description provided for @fire.
+  ///
+  /// In en, this message translates to:
+  /// **'Fire'**
+  String get fire;
+
+  /// No description provided for @water.
+  ///
+  /// In en, this message translates to:
+  /// **'Water'**
+  String get water;
+
+  /// No description provided for @grass.
+  ///
+  /// In en, this message translates to:
+  /// **'Grass'**
+  String get grass;
+
+  /// No description provided for @electric.
+  ///
+  /// In en, this message translates to:
+  /// **'Electric'**
+  String get electric;
+
+  /// No description provided for @ice.
+  ///
+  /// In en, this message translates to:
+  /// **'Ice'**
+  String get ice;
+
+  /// No description provided for @fighting.
+  ///
+  /// In en, this message translates to:
+  /// **'Fighting'**
+  String get fighting;
+
+  /// No description provided for @poison.
+  ///
+  /// In en, this message translates to:
+  /// **'Poison'**
+  String get poison;
+
+  /// No description provided for @ground.
+  ///
+  /// In en, this message translates to:
+  /// **'Ground'**
+  String get ground;
+
+  /// No description provided for @flying.
+  ///
+  /// In en, this message translates to:
+  /// **'Flying'**
+  String get flying;
+
+  /// No description provided for @psychic.
+  ///
+  /// In en, this message translates to:
+  /// **'Psychic'**
+  String get psychic;
+
+  /// No description provided for @bug.
+  ///
+  /// In en, this message translates to:
+  /// **'Bug'**
+  String get bug;
+
+  /// No description provided for @rock.
+  ///
+  /// In en, this message translates to:
+  /// **'Rock'**
+  String get rock;
+
+  /// No description provided for @ghost.
+  ///
+  /// In en, this message translates to:
+  /// **'Ghost'**
+  String get ghost;
+
+  /// No description provided for @dragon.
+  ///
+  /// In en, this message translates to:
+  /// **'Dragon'**
+  String get dragon;
+
+  /// No description provided for @dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get dark;
+
+  /// No description provided for @steel.
+  ///
+  /// In en, this message translates to:
+  /// **'Steel'**
+  String get steel;
+
+  /// No description provided for @fairy.
+  ///
+  /// In en, this message translates to:
+  /// **'Fairy'**
+  String get fairy;
+
+  /// No description provided for @generationI.
+  ///
+  /// In en, this message translates to:
+  /// **'Generation I'**
+  String get generationI;
+
+  /// No description provided for @generationII.
+  ///
+  /// In en, this message translates to:
+  /// **'Generation II'**
+  String get generationII;
+
+  /// No description provided for @generationIII.
+  ///
+  /// In en, this message translates to:
+  /// **'Generation III'**
+  String get generationIII;
+
+  /// No description provided for @generationIV.
+  ///
+  /// In en, this message translates to:
+  /// **'Generation IV'**
+  String get generationIV;
+
+  /// No description provided for @generationV.
+  ///
+  /// In en, this message translates to:
+  /// **'Generation V'**
+  String get generationV;
+
+  /// No description provided for @generationVI.
+  ///
+  /// In en, this message translates to:
+  /// **'Generation VI'**
+  String get generationVI;
+
+  /// No description provided for @generationVII.
+  ///
+  /// In en, this message translates to:
+  /// **'Generation VII'**
+  String get generationVII;
+
+  /// No description provided for @generationVIII.
+  ///
+  /// In en, this message translates to:
+  /// **'Generation VIII'**
+  String get generationVIII;
+
+  /// No description provided for @generationIX.
+  ///
+  /// In en, this message translates to:
+  /// **'Generation IX'**
+  String get generationIX;
+
+  /// No description provided for @doesNotEvolve.
+  ///
+  /// In en, this message translates to:
+  /// **'Does not evolve'**
+  String get doesNotEvolve;
+
+  /// No description provided for @movesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} moves'**
+  String movesCount(int count);
+
+  /// No description provided for @noMovesWithMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'No moves with this method'**
+  String get noMovesWithMethod;
 }
 
 class _AppLocalizationsDelegate
